@@ -56,7 +56,7 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
             <Box component="form" onSubmit={formik.handleSubmit}>
                 <Grid container spacing={2}>
 
-                <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <SelectWrapperUi
                             name="kindmovements"
                             disabled={disable}
@@ -96,11 +96,11 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                     </Grid>
 
 
-                   
 
-                 
 
-                    <Grid item xs={12}>
+
+
+                    <Grid item xs={9}>
                         <SelectWrapperUi
                             name="idproduct"
                             value={formik.values.idproduct}
@@ -111,6 +111,22 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
 
                         />
                     </Grid>
+
+                    <Grid item xs={3}>
+                        <TextFieldUi
+                            autofocus={false}
+                            error={formik.errors.existencia}
+                            label="Existencia *"
+                            name="existencia"
+                            onChange={formik.handleChange}
+                            type="number"
+                            disabled={true}
+                            value={formik.values.idproduct !== "" ? formik.values.existencia = products.find((e: any) => e.id === formik.values.idproduct).existence : ""}
+                        />
+                    </Grid>
+
+
+
 
                     <Grid item xs={3}>
                         <TextFieldUi
