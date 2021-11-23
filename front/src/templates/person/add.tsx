@@ -7,6 +7,7 @@ import { UseForm } from "../../components/form";
 import { SelectWrapperUi } from "../../components/select";
 import { TextFieldUi } from "../../components/textfield";
 import { Snackbars } from "../../components/snackbars";
+import { CheckboxUi } from "../../components/checkBox";
 import { initialFValuesTypes } from "../../types/initialFValues";
 import { ButtonUi } from "../../components/button/index";
 import { personRequest } from "../../services/personService";
@@ -40,7 +41,6 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
        
-        console.log(values)
         personRequest.save({
             code : values.code,
             kind_id : values.kind_id,
@@ -54,6 +54,7 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
             phone : values.phone,
             contact : values.contact,
             iduser : values.iduser,
+            provider : values.provider
     
         }).then(e => {
             console.log(e)
@@ -222,6 +223,16 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
                             type="number"
                             value={formik.values.iduser}
                         />
+                    </Grid>
+
+
+                    <Grid item xs={12}>
+                      <CheckboxUi
+                      checked={formik.values.provider}
+                      label='Proveedor'
+                      name="provider"
+                      onChange={formik.handleChange}
+                       />
                     </Grid>
 
                     

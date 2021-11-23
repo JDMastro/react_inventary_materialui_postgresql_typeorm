@@ -14,6 +14,12 @@ export class KindMovements {
     @Column()
     iduser: number
 
+    @Column({ default: false })
+    provider: boolean
+
+    @Column({ default: false })
+    entry: boolean
+
     @Column({
         name: 'creation_at',
         type: 'timestamptz',

@@ -8,6 +8,7 @@ import { UseForm } from "../../components/form";
 import { SelectWrapperUi } from "../../components/select";
 import { TextFieldUi } from "../../components/textfield";
 import { Snackbars } from "../../components/snackbars";
+import { CheckboxUi } from "../../components/checkBox";
 import { initialFValuesTypes } from "../../types/initialFValues";
 import { ButtonUi } from "../../components/button/index";
 import { personRequest } from "../../services/personService";
@@ -58,6 +59,7 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
             phone: values.phone,
             contact: values.contact,
             iduser: values.iduser,
+            provider : values.provider
         }).then(e => {
             setMsg("Save succesffuly")
             handleClick()
@@ -88,6 +90,7 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
         phone: data.phone,
         contact: data.contact,
         iduser: data.iduser,
+        provider : data.provider
     }, PersonSchema, onSubmit)
 
     return (
@@ -244,7 +247,14 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
                     </Grid>
 
 
-
+                    <Grid item xs={12}>
+                      <CheckboxUi
+                      checked={formik.values.provider}
+                      label='Proveedor'
+                      name="provider"
+                      onChange={formik.handleChange}
+                       />
+                    </Grid>
 
 
 

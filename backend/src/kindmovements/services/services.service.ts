@@ -21,6 +21,8 @@ export class ServicesService {
         newKindMove.name = body.name
         newKindMove.description = body.description
         newKindMove.iduser = body.iduser
+        newKindMove.provider = body.provider
+        newKindMove.entry = body.entry
 
         return this.KindMovementsRepo.save(newKindMove);
     }
@@ -30,7 +32,9 @@ export class ServicesService {
         this.KindMovementsRepo.update(id, {
             name : body.name,
             description : body.description,
-            iduser : body.iduser
+            iduser : body.iduser,
+            provider : body.provider,
+            entry : body.entry
         });
         return this.KindMovementsRepo.save(Products);
     }

@@ -47,8 +47,8 @@ export class Person {
   @Column({ nullable : false })
   contact : string
 
-  @Column({ default : true })
-  vendors : boolean
+  @Column({ default : false })
+  provider : boolean
 
   @Column({ default : true })
   status : boolean

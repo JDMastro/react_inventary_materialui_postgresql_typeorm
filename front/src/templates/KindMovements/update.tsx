@@ -2,6 +2,9 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
+
+import { CheckboxUi } from "../../components/checkBox";
+
 //import { initialValuesProducts } from "../../initialValues";
 import { KindMovementsSchema } from "../../schema/kindmovementsSchema";
 import { UseForm } from "../../components/form";
@@ -44,7 +47,9 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data }: any)
         KindMovementsRequest.update(data.id, {
             name: values.name,
             description: values.description,
-            iduser: values.iduser
+            iduser: values.iduser,
+            provider: values.provider,
+            entry: values.entry
         }).then(e => {
             setMsg("Save succesffuly")
             handleClick()
@@ -65,7 +70,9 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data }: any)
     const formik = UseForm({
         name: data.name,
         description: data.description,
-        iduser: data.iduser
+        iduser: data.iduser,
+        provider: data.provider,
+        entry: data.entry
     }, KindMovementsSchema, onSubmit)
 
 
@@ -111,6 +118,23 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data }: any)
                         />
                     </Grid>
 
+                    <Grid item xs={12}>
+                        <CheckboxUi
+                            checked={formik.values.provider}
+                            label='Proveedor'
+                            name="provider"
+                            onChange={formik.handleChange}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CheckboxUi
+                            checked={formik.values.entry}
+                            label='Entrada'
+                            name="entry"
+                            onChange={formik.handleChange}
+                        />
+                    </Grid>
 
 
 

@@ -43,7 +43,8 @@ export const initialValuesPerson: initialFValuesTypes = {
   address: "",
   phone: "",
   contact: "",
-  iduser: ""
+  iduser: "",
+  provider : false
 }
 
 export const initialValuesUnits: initialFValuesTypes = {
@@ -54,7 +55,9 @@ export const initialValuesUnits: initialFValuesTypes = {
 export const initialValueskindmovements: initialFValuesTypes = {
   name : "",
   description : "",
-  iduser : ""
+  iduser : "",
+  provider : false,
+  entry : false
 }
 
 export const initialValuesMovements: initialFValuesTypes = {

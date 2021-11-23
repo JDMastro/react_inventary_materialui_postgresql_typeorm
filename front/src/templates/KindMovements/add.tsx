@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 
+import { CheckboxUi } from "../../components/checkBox";
+
+
 import { initialValueskindmovements } from "../../initialValues";
 import { KindMovementsSchema } from "../../schema/kindmovementsSchema";
 import { UseForm } from "../../components/form";
@@ -43,7 +46,9 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
         KindMovementsRequest.save({
             name: values.name,
             description: values.description,
-            iduser: values.iduser
+            iduser: values.iduser,
+            provider: values.provider,
+            entry: values.entry
         }).then(e => {
             console.log(e)
             setMsg("Save succesffuly")
@@ -102,6 +107,24 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                             onChange={formik.handleChange}
                             type="number"
                             value={formik.values.iduser}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CheckboxUi
+                            checked={formik.values.provider}
+                            label='Proveedor'
+                            name="provider"
+                            onChange={formik.handleChange}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CheckboxUi
+                            checked={formik.values.entry}
+                            label='Entrada'
+                            name="entry"
+                            onChange={formik.handleChange}
                         />
                     </Grid>
 
