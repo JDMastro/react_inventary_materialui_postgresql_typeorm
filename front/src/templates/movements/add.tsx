@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import SaveIcon from '@mui/icons-material/Save';
@@ -8,7 +8,7 @@ import { initialValuesMovements } from "../../initialValues";
 import { movementsSchema } from "../../schema/movementsSchema";
 import { UseForm } from "../../components/form";
 import { TextFieldUi } from "../../components/textfield";
-import { Snackbars } from "../../components/snackbars";
+//import { Snackbars } from "../../components/snackbars";
 import { initialFValuesTypes } from "../../types/initialFValues";
 import { ButtonUi } from "../../components/button/index";
 import { SelectWrapperUi } from "../../components/select";
@@ -29,11 +29,16 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 import { FormikHelpers } from "formik";
 
+import { ProductsRequest } from "../../services/productService";
+import { personRequest } from "../../services/personService";
 
-export function AddMovements({ kindmov, persons, products, handleClose, setRefresh, refresh }: any) {
+
+export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any) {
 
     const [order] = useState<initialFValuesTypes>([]);
     const [disable, setdisable] = useState(false)
+    const [products, setproducts] = useState<any>([])
+    const [Persons, setPersons] = useState([])
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
         console.log(values)
@@ -61,7 +66,16 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                             name="kindmovements"
                             disabled={disable}
                             value={formik.values.kindmovements}
-                            onChange={formik.handleChange}
+                            onChange={(evt: any) => {
+                                formik.handleChange(evt)
+                                const kind = kindmov.find((e: any) => e.id === evt.target.value)
+                                formik.setFieldValue("idproduct", "")
+                                formik.setFieldValue("idperson", "")
+                                ProductsRequest.findByKindMovement(!kind.provider).then(ke => setproducts(ke))
+                                personRequest.findByKindMovement(kind.provider).then(pe => setPersons(pe))
+                            }
+
+                            }
                             error={formik.errors.kindmovements}
                             label="Tipo de movimientos"
                             menuItems={kindmov.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)}
@@ -77,10 +91,15 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                             onChange={formik.handleChange}
                             error={formik.errors.idperson}
                             label="Proveedor o Cliente"
-                            menuItems={persons.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)}
+                            menuItems={
+                                Persons.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)
+                            }
 
                         />
                     </Grid>
+
+
+                    {/*persons.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)*/}
 
                     <Grid item xs={6}>
                         <TextFieldUi
@@ -108,22 +127,24 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                             error={formik.errors.idproduct}
                             label="Producto"
                             menuItems={products.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)}
-
                         />
                     </Grid>
+
+
 
                     <Grid item xs={3}>
                         <TextFieldUi
                             autofocus={false}
-                            error={formik.errors.existencia}
-                            label="Existencia *"
-                            name="existencia"
+                            error={formik.errors.current_existence}
+                            label="existencia actual *"
+                            name="current_existence"
                             onChange={formik.handleChange}
                             type="number"
                             disabled={true}
-                            value={formik.values.idproduct !== "" ? formik.values.existencia = products.find((e: any) => e.id === formik.values.idproduct).existence : ""}
+                            value={formik.values.idproduct !== "" && products.find((e: any) => e.id === formik.values.idproduct) ? formik.values.current_existence = products.find((e: any) => e.id === formik.values.idproduct).current_existence : ""}
                         />
                     </Grid>
+
 
 
 
@@ -137,7 +158,15 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                             onChange={formik.handleChange}
                             type="number"
                             value={formik.values.quantity}
-                            inputInside={formik.values.idproduct !== "" ? products.find((e: any) => e.id === formik.values.idproduct).unit.name : ""}
+                            inputInside={
+                                formik.values.idproduct !== "" && products.find((e: any) => e.id === formik.values.idproduct) ?
+                                    kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? (
+                                        products.find((e: any) => e.id === formik.values.idproduct).unit_purchase.name
+                                    ) : (
+                                        products.find((e: any) => e.id === formik.values.idproduct).unit_sale.name
+                                    )
+                                    : ""
+                            }
                         />
                     </Grid>
 
@@ -153,7 +182,11 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                         />
                     </Grid>
 
-                    <Grid item xs={3}>
+
+                    {/*  formik.values.unitprice */}
+
+
+                     <Grid item xs={3}>
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.unitprice}
@@ -161,10 +194,22 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                             name="unitprice"
                             onChange={formik.handleChange}
                             type="number"
-                            value={formik.values.unitprice}
-                            inputInside={formik.values.idproduct !== "" ? products.find((e: any) => e.id === formik.values.idproduct).unit.name : ""}
+                            value={
+                                formik.values.unitprice
+                            }
+                            disabled={true}
+                            inputInside={
+                                formik.values.idproduct !== "" && products.find((e: any) => e.id === formik.values.idproduct) ?
+                                    kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? (
+                                        products.find((e: any) => e.id === formik.values.idproduct).unit_purchase.name
+                                    ) : (
+                                        products.find((e: any) => e.id === formik.values.idproduct).unit_sale.name
+                                    )
+                                    : ""
+                            }
                         />
                     </Grid>
+                    {/*  formik.values.idproduct !== "" ? products.find((e: any) => e.id === formik.values.idproduct).unit.name : "" */}
 
                     <Grid item xs={2} style={{ marginTop: "2px" }}>
                         <ButtonUi variant="contained" disabled={false} text="Save" type="submit" Icon={<SaveIcon fontSize="small" />} />
@@ -197,11 +242,13 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
 
-                                <TableCell align="center">{kindmov.find((s: any) => s.id === e.kindmovements).name}</TableCell>
+                               <TableCell align="center">{kindmov.find((s: any) => s.id === e.kindmovements).name}</TableCell>
                                 <TableCell align="center">{products.find((s: any) => s.id === e.idproduct).name}</TableCell>
                                 <TableCell align="center">{e.quantity}</TableCell>
                                 <TableCell align="center">{e.totalPrice}</TableCell>
-                                <TableCell align="center">{e.unitprice}</TableCell>
+                                <TableCell align="center">{
+                                   e.unitprice
+                                }</TableCell>
                                 <TableCell align="center"><IconButton aria-label="delete"  ><DeleteIcon fontSize="small" /></IconButton></TableCell>
                             </TableRow>
                         )
@@ -225,3 +272,12 @@ export function AddMovements({ kindmov, persons, products, handleClose, setRefre
     )
 
 }
+
+/*
+
+formik.values.kindmovements !== "" ? (
+                                    kindmov.find((e : any )=> e.id === formik.values.kindmovements).provider ? (persons.find((e : any )=> e.provider === true ).map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)) 
+                                    : (persons.find((e : any )=> e.provider === false ).map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>))
+                                ) : (<span>Seleccione un tipo de movimiento</span>)
+
+*/

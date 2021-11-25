@@ -12,6 +12,11 @@ export class PersonServicesService {
       async findAll() {   
         return this.PersonRepo.find({ relations:["Kindidentity"] });
       }
+
+      async findByKindMovement(mov : boolean) {   
+        return this.PersonRepo.find({ where :{ provider : mov  }, relations:["Kindidentity"] });
+      }
+
       findOne(id: number) {
         return this.PersonRepo.findOne(id);
       }

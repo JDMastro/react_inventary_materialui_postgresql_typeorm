@@ -16,8 +16,8 @@ import Stack from '@mui/material/Stack';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
-import { personRequest } from "../../services/personService";
-import { ProductsRequest } from "../../services/productService";
+//import { personRequest } from "../../services/personService";
+//import { ProductsRequest } from "../../services/productService";
 import { KindMovementsRequest } from "../../services/kindmovementsService";
 
 import { AddMovements } from "./add";
@@ -29,16 +29,14 @@ export function Movements()
     //const [openModalDelete, setOpenModalDelete] = React.useState(false);
     const [openModalAdd, setOpenModalAdd] = React.useState(false);
     const [refresh, setRefresh] = React.useState(false)
-    const [rows, setrows] = React.useState([]);
-    const [data, setdata] = React.useState({});
+   // const [rows, setrows] = React.useState([]);
+   // const [data, setdata] = React.useState({});
 
-    const [persons, setpersons] = React.useState([]);
-    const [products, setproducts] = React.useState([]);
+   // const [persons, setpersons] = React.useState([]);
+   // const [products, setproducts] = React.useState([]);
     const [kindmov, setkindmov] = React.useState([]);
 
     useEffect(()=>{
-        personRequest.getAll().then(e => setpersons(e) )
-        ProductsRequest.getproducts().then(e => setproducts(e) )
         KindMovementsRequest.getAll().then(e => setkindmov(e) )
     },[])
 
@@ -135,7 +133,7 @@ export function Movements()
 
             <AlertDialogUi
                 handleClose={handleCloseModalAdd}
-                content={<AddMovements kindmov={kindmov} persons={persons} products={products} refresh={refresh} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
+                content={<AddMovements kindmov={kindmov} refresh={refresh} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
                 open={openModalAdd}
                 title="Add"
             />

@@ -12,6 +12,12 @@ export class ProductcontrollerController {
     return this.ServiceService.findAll();
   }
 
+  @Get(':status')
+  findByKindMovement(@Param('status') status: boolean) {
+
+    return this.ServiceService.findByKindMovement(status)
+  }
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.ServiceService.findOne(id);

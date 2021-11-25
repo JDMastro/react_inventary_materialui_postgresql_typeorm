@@ -53,7 +53,6 @@ export const initialValuesMovements: initialFValuesTypes = {
     idproduct :   "",
     quantity : "",
     totalPrice: "",
-    unitprice : "",
-    existencia:""
+    unitprice : ""
 }
 
