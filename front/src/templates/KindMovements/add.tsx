@@ -117,16 +117,15 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                             name="provider"
                             onChange={formik.handleChange}
                         />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <CheckboxUi
+                         <CheckboxUi
                             checked={formik.values.entry}
                             label='Entrada'
                             name="entry"
                             onChange={formik.handleChange}
                         />
                     </Grid>
+
+                   
 
 
 

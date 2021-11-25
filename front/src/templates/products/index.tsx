@@ -90,12 +90,13 @@ export function Products() {
                             <TableRow >
 
                                 <TableCell align="right">ID</TableCell>
-                                <TableCell align="right">Name</TableCell>
-                                <TableCell align="right">Description</TableCell>
-                                <TableCell align="right">Existence</TableCell>
-                                <TableCell align="right">Reserved Quantity </TableCell>
-                                <TableCell align="right">Unit</TableCell>
-                                <TableCell align="right">Action</TableCell>
+                                <TableCell align="right">NOMBRE</TableCell>
+                                <TableCell align="right">DESCRIPCIÓN</TableCell>
+                                <TableCell align="right">UNIDAD DE COMPRA</TableCell>
+                                <TableCell align="right">UNIDAD DE VENTA</TableCell>
+                                <TableCell align="right">EXISTENCIA</TableCell>
+                                <TableCell align="right">CANTIDAD RESERVADA </TableCell>
+                                <TableCell align="right">ACCIÓN</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -104,26 +105,14 @@ export function Products() {
                                     key={data.id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                    {
-                                        /* 
-                                        sku
-  code
-  code_bar 
-  name
-  description 
-  existence 
-  reservedquantity 
-  unit
-  iduser
-                                        */
-                                    }
+
                                     <TableCell component="th" scope="row">{data.id}</TableCell>
                                     <TableCell align="right">{data.name}</TableCell>
                                     <TableCell align="right">{data.description}</TableCell>
-
-                                    <TableCell align="right">{data.existence}</TableCell>
-                                    <TableCell align="right">{data.reservedquantity}</TableCell>
-                                    <TableCell align="right">{data.unit.name}</TableCell>
+                                    <TableCell align="right">{data.unit_purchase.name}</TableCell>
+                                    <TableCell align="right">{data.unit_sale.name}</TableCell>
+                                    <TableCell align="right">{data.current_existence}</TableCell>
+                                    <TableCell align="right">{data.reserved_quantity}</TableCell>
                                     <TableCell align="right">
                                         <Stack direction="row" alignItems="center" spacing={1}>
                                             <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" /></IconButton>
@@ -154,7 +143,7 @@ export function Products() {
 
             <AlertDialogUi
                 handleClose={handleCloseModalAdd}
-                content={<AddProduct refresh={refresh} setRefresh={setRefresh} units={units} handleClose={handleCloseModalAdd} />}
+                content={<AddProduct products={rows} refresh={refresh} setRefresh={setRefresh} units={units} handleClose={handleCloseModalAdd} />}
                 open={openModalAdd}
                 title="Add"
             />

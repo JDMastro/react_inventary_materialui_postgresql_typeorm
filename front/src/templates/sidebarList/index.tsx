@@ -153,16 +153,6 @@ export function SideBarList() {
               <ListItemText primary="Productos" />
             </ListItemButton>
 
-            <ListItemButton sx={{ pl: 4 }}
-              selected={selectedIndex === 2}
-              onClick={(event: any) => handleListItemClick(event, 2)}
-              component={Link}
-              to={`/maestro/product/derivate`}>
-              <ListItemIcon>
-                <AddShoppingCartIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Productos Derivados" />
-            </ListItemButton>
 
 
           </List>

@@ -32,7 +32,7 @@ export class PersonServicesService {
         newPerson.address = body.address
         newPerson.phone = body.phone
         newPerson.contact = body.contact
-        newPerson.iduser = body.iduser
+        newPerson.user_id = body.iduser
         newPerson.provider = body.provider
 
         return this.PersonRepo.save(newPerson);
@@ -53,7 +53,7 @@ export class PersonServicesService {
             address : body.address,
             phone : body.phone,
             contact : body.contact,
-            iduser : body.iduser,
+            user_id : body.iduser,
             provider : body.provider
         });
         return this.PersonRepo.save(Products);

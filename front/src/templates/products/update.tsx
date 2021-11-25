@@ -43,16 +43,14 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
         //setloading(true)
         console.log(values)
 
-        ProductsRequest.update(data.id,{
-            sku: values.sku,
-            code: values.code,
-            code_bar : values.code_bar,
+        ProductsRequest.update(data.id, {
             name: values.name,
-            description : values.description,
-            existence : values.existence,
-            reservedquantity : values.reservedquantity,
-            unit: values.unit,
-            iduser : values.iduser
+            description: values.description,
+            sku: values.sku,
+            code_bar: values.code_bar,
+            purchase_unit_id: values.purchase_unit_id,
+            sale_unit_id: values.sale_unit_id,
+            user_id: 0
         }).then(e => {
             setMsg("Save succesffuly")
             handleClick()
@@ -60,155 +58,119 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
                 setRefresh(!refresh)
                 handleClose()
             }, 3000);
-             })
-        .catch(e =>{
-            setSeverity("error")
-            setMsg("Something went wrong!!")
-            handleClick()
         })
+            .catch(e => {
+                setSeverity("error")
+                setMsg("Something went wrong!!")
+                handleClick()
+            })
     }
 
-   
 
     const formik = UseForm({
-        sku: data.sku,
-        code: data.code,
-        code_bar : data.code_bar,
         name: data.name,
-        description : data.description,
-        existence : data.existence,
-        reservedquantity : data.reservedquantity,
-        iduser : data.iduser,
-        unit:data.unit.id
+        description: data.description,
+        sku: data.sku,
+        code_bar: data.code_bar,
+        purchase_unit_id: data.purchase_unit_id,
+        sale_unit_id: data.sale_unit_id,
+        current_existence: data.current_existence,
+        reserved_quantity: data.reserved_quantity,
     }, ProductSchema, onSubmit)
 
-    
+
     return (
         <div>
-              <Box component="form" onSubmit={formik.handleSubmit}>
+            <Box component="form" onSubmit={formik.handleSubmit}>
 
-<Grid container spacing={2}>
+                <Grid container spacing={2}>
 
-<Grid item xs={6}>
-        <TextFieldUi
-            autofocus={true}
-            error={formik.errors.sku}
-            label="Sku *"
-            name="sku"
-            onChange={formik.handleChange}
-            type="text"
-            value={formik.values.sku}
-        />
-    </Grid>
-    
-    <Grid item xs={6}>
-        <TextFieldUi
-            autofocus={false}
-            error={formik.errors.code}
-            label="Code *"
-            name="code"
-            onChange={formik.handleChange}
-            type="text"
-            value={formik.values.code}
-        />
-    </Grid>
+                    <Grid item xs={6}>
+                        <TextFieldUi
+                            autofocus={true}
+                            error={formik.errors.name}
+                            label="Nombre *"
+                            name="name"
+                            onChange={formik.handleChange}
+                            type="text"
+                            value={formik.values.name}
+                        />
+                    </Grid>
 
-    <Grid item xs={6}>
-        <TextFieldUi
-            autofocus={false}
-            error={formik.errors.code_bar}
-            label="Code Bar *"
-            name="code_bar"
-            onChange={formik.handleChange}
-            type="text"
-            value={formik.values.code_bar}
-        />
-    </Grid>
+                    <Grid item xs={6}>
+                        <TextFieldUi
+                            autofocus={false}
+                            error={formik.errors.description}
+                            label="Description *"
+                            name="description"
+                            onChange={formik.handleChange}
+                            type="text"
+                            value={formik.values.description}
+                        />
+                    </Grid>
 
-    <Grid item xs={6}>
-        <TextFieldUi
-            autofocus={false}
-            error={formik.errors.name}
-            label="Name *"
-            name="name"
-            onChange={formik.handleChange}
-            type="text"
-            value={formik.values.name}
-        />
-    </Grid>
+                    <Grid item xs={6}>
+                        <TextFieldUi
+                            autofocus={false}
+                            error={formik.errors.sku}
+                            label="Sku *"
+                            name="sku"
+                            onChange={formik.handleChange}
+                            type="text"
+                            value={formik.values.sku}
+                        />
+                    </Grid>
 
-    <Grid item xs={6}>
-        <TextFieldUi
-            autofocus={false}
-            error={formik.errors.description}
-            label="Description *"
-            name="description"
-            onChange={formik.handleChange}
-            type="text"
-            value={formik.values.description}
-        />
-    </Grid>
+                    <Grid item xs={6}>
+                        <TextFieldUi
+                            autofocus={false}
+                            error={formik.errors.code_bar}
+                            label="Code Bar *"
+                            name="code_bar"
+                            onChange={formik.handleChange}
+                            type="text"
+                            value={formik.values.code_bar}
+                        />
+                    </Grid>
 
-    <Grid item xs={6}>
-        <TextFieldUi
-            autofocus={false}
-            error={formik.errors.existence}
-            label="Existence *"
-            name="existence"
-            onChange={formik.handleChange}
-            type="number"
-            value={formik.values.existence}
-        />
-    </Grid>
 
-    <Grid item xs={6}>
-        <TextFieldUi
-            autofocus={false}
-            error={formik.errors.reservedquantity}
-            label="Reserved Quantity *"
-            name="reservedquantity"
-            onChange={formik.handleChange}
-            type="number"
-            value={formik.values.reservedquantity}
-        />
-    </Grid>     
+                    <Grid item xs={6}>
+                        <SelectWrapperUi
+                            label='Unidad de compra'
+                            name="purchase_unit_id"
+                            value={formik.values.purchase_unit_id}
+                            onChange={formik.handleChange}
+                            error={formik.errors.purchase_unit_id}
+                            defaultValue={formik.values.purchase_unit_id}
+                            menuItems={units.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name} : ${data.description}`}</MenuItem>)}
 
-    <Grid item xs={6}>
-        <TextFieldUi
-            autofocus={false}
-            error={formik.errors.iduser}
-            label="Iduser *"
-            name="iduser"
-            onChange={formik.handleChange}
-            type="number"
-            value={formik.values.iduser}
-        />
-    </Grid>
+                        />
+                    </Grid>
 
-    <Grid item xs={12}>
-        <SelectWrapperUi
-        label='Unidad'
-            name="unit"
-            value={formik.values.unit}
-            onChange={formik.handleChange}
-            error={formik.errors.unit}
-            defaultValue={formik.values.unit}
-            menuItems={units.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name} : ${data.description}`}</MenuItem>)}
+                    <Grid item xs={6}>
+                        <SelectWrapperUi
+                            label='Unidad de venta'
+                            name="sale_unit_id"
+                            defaultValue={formik.values.sale_unit_id}
+                            value={formik.values.sale_unit_id}
+                            onChange={formik.handleChange}
+                            error={formik.errors.sale_unit_id}
+                            menuItems={units.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name} : ${data.description}`}</MenuItem>)}
 
-        />
-    </Grid>
+                        />
+                    </Grid>
 
-   
 
-</Grid>
 
-<Snackbars
-    msg={msg}
-    open={openn}
-    severity={severity}
-    handleClose={handleCloses}
-/>
-<Stack
+                </Grid>
+
+                <Snackbars
+                    msg={msg}
+                    open={openn}
+                    severity={severity}
+                    handleClose={handleCloses}
+                />
+                <Stack
                     direction="row"
                     justifyContent="space-between"
                     alignItems="flex-start"
@@ -219,7 +181,7 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
 
                 </Stack>
 
-</Box>
+            </Box>
 
         </div>
     )

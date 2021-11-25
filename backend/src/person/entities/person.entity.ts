@@ -54,7 +54,7 @@ export class Person {
   status : boolean
 
   @Column()
-  iduser : number
+  user_id : number
 
   @Column({
     name: 'creation_at',

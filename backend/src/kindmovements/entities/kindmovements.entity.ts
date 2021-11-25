@@ -12,7 +12,7 @@ export class KindMovements {
     description: string
 
     @Column()
-    iduser: number
+    user_id: number
 
     @Column({ default: false })
     provider: boolean

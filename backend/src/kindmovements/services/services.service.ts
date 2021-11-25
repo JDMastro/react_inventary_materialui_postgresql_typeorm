@@ -20,7 +20,7 @@ export class ServicesService {
         const newKindMove = new KindMovements();
         newKindMove.name = body.name
         newKindMove.description = body.description
-        newKindMove.iduser = body.iduser
+        newKindMove.user_id = body.iduser
         newKindMove.provider = body.provider
         newKindMove.entry = body.entry
 
@@ -32,7 +32,7 @@ export class ServicesService {
         this.KindMovementsRepo.update(id, {
             name : body.name,
             description : body.description,
-            iduser : body.iduser,
+            user_id : body.iduser,
             provider : body.provider,
             entry : body.entry
         });

@@ -1,7 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 //import { Home } from "../templates/home";
 import { Products } from "../templates/products";
-import { ProductDerivate } from "../templates/productDerivate";
 import { KindIdentity } from "../templates/kindidentity";
 import { Person } from "../templates/person";
 import { Units } from "../templates/units";
@@ -19,7 +18,6 @@ export const DashboardRoute = () => {
             <Route exact path="/maestro/person" component={Person} />
             <Route exact path="/maestro/product" component={Products} />
             <Route exact path="/maestro/units" component={Units} />
-            <Route exact path="/maestro/product/derivate" component={ProductDerivate} />
             <Route path="*" component={()=>{ return(<div>Page 404</div>) }}/>
         </Switch>
     )

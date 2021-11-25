@@ -1,29 +1,15 @@
 import { initialFValuesTypes } from "../types/initialFValues";
 
 export const initialValuesProducts: initialFValuesTypes = {
-  sku: "",
-  code: "",
+  name : "",
+  description : "",
+  sku : "",
   code_bar: "",
-  name: "",
-  description: "",
-  existence: "",
-  reservedquantity: "",
-  unit: "",
-  iduser: ""
-}
-
-export const initialValuesDerivate: initialFValuesTypes = {
-  sku: "",
-  code: "",
-  code_bar: "",
-  name: "",
-  description: "",
-  existence: "",
-  reservedquantity: "",
-  unit: "",
-  iduser: "",
-  product_id: "",
-  quantityunit: ""
+  current_existence: "",
+  reserved_quantity: "",
+  purchase_unit_id: "",
+  sale_unit_id: "",
+  product_parent_id : '',
 }
 
 export const initialValuesKindId: initialFValuesTypes = {

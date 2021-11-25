@@ -12,7 +12,7 @@ export class ServiceService {
       async findAll() {
       
          
-        return this.ProductssRepo.find({ relations:["unit"] });
+        return this.ProductssRepo.find({ relations:["unit_purchase", "unit_sale"] });
       }
     
       findOne(id: number) {
@@ -21,30 +21,33 @@ export class ServiceService {
     
       create(body: any) {
         const newProducts = new Products();
-        newProducts.sku = body.sku
-        newProducts.code = body.code
-        newProducts.code_bar = body.code_bar
+        
         newProducts.name = body.name
         newProducts.description = body.description
-        newProducts.existence = body.existence
-        newProducts.reservedquantity = body.reservedquantity
-        newProducts.unit_id = body.unit
-        newProducts.iduser = body.iduser
+        newProducts.sku = body.sku
+        newProducts.code_bar = body.code_bar
+        newProducts.current_existence = body.current_existence
+        newProducts.reserved_quantity = body.reserved_quantity
+        newProducts.purchase_unit_id = body.purchase_unit_id
+        newProducts.sale_unit_id = body.sale_unit_id
+        newProducts.product_parent_id = body.product_parent_id
+        newProducts.isdererivado = body.product_parent_id ? true : false
+        newProducts.user_id = body.user_id
+
         return this.ProductssRepo.save(newProducts);
       }
     
       async update(id: number, body: any) {
         const Products = await this.ProductssRepo.findOne(id);
         this.ProductssRepo.update(id, {
-          sku : body.sku,
-          code : body.code,
-          code_bar : body.code_bar,
           name : body.name,
           description : body.description,
-          existence : body.existence,
-          reservedquantity : body.reservedquantity,
-          unit_id : body.unit,
-          iduser : body.iduser
+          sku : body.sku,
+          code_bar : body.code_bar,
+          purchase_unit_id : body.purchase_unit_id,
+          sale_unit_id : body.sale_unit_id,
+          user_id : body.user_id
+  
         });
         return this.ProductssRepo.save(Products);
       }

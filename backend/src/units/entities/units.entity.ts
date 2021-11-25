@@ -12,7 +12,7 @@ export class Units {
   @Column()
   description: string;
 
-  @OneToMany(()=> Products, Products => Products.unit )
+  @OneToMany(()=> Products, Products => Products.unit_purchase )
   products: Products[];
 
 }
