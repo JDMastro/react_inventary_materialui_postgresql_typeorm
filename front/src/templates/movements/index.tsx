@@ -102,7 +102,7 @@ export function Movements()
                         <TableCell align="center">Cantidad</TableCell>
                         <TableCell align="center">Precio Total</TableCell>
                         <TableCell align="center">Precio unitario</TableCell>
-                        <TableCell align="center">ACCIÓN</TableCell>
+                        <TableCell align="center">Acción</TableCell>
                     </TableRow>
                 }
                 tableBody={
@@ -145,6 +145,7 @@ export function Movements()
             />*/}
 
             <AlertDialogUi
+            maxWidth="md"
                 handleClose={handleCloseModalAdd}
                 content={<AddMovements kindmov={kindmov} refresh={refresh} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
                 open={openModalAdd}

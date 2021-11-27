@@ -80,10 +80,10 @@ export function KindIdentity() {
                         tableHead={
                             <TableRow >
 
-                                <TableCell align="center">ID</TableCell>
-                                <TableCell align="center">DESCRIPCIÓN</TableCell>
-                                <TableCell align="center">CODIGO ADMIN</TableCell>
-                                <TableCell align="center">Action</TableCell>
+                                <TableCell align="center">Id</TableCell>
+                                <TableCell align="center">Nombre</TableCell>
+                                <TableCell align="center">Código</TableCell>
+                                <TableCell align="center">Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -94,8 +94,9 @@ export function KindIdentity() {
                                 >
 
                                     <TableCell component="th" scope="row">{data.id}</TableCell>
-                                    <TableCell align="center">{data.description}</TableCell>
-                                    <TableCell align="center">{data.code_admin}</TableCell>
+                                    <TableCell align="center">{data.name}</TableCell>
+                                    <TableCell align="center">{data.code}</TableCell>
+                                    
                                     <TableCell align="center">
                                         <Stack direction="row" alignItems="center" spacing={1}>
                                             <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" /></IconButton>

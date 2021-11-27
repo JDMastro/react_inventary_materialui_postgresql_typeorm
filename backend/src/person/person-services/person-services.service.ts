@@ -25,7 +25,6 @@ export class PersonServicesService {
         
         const newPerson = new Person();
        
-        newPerson.code = body.code
         newPerson.kind_id = body.kind_id
         newPerson.idnumber = body.idnumber
         newPerson.name = body.name
@@ -33,7 +32,6 @@ export class PersonServicesService {
         newPerson.first_surname = body.first_surname
         newPerson.second_surname = body.second_surname
         newPerson.fullname = `${body.name} ${body.second_name} ${body.first_surname} ${body.second_surname}`
-        newPerson.description = body.description
         newPerson.address = body.address
         newPerson.phone = body.phone
         newPerson.contact = body.contact
@@ -46,7 +44,6 @@ export class PersonServicesService {
       async update(id: number, body: any) {
         const Products = await this.PersonRepo.findOne(id);
         this.PersonRepo.update(id, {
-            code : body.code,
             kind_id : body.kind_id,
             idnumber : body.idnumber,
             name : body.name,
@@ -54,7 +51,6 @@ export class PersonServicesService {
             first_surname : body.first_surname,
             second_surname : body.second_surname,
             fullname : `${body.name} ${body.second_name} ${body.first_surname} ${body.second_surname}`,
-            description : body.description,
             address : body.address,
             phone : body.phone,
             contact : body.contact,

@@ -21,12 +21,13 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import React from 'react';
 
 
-export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
-{
+export function AddPerson({ handleClose, kind, setRefresh, refresh }: any) {
     const [severity, setSeverity] = React.useState("success");
     const [msg, setMsg] = React.useState("success");
     const [openn, setOpenn] = React.useState(false);
-    
+
+    const [disablebtn, setdisablebtn] = React.useState(false);
+
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
@@ -40,36 +41,37 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
     };
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
-       
+
+        setdisablebtn(true)
         personRequest.save({
-            code : values.code,
-            kind_id : values.kind_id,
-            idnumber : values.idnumber,
-            name : values.name,
-            second_name : values.second_name,
-            first_surname : values.first_surname,
-            second_surname : values.second_surname,
-            description : values.description,
-            address : values.address,
-            phone : values.phone,
-            contact : values.contact,
-            iduser : values.iduser,
-            provider : values.provider
-    
+            kind_id: values.kind_id,
+            idnumber: values.idnumber,
+            name: values.name,
+            second_name: values.second_name,
+            first_surname: values.first_surname,
+            second_surname: values.second_surname,
+            address: values.address,
+            phone: values.phone,
+            contact: values.contact,
+            iduser: 0,
+            provider: values.provider
+
         }).then(e => {
             console.log(e)
             setMsg("Save succesffuly")
             handleClick()
-            setTimeout(() => {
-                setRefresh(!refresh)
-                handleClose()
-            }, 3000);
-            
+            setRefresh(!refresh)
+            handleClose()
+
+            setdisablebtn(false)
+
         })
             .catch(e => {
                 setSeverity("error")
                 setMsg("Something went wrong!!")
                 handleClick()
+
+                setdisablebtn(false)
             })
     }
 
@@ -81,17 +83,7 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
 
                 <Grid container spacing={2}>
 
-                <Grid item xs={6}>
-                        <TextFieldUi
-                            autofocus={true}
-                            error={formik.errors.code}
-                            label="Codigo *"
-                            name="code"
-                            onChange={formik.handleChange}
-                            type="text"
-                            value={formik.values.code}
-                        />
-                    </Grid>
+
 
                     <Grid item xs={6}>
                         <SelectWrapperUi
@@ -100,11 +92,11 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
                             value={formik.values.kind_id}
                             onChange={formik.handleChange}
                             error={formik.errors.kind_id}
-                            menuItems={kind.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.description}`}</MenuItem>)}
+                            menuItems={kind.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name} ${data.code}`}</MenuItem>)}
 
                         />
                     </Grid>
-                    
+
                     <Grid item xs={6}>
                         <TextFieldUi
                             autofocus={false}
@@ -165,17 +157,6 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
                         />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <TextFieldUi
-                            autofocus={false}
-                            error={formik.errors.description}
-                            label="Descripcion *"
-                            name="description"
-                            onChange={formik.handleChange}
-                            type="text"
-                            value={formik.values.description}
-                        />
-                    </Grid>     
 
                     <Grid item xs={6}>
                         <TextFieldUi
@@ -213,31 +194,21 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
                         />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <TextFieldUi
-                            autofocus={false}
-                            error={formik.errors.iduser}
-                            label="ID usuario *"
-                            name="iduser"
+
+
+
+                    <Grid item xs={12}>
+                        <CheckboxUi
+                            checked={formik.values.provider}
+                            label='Proveedor'
+                            name="provider"
                             onChange={formik.handleChange}
-                            type="number"
-                            value={formik.values.iduser}
                         />
                     </Grid>
 
 
-                    <Grid item xs={12}>
-                      <CheckboxUi
-                      checked={formik.values.provider}
-                      label='Proveedor'
-                      name="provider"
-                      onChange={formik.handleChange}
-                       />
-                    </Grid>
 
-                    
 
-                   
 
                 </Grid>
 
@@ -248,16 +219,16 @@ export function AddPerson({ handleClose, kind, setRefresh, refresh }: any)
                     handleClose={handleCloses}
                 />
 
-<Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="flex-start"
-                        spacing={2}
-                    >
-                        <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                        <ButtonUi disabled={false} text="send" type="submit" Icon={<SendIcon fontSize="small" />} />
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                    spacing={2}
+                >
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
 
-                    </Stack>
+                </Stack>
 
 
             </Box>

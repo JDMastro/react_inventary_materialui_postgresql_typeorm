@@ -82,10 +82,10 @@ export function KindMovements() {
                         tableHead={
                             <TableRow >
 
-                                <TableCell align="center">ID</TableCell>
-                                <TableCell align="center">NOMBRE</TableCell>
-                                <TableCell align="center">DESCRIPCIÓN</TableCell>
-                                <TableCell align="center">ACCIÓN</TableCell>
+                                <TableCell align="center">Id</TableCell>
+                                <TableCell align="center">Nombre</TableCell>
+                                <TableCell align="center">Descripción</TableCell>
+                                <TableCell align="center">Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={

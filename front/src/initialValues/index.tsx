@@ -18,18 +18,15 @@ export const initialValuesKindId: initialFValuesTypes = {
 }
 
 export const initialValuesPerson: initialFValuesTypes = {
-  code: "",
   kind_id: "",
   idnumber: "",
   name: "",
   second_name: "",
   first_surname: "",
   second_surname: "",
-  description: "",
   address: "",
   phone: "",
   contact: "",
-  iduser: "",
   provider : false
 }
 
@@ -41,7 +38,6 @@ export const initialValuesUnits: initialFValuesTypes = {
 export const initialValueskindmovements: initialFValuesTypes = {
   name : "",
   description : "",
-  iduser : "",
   provider : false,
   entry : false
 }
@@ -53,6 +49,6 @@ export const initialValuesMovements: initialFValuesTypes = {
     idproduct :   "",
     quantity : "",
     totalPrice: "",
-   // unitprice : ""
+    unitprice : ""
 }
 

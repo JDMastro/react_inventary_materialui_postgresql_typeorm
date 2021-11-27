@@ -30,10 +30,8 @@ export function DeleteUnits({ handleClose, setRefresh, refresh, data }: any) {
         
         setMsg("Se eliminado correctaente")
         handleClick()
-        setTimeout(() => {
             handleClose()
             setRefresh(!refresh)
-        }, 3000);
         
     }
 
@@ -53,8 +51,8 @@ export function DeleteUnits({ handleClose, setRefresh, refresh, data }: any) {
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={false} text="send" type="button" onClick={()=> deleteProduct() } Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={false} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={false} text="Enviar" type="button" onClick={()=> deleteProduct() } Icon={<SendIcon fontSize="small" />} />
 
                 </Stack>
 

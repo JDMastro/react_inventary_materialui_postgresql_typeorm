@@ -28,6 +28,8 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
     const [msg, setMsg] = React.useState("success");
     const [openn, setOpenn] = React.useState(false);
 
+    const [disablebtn, setdisablebtn] = React.useState(false);
+
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
@@ -42,21 +44,23 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
 
-        console.log(values)
+        setdisablebtn(true)
         KindMovementsRequest.save({
             name: values.name,
             description: values.description,
-            iduser: values.iduser,
+            iduser: 0,
             provider: values.provider,
             entry: values.entry
         }).then(e => {
             console.log(e)
             setMsg("Save succesffuly")
             handleClick()
-            setTimeout(() => {
+           
                 setRefresh(!refresh)
                 handleClose()
-            }, 3000);
+                setdisablebtn(false)
+                setdisablebtn(false)
+           
 
         })
             .catch(e => {
@@ -99,27 +103,15 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextFieldUi
-                            autofocus={false}
-                            error={formik.errors.iduser}
-                            label="Id User *"
-                            name="iduser"
-                            onChange={formik.handleChange}
-                            type="number"
-                            value={formik.values.iduser}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
                         <CheckboxUi
                             checked={formik.values.provider}
-                            label='Proveedor'
+                            label='Requiere proveedor'
                             name="provider"
                             onChange={formik.handleChange}
                         />
                          <CheckboxUi
                             checked={formik.values.entry}
-                            label='Entrada'
+                            label='Movimiento de entrada'
                             name="entry"
                             onChange={formik.handleChange}
                         />
@@ -146,8 +138,8 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={false} text="send" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
 
                 </Stack>
 

@@ -25,6 +25,8 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
     const [msg, setMsg] = React.useState("success");
     const [openn, setOpenn] = React.useState(false);
 
+    const [disablebtn, setdisablebtn] = React.useState(false);
+
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
@@ -39,7 +41,7 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
 
-        console.log(values)
+        setdisablebtn(true)
         ProductsRequest.save({
           name : values.name,
           description : values.description,
@@ -55,16 +57,18 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
             console.log(e)
             setMsg("Save succesffuly")
             handleClick()
-            setTimeout(() => {
+            
                 setRefresh(!refresh)
                 handleClose()
-            }, 3000);
+                setdisablebtn(false)
+           
             
         })
             .catch(e => {
                 setSeverity("error")
                 setMsg("Something went wrong!!")
                 handleClick()
+                setdisablebtn(false)
             })
     }
 
@@ -141,9 +145,10 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
                             error={formik.errors.reserved_quantity}
                             label="Cantidad reservada *"
                             name="reserved_quantity"
+                            disabled={true}
                             onChange={formik.handleChange}
                             type="number"
-                            value={formik.values.reserved_quantity}
+                            value={formik.values.reserved_quantity = '0'}
                         />
                     </Grid>
 
@@ -199,8 +204,8 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={false} text="send" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
 
                 </Stack>
 

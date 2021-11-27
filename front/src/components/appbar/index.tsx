@@ -30,7 +30,7 @@ export function AppbarUi({ handleDrawerToggle } : appBarProps)
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            SGI - Sistema de gestión de inventario for DG3
           </Typography>
         </Toolbar>
 

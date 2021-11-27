@@ -74,7 +74,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
             product_id: values.idproduct,
             quantity: values.quantity,
             totalPurchasePrice: values.totalPrice,
-            unitPrice: values.totalPrice / values.quantity
+            unitPrice: formik.values.unitprice
         }).then(e => {
             console.log(e)
             setMsg("Save succesffuly")
@@ -155,7 +155,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                             error={formik.errors.idperson}
                             label="Proveedor o Cliente"
                             menuItems={
-                                Persons.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)
+                                Persons.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.fullname}`}</MenuItem>)
                             }
 
                         />
@@ -246,10 +246,10 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                     </Grid>
 
 
-                    {/*  formik.values.unitprice */}
+                    {/*  formik.values.unitprice = ""+formik.values.totalPrice / formik.values.quantity */}
 
 
-                   {/* <Grid item xs={3}>
+                   <Grid item xs={3}>
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.unitprice}
@@ -258,7 +258,8 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                             onChange={formik.handleChange}
                             type="number"
                             value={
-                                formik.values.unitprice
+                                formik.values.totalPrice !== "" && formik.values.quantity !== "" ?
+                                formik.values.unitprice = ""+formik.values.totalPrice / formik.values.quantity : formik.values.unitprice
                             }
                             disabled={true}
                             inputInside={
@@ -271,7 +272,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                                     : ""
                             }
                         />
-                    </Grid>*/}
+                    </Grid>
                     {/*  formik.values.idproduct !== "" ? products.find((e: any) => e.id === formik.values.idproduct).unit.name : "" */}
 
                     <Grid item xs={2} style={{ marginTop: "2px" }}>

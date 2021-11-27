@@ -30,6 +30,9 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
     const [openn, setOpenn] = React.useState(false);
     //const [loading, setloading] = React.useState(false);
 
+    const [disablebtn, setdisablebtn] = React.useState(false);
+
+
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
@@ -44,17 +47,15 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
         //setloading(true)
-        console.log(values)
 
+        setdisablebtn(true)
         personRequest.update(data.id, {
-            code: values.code,
             kind_id: values.kind_id,
             idnumber: values.idnumber,
             name: values.name,
             second_name: values.second_name,
             first_surname: values.first_surname,
             second_surname: values.second_surname,
-            description: values.description,
             address: values.address,
             phone: values.phone,
             contact: values.contact,
@@ -63,33 +64,31 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
         }).then(e => {
             setMsg("Save succesffuly")
             handleClick()
-            setTimeout(() => {
-                setRefresh(!refresh)
                 handleClose()
-            }, 3000);
+                setdisablebtn(false)
+                setRefresh(!refresh)
         })
             .catch(e => {
                 setSeverity("error")
                 setMsg("Something went wrong!!")
                 handleClick()
+                setdisablebtn(false)
             })
     }
 
 
 
     const formik = UseForm({
-        code: data.code,
         kind_id: data.kind_id,
         idnumber: data.idnumber,
         name: data.name,
         second_name: data.second_name,
         first_surname: data.first_surname,
         second_surname: data.second_surname,
-        description: data.description,
         address: data.address,
         phone: data.phone,
         contact: data.contact,
-        iduser: data.iduser,
+        iduser: 0,
         provider : data.provider
     }, PersonSchema, onSubmit)
 
@@ -101,17 +100,7 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
 
 
 
-                    <Grid item xs={6}>
-                        <TextFieldUi
-                            autofocus={true}
-                            error={formik.errors.code}
-                            label="Codigo *"
-                            name="code"
-                            onChange={formik.handleChange}
-                            type="text"
-                            value={formik.values.code}
-                        />
-                    </Grid>
+                  
 
                     <Grid item xs={6}>
                         <SelectWrapperUi
@@ -121,7 +110,7 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
                             onChange={formik.handleChange}
                             error={formik.errors.kind_id}
                             defaultValue={formik.values.kind_id}
-                            menuItems={kind.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.description}`}</MenuItem>)}
+                            menuItems={kind.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name} ${data.code}`}</MenuItem>)}
 
                         />
                     </Grid>
@@ -186,18 +175,7 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
                         />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <TextFieldUi
-                            autofocus={false}
-                            error={formik.errors.description}
-                            label="Descripcion *"
-                            name="description"
-                            onChange={formik.handleChange}
-                            type="text"
-                            value={formik.values.description}
-                        />
-                    </Grid>
-
+                   
                     <Grid item xs={6}>
                         <TextFieldUi
                             autofocus={false}
@@ -234,17 +212,7 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
                         />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <TextFieldUi
-                            autofocus={false}
-                            error={formik.errors.iduser}
-                            label="ID usuario *"
-                            name="iduser"
-                            onChange={formik.handleChange}
-                            type="number"
-                            value={formik.values.iduser}
-                        />
-                    </Grid>
+                    
 
 
                     <Grid item xs={12}>
@@ -275,8 +243,8 @@ export function UpdatePerson({ handleClose, kind, setRefresh, refresh, data }: a
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={false} text="send" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
 
                 </Stack>
 

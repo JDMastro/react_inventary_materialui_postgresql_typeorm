@@ -3,14 +3,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { dialogProps } from "../../types/dialogType";
 
-export function AlertDialogUi({ content, open, title, handleClose }: dialogProps) {
+export function AlertDialogUi({ content, open, title, handleClose, maxWidth="sm" }: dialogProps) {
 
 
   return (
     <div>
       <Dialog
         fullWidth
-        maxWidth="lg"
+        maxWidth={maxWidth}
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"

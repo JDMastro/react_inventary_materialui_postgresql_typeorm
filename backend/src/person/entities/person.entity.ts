@@ -3,13 +3,10 @@ import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, JoinColumn }
 import { Kindidentity } from "../../kindidentity/entities/kindidentity.entity";
 
 @Entity()
-@Unique("idx_person",["code","phone","idnumber"])
+@Unique("idx_person",["phone","idnumber"])
 export class Person {
   @PrimaryGeneratedColumn('increment')
   id: number;
-
-  @Column()
-  code : string
 
   @ManyToOne(() => Kindidentity, Kindidentity => Kindidentity.Person)
   @JoinColumn({ name: 'kind_id' })
@@ -24,7 +21,7 @@ export class Person {
   @Column()
   name : string
 
-  @Column()
+  @Column({ nullable : true })
   second_name : string
 
   @Column()
@@ -37,12 +34,9 @@ export class Person {
   fullname : string
 
   @Column()
-  description : string
-
-  @Column()
   address : string
 
-  @Column()
+  @Column({ width : 10, type:"numeric" })
   phone : number
 
   @Column({ nullable : false })

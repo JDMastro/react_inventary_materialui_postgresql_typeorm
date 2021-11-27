@@ -20,8 +20,8 @@ export class ServicesService {
       create(body: any) {
         const newKindId = new Kindidentity();
       
-        newKindId.code_admin = body.code_admin
-        newKindId.description = body.description
+        newKindId.code = body.code_admin
+        newKindId.name = body.description
        
         return this.KindidentityRepo.save(newKindId);
       }
@@ -29,8 +29,8 @@ export class ServicesService {
       async update(id: number, body: any) {
         const Products = await this.KindidentityRepo.findOne(id);
         this.KindidentityRepo.update(id, {
-            code_admin : body.code_admin,
-            description : body.description
+            code : body.code_admin,
+            name : body.description
         });
         return this.KindidentityRepo.save(Products);
       }

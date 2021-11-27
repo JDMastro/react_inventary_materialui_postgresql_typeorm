@@ -134,7 +134,7 @@ export function SideBarList() {
               <ListItemIcon>
                 <PersonIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText primary="Personas" />
+              <ListItemText primary="Proveedores y clientes" />
             </ListItemButton>
 
 

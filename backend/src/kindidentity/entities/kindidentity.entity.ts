@@ -3,16 +3,16 @@ import { Person } from "../../person/entities/person.entity";
 
 
 @Entity()
-@Unique("idx_des_kind",["description"])
+@Unique("idx_des_kind",["name"])
 export class Kindidentity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ nullable : false })
-  description: string;
+  @Column()
+  name: string;
 
-  @Column({ nullable : true })
-  code_admin: string;
+  @Column()
+  code: string;
 
   @OneToMany(() => Person, Person => Person.Kindidentity )
   Person: Person[];

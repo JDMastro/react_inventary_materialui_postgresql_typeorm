@@ -90,13 +90,13 @@ export function Products() {
                             <TableRow >
 
                                 <TableCell align="right">ID</TableCell>
-                                <TableCell align="right">NOMBRE</TableCell>
-                                <TableCell align="right">DESCRIPCIÓN</TableCell>
-                                <TableCell align="right">UNIDAD DE COMPRA</TableCell>
-                                <TableCell align="right">UNIDAD DE VENTA</TableCell>
-                                <TableCell align="right">EXISTENCIA</TableCell>
-                                <TableCell align="right">CANTIDAD RESERVADA </TableCell>
-                                <TableCell align="right">ACCIÓN</TableCell>
+                                <TableCell align="right">Nombre</TableCell>
+                                <TableCell align="right">Descripción</TableCell>
+                                <TableCell align="right">Und. Compra</TableCell>
+                                <TableCell align="right">Und. Venta</TableCell>
+                                <TableCell align="right">Existencia</TableCell>
+                                <TableCell align="right">Cantidad reservada </TableCell>
+                                <TableCell align="right">Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={

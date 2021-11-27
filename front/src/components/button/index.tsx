@@ -12,7 +12,7 @@ export function ButtonUi({ variant, disabled = false, onClick, text, type, Icon 
             disabled={disabled}
             type={type}
         >
-            {disabled && <CircularProgress />}
+            {disabled && <CircularProgress style={{padding: "5px"}} />}
             {text}
         </Button>
     )

@@ -26,6 +26,8 @@ export function UpdateKindId({ handleClose, setRefresh, refresh, data }: any) {
     const [openn, setOpenn] = React.useState(false);
     //const [loading, setloading] = React.useState(false);
 
+    const [disablebtn, setdisablebtn] = React.useState(false);
+
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
@@ -40,7 +42,8 @@ export function UpdateKindId({ handleClose, setRefresh, refresh, data }: any) {
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
         //setloading(true)
-        console.log(values)
+
+        setdisablebtn(true)
 
         KindIdRequest.update(data.id, {
             code_admin: values.code_admin,
@@ -48,23 +51,24 @@ export function UpdateKindId({ handleClose, setRefresh, refresh, data }: any) {
         }).then(e => {
             setMsg("Save succesffuly")
             handleClick()
-            setTimeout(() => {
+         
                 setRefresh(!refresh)
                 handleClose()
-            }, 3000);
+                setdisablebtn(false)
         })
             .catch(e => {
                 setSeverity("error")
                 setMsg("Something went wrong!!")
                 handleClick()
+                setdisablebtn(false)
             })
     }
 
 
 
     const formik = UseForm({
-        code_admin: data.code_admin,
-        description: data.description
+        code_admin: data.code,
+        description: data.name
     }, KindIdSchema, onSubmit)
 
 
@@ -78,7 +82,7 @@ export function UpdateKindId({ handleClose, setRefresh, refresh, data }: any) {
                         <TextFieldUi
                             autofocus={true}
                             error={formik.errors.description}
-                            label="Descripción *"
+                            label="Nombre *"
                             name="description"
                             onChange={formik.handleChange}
                             type="text"
@@ -90,7 +94,7 @@ export function UpdateKindId({ handleClose, setRefresh, refresh, data }: any) {
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.code_admin}
-                            label="Código Admin *"
+                            label="Código *"
                             name="code_admin"
                             onChange={formik.handleChange}
                             type="text"
@@ -119,8 +123,8 @@ export function UpdateKindId({ handleClose, setRefresh, refresh, data }: any) {
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={false} text="send" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
 
                 </Stack>
 

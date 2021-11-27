@@ -4,4 +4,5 @@ export interface dialogProps{
     open : boolean
     title : string
     handleClose : ()=> void
+    maxWidth? : 'lg' | 'md' | 'sm' | 'xl' | 'xs';
 }

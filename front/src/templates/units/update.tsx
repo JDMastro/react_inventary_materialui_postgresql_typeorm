@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 //import { initialValuesProducts } from "../../initialValues";
-import { KindIdSchema } from "../../schema/kindIdSchema";
+import { UnitsSchema } from "../../schema/unitsSchema";
 import { UseForm } from "../../components/form";
 import { TextFieldUi } from "../../components/textfield";
 import { Snackbars } from "../../components/snackbars";
@@ -19,11 +19,12 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import React from 'react';
 
 
-export function UpdateUnit({ handleClose, setRefresh, refresh, data }: any)
-{
+export function UpdateUnit({ handleClose, setRefresh, refresh, data }: any) {
     const [severity, setSeverity] = React.useState("success");
     const [msg, setMsg] = React.useState("success");
     const [openn, setOpenn] = React.useState(false);
+    const [disablebtn, setdisablebtn] = React.useState(false);
+
 
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -39,45 +40,48 @@ export function UpdateUnit({ handleClose, setRefresh, refresh, data }: any)
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
         //setloading(true)
-        console.log(values)
-
-        UnitsRequest.update(data.id,{
-            name : values.name,
-            description : values.description
-        }).then(e => {
-            setMsg("Save succesffuly")
-            handleClick()
-            setTimeout(() => {
-                setRefresh(!refresh)
-                handleClose()
-            }, 3000);
-             })
-        .catch(e =>{
-            setSeverity("error")
-            setMsg("Something went wrong!!")
-            handleClick()
-        })
-    }
-
-   
-
-    const formik = UseForm({
-        name : data.name,
-        description : data.description
-    }, KindIdSchema, onSubmit)
 
     
-    return(
+        setdisablebtn(true)
+        UnitsRequest.update(data.id, {
+            name: values.name,
+            description: values.description
+        }).then(e => {
+            
+            
+            setMsg("Save succesffuly")
+            handleClick()
+            handleClose()
+            setdisablebtn(false)
+            setRefresh(!refresh)
+        })
+            .catch(e => {
+                setSeverity("error")
+                setMsg("Something went wrong!!")
+                handleClick()
+                setdisablebtn(false)
+            })
+    }
+
+
+
+    const formik = UseForm({
+        name: data.name,
+        description: data.description
+    }, UnitsSchema, onSubmit)
+
+
+    return (
         <div>
-        <Box component="form" onSubmit={formik.handleSubmit}>
+            <Box component="form" onSubmit={formik.handleSubmit}>
 
-            <Grid container spacing={2}>
+                <Grid container spacing={2}>
 
-            <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <TextFieldUi
                             autofocus={true}
                             error={formik.errors.name}
-                            label="Nombre *"
+                            label="Sigla *"
                             name="name"
                             onChange={formik.handleChange}
                             type="text"
@@ -86,11 +90,11 @@ export function UpdateUnit({ handleClose, setRefresh, refresh, data }: any)
                     </Grid>
 
 
-            <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.description}
-                            label="Descripción *"
+                            label="Nombre *"
                             name="description"
                             onChange={formik.handleChange}
                             type="text"
@@ -98,37 +102,37 @@ export function UpdateUnit({ handleClose, setRefresh, refresh, data }: any)
                         />
                     </Grid>
 
-                  
 
-           
 
-                
 
-              
 
-            </Grid>
 
-            <Snackbars
-                msg={msg}
-                open={openn}
-                severity={severity}
-                handleClose={handleCloses}
-            />
 
-<Stack
+
+
+                </Grid>
+
+                <Snackbars
+                    msg={msg}
+                    open={openn}
+                    severity={severity}
+                    handleClose={handleCloses}
+                />
+
+                <Stack
                     direction="row"
                     justifyContent="space-between"
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={false} text="send" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
 
                 </Stack>
 
 
-        </Box>
-    </div>
+            </Box>
+        </div>
     )
 
 }

@@ -24,7 +24,7 @@ export function AddTable({ movements, findNumberOrder }: any) {
                         <TableCell align="center">Cantidad</TableCell>
                         <TableCell align="center">Precio Total</TableCell>
                         <TableCell align="center">Precio unitario</TableCell>
-                        <TableCell align="center">ACCIÓN</TableCell>
+                        <TableCell align="center">Acción</TableCell>
                     </TableRow>
                 }
                 tableBody={
@@ -43,7 +43,6 @@ export function AddTable({ movements, findNumberOrder }: any) {
                             }</TableCell>
                             <TableCell align="center"><IconButton aria-label="delete" onClick={
                                 () => {
-                                    console.log("DdddddDD");
                                     MovementsRequest.delete(e.id).then(res => findNumberOrder(e.number_order)  ); 
                                   
                                 }

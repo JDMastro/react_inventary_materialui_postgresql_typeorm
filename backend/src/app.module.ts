@@ -31,9 +31,9 @@ import { MovementsModule } from './movements/movements.module';
     PersonModule,
     KindmovementsModule,
     MovementsModule,
-    
-    ],
+
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

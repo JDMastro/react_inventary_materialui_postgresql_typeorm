@@ -86,20 +86,15 @@ export function Person() {
                     <TableNormalUi
                         tableHead={
                             <TableRow >
-                                <TableCell align="center">ID</TableCell>
-                                <TableCell align="center">CODIGO</TableCell>
-                                <TableCell align="center">TIPO ID</TableCell>
-                                <TableCell align="center">NUMERO ID</TableCell>
-                                <TableCell align="center">PRIMER NOMBRE</TableCell>
-                                <TableCell align="center">SEGUNDO NOMBRE</TableCell>
-                                <TableCell align="center">PRIMER APELLIDO</TableCell>
-                                <TableCell align="center">SEGUNDO APELLIDO</TableCell>
-                                <TableCell align="center">NOMBRE COMPLETO</TableCell>
-                                <TableCell align="center">DESCRIPCION</TableCell>
-                                <TableCell align="center">DIRECCION</TableCell>
-                                <TableCell align="center">TELEFONO</TableCell>
-                                <TableCell align="center">CONTACTO</TableCell>
-                                <TableCell align="center">ACCION</TableCell>
+                                <TableCell align="center">Id</TableCell>
+                                <TableCell align="center">Tipo de identificación</TableCell>
+                                <TableCell align="center">Identificación</TableCell>
+                                <TableCell align="center">Nombre completo</TableCell>
+                                <TableCell align="center">Tipo</TableCell>
+                                <TableCell align="center">Dirección</TableCell>
+                                <TableCell align="center">Teléfono</TableCell>
+                                <TableCell align="center">Contacto</TableCell>
+                                <TableCell align="center">Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -110,15 +105,10 @@ export function Person() {
                                 >
 
                                     <TableCell component="th" scope="row">{data.id}</TableCell>
-                                    <TableCell component="th" scope="row">{data.code}</TableCell>
-                                    <TableCell component="th" scope="row">{data.Kindidentity.description}</TableCell>
+                                    <TableCell component="th" scope="row">{data.Kindidentity.name}</TableCell>
                                     <TableCell component="th" scope="row">{data.idnumber}</TableCell>
-                                    <TableCell component="th" scope="row">{data.name}</TableCell>
-                                    <TableCell component="th" scope="row">{data.second_name}</TableCell>
-                                    <TableCell component="th" scope="row">{data.first_surname}</TableCell>
-                                    <TableCell component="th" scope="row">{data.second_surname}</TableCell>
                                     <TableCell component="th" scope="row">{data.fullname}</TableCell>
-                                    <TableCell component="th" scope="row">{data.description}</TableCell>
+                                    <TableCell component="th" scope="row">{data.provider ? "Proveedor" : "Cliente" }</TableCell>
                                     <TableCell component="th" scope="row">{data.address}</TableCell>
                                     <TableCell component="th" scope="row">{data.phone}</TableCell>
                                     <TableCell component="th" scope="row">{data.contact}</TableCell>

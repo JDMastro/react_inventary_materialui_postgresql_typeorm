@@ -27,6 +27,8 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
     const [openn, setOpenn] = React.useState(false);
     //const [loading, setloading] = React.useState(false);
 
+    const [disablebtn, setdisablebtn] = React.useState(false);
+
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
@@ -41,7 +43,8 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
         //setloading(true)
-        console.log(values)
+
+        setdisablebtn(true)
 
         ProductsRequest.update(data.id, {
             name: values.name,
@@ -54,15 +57,19 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
         }).then(e => {
             setMsg("Save succesffuly")
             handleClick()
-            setTimeout(() => {
-                setRefresh(!refresh)
+            
+                
                 handleClose()
-            }, 3000);
+                setdisablebtn(false)
+                setRefresh(!refresh)
+          
         })
             .catch(e => {
                 setSeverity("error")
                 setMsg("Something went wrong!!")
                 handleClick()
+                
+                setdisablebtn(false)
             })
     }
 
@@ -176,8 +183,8 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={false} text="send" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
 
                 </Stack>
 
