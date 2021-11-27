@@ -1,3 +1,4 @@
+import { Movements } from 'src/movements/entities/movements.entity';
 import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, JoinColumn } from 'typeorm';
 import { Kindidentity } from "../../kindidentity/entities/kindidentity.entity";
 
@@ -68,5 +69,9 @@ export class Person {
 
   @Column({ name: 'delete_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   deleteAt: Date;  
+
+
+  @ManyToOne(() => Movements, movements => movements.Person)
+  movements: Movements[];
 }
 

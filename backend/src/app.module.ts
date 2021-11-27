@@ -7,7 +7,7 @@ import { UnitsModule } from './units/units.module';
 import { KindidentityModule } from './kindidentity/kindidentity.module';
 import { PersonModule } from './person/person.module';
 import { KindmovementsModule } from './kindmovements/kindmovements.module';
-import { HeaderModule } from './header/header.module';
+import { MovementsModule } from './movements/movements.module';
 
 
 
@@ -18,7 +18,7 @@ import { HeaderModule } from './header/header.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '1234',
+      password: '1995',
       database: 'test',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: false,
@@ -30,7 +30,7 @@ import { HeaderModule } from './header/header.module';
     KindidentityModule,
     PersonModule,
     KindmovementsModule,
-    HeaderModule,
+    MovementsModule,
     
     ],
   controllers: [AppController],

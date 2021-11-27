@@ -8,18 +8,18 @@ import { initialValuesMovements } from "../../initialValues";
 import { movementsSchema } from "../../schema/movementsSchema";
 import { UseForm } from "../../components/form";
 import { TextFieldUi } from "../../components/textfield";
-//import { Snackbars } from "../../components/snackbars";
+import { Snackbars } from "../../components/snackbars";
 import { initialFValuesTypes } from "../../types/initialFValues";
 import { ButtonUi } from "../../components/button/index";
 import { SelectWrapperUi } from "../../components/select";
 
 import MenuItem from '@mui/material/MenuItem';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
+//import TableCell from '@mui/material/TableCell';
+//import TableRow from '@mui/material/TableRow';
 
-import { TableNormalUi } from "../../components/tableNormal";
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+//import { TableNormalUi } from "../../components/tableNormal";
+//import IconButton from '@mui/material/IconButton';
+//import DeleteIcon from '@mui/icons-material/Delete';
 
 
 //import InputAdornment from '@mui/material/InputAdornment';
@@ -31,25 +31,88 @@ import { FormikHelpers } from "formik";
 
 import { ProductsRequest } from "../../services/productService";
 import { personRequest } from "../../services/personService";
+import { MovementsRequest } from "../../services/MovementsService";
+
+import { AddTable } from "./addTable";
 
 
 export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any) {
 
-    const [order] = useState<initialFValuesTypes>([]);
     const [disable, setdisable] = useState(false)
     const [products, setproducts] = useState<any>([])
     const [Persons, setPersons] = useState([])
 
+    const [disablebtns, setdisablebtns] = useState(false)
+
+    const [severity, setSeverity] = useState("success");
+    const [msg, setMsg] = useState("success");
+    const [openn, setOpenn] = useState(false);
+    const [movements, setmovements] = useState([]);
+
+    const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenn(false);
+    };
+
+    const handleClick = () => {
+        setOpenn(true);
+    };
+
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
         console.log(values)
-        order.push(values)
 
 
+        setdisablebtns(true)
+
+        MovementsRequest.save({
+            kindMovements_id: values.kindmovements,
+            personOrProvider_id: values.idperson,
+            number_order: values.numorder,
+            product_id: values.idproduct,
+            quantity: values.quantity,
+            totalPurchasePrice: values.totalPrice,
+            unitPrice: values.totalPrice / values.quantity
+        }).then(e => {
+            console.log(e)
+            setMsg("Save succesffuly")
+            
+                setRefresh(!refresh)
+                handleClick()
+
+                findNumberOrder(values.numorder)
+
+
+
+
+
+            
+
+        })
+            .catch(e => {
+                setSeverity("error")
+                setMsg("Something went wrong!!")
+                handleClick()
+
+            })
+
+
+
+        setdisablebtns(false)
         setdisable(true)
         formikHelpers.setFieldValue("quantity", "")
         formikHelpers.setFieldValue("totalPrice", "")
         formikHelpers.setFieldValue("unitprice", "")
 
+
+    }
+
+    const findNumberOrder =(order : number) =>{
+        
+        MovementsRequest.findNumberOrder(order)
+        .then(e =>  setmovements(e) )
 
     }
 
@@ -186,7 +249,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                     {/*  formik.values.unitprice */}
 
 
-                     <Grid item xs={3}>
+                   {/* <Grid item xs={3}>
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.unitprice}
@@ -208,11 +271,11 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                                     : ""
                             }
                         />
-                    </Grid>
+                    </Grid>*/}
                     {/*  formik.values.idproduct !== "" ? products.find((e: any) => e.id === formik.values.idproduct).unit.name : "" */}
 
                     <Grid item xs={2} style={{ marginTop: "2px" }}>
-                        <ButtonUi variant="contained" disabled={false} text="Save" type="submit" Icon={<SaveIcon fontSize="small" />} />
+                        <ButtonUi variant="contained" disabled={disablebtns} text="Save" type="submit" Icon={<SaveIcon fontSize="small" />} />
 
                     </Grid>
 
@@ -222,40 +285,9 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                 </Grid>
             </Box>
 
-            <Box style={{ marginTop: "5px" }}>
-                <TableNormalUi
-                    tableHead={
-                        <TableRow >
+            {/* --------------------------------*/}
 
-                            <TableCell align="center">Tipo de Movimiento</TableCell>
-                            <TableCell align="center">Producto</TableCell>
-                            <TableCell align="center">Cantidad</TableCell>
-                            <TableCell align="center">Precio Total</TableCell>
-                            <TableCell align="center">Precio unitario</TableCell>
-                            <TableCell align="center">ACCIÓN</TableCell>
-                        </TableRow>
-                    }
-                    tableBody={
-                        order.map((e: any, i: any) =>
-                            <TableRow
-                                key={i}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-
-                               <TableCell align="center">{kindmov.find((s: any) => s.id === e.kindmovements).name}</TableCell>
-                                <TableCell align="center">{products.find((s: any) => s.id === e.idproduct).name}</TableCell>
-                                <TableCell align="center">{e.quantity}</TableCell>
-                                <TableCell align="center">{e.totalPrice}</TableCell>
-                                <TableCell align="center">{
-                                   e.unitprice
-                                }</TableCell>
-                                <TableCell align="center"><IconButton aria-label="delete"  ><DeleteIcon fontSize="small" /></IconButton></TableCell>
-                            </TableRow>
-                        )
-
-                    }
-                />
-            </Box>
+            <AddTable movements={movements} findNumberOrder={findNumberOrder} />
 
             <Stack
                 direction="row"
@@ -263,10 +295,19 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                 alignItems="flex-start"
                 spacing={2}
             >
-                <ButtonUi disabled={false} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                <ButtonUi disabled={false} text="send" type="button" Icon={<SendIcon fontSize="small" />} />
+                <ButtonUi disabled={disablebtns} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
+                <ButtonUi disabled={disablebtns} text="send" type="button" Icon={<SendIcon fontSize="small" />} />
 
             </Stack>
+
+
+            <Snackbars
+                msg={msg}
+                open={openn}
+                severity={severity}
+                handleClose={handleCloses}
+            />
+
 
         </div>
     )
@@ -276,7 +317,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
 /*
 
 formik.values.kindmovements !== "" ? (
-                                    kindmov.find((e : any )=> e.id === formik.values.kindmovements).provider ? (persons.find((e : any )=> e.provider === true ).map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)) 
+                                    kindmov.find((e : any )=> e.id === formik.values.kindmovements).provider ? (persons.find((e : any )=> e.provider === true ).map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>))
                                     : (persons.find((e : any )=> e.provider === false ).map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>))
                                 ) : (<span>Seleccione un tipo de movimiento</span>)
 

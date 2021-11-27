@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Movements } from "../../movements/entities/movements.entity";
 
 @Entity()
 export class KindMovements {
@@ -32,4 +33,8 @@ export class KindMovements {
 
     @Column({ name: 'delete_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     deleteAt: Date;
+
+
+    @ManyToOne(() => Movements, movements => movements.kindMovements)
+    movements: Movements[];
 }

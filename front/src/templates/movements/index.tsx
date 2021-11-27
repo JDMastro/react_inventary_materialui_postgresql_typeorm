@@ -4,7 +4,7 @@ import { CardUi } from "../../components/card";
 import { TableNormalUi } from "../../components/tableNormal";
 import { AlertDialogUi } from "../../components/dialog";
 //import UpdateIcon from '@mui/icons-material/Update';
-import EditIcon from '@mui/icons-material/Edit';
+//import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -19,6 +19,8 @@ import TableRow from '@mui/material/TableRow';
 //import { personRequest } from "../../services/personService";
 //import { ProductsRequest } from "../../services/productService";
 import { KindMovementsRequest } from "../../services/kindmovementsService";
+import { MovementsRequest } from "../../services/MovementsService";
+
 
 import { AddMovements } from "./add";
 
@@ -35,10 +37,15 @@ export function Movements()
    // const [persons, setpersons] = React.useState([]);
    // const [products, setproducts] = React.useState([]);
     const [kindmov, setkindmov] = React.useState([]);
+    const [movements, setmovements] = React.useState([]);
 
     useEffect(()=>{
         KindMovementsRequest.getAll().then(e => setkindmov(e) )
     },[])
+
+    useEffect(()=>{
+        MovementsRequest.getAll().then(e => setmovements(e) )
+    },[refresh])
 
     /*useEffect(() => {
         KindIdRequest.getAll()
@@ -68,6 +75,7 @@ export function Movements()
     };
 
     const handleCloseModalAdd = () => {
+        setRefresh(!refresh)
         setOpenModalAdd(false);
     };
 
@@ -85,34 +93,39 @@ export function Movements()
 
                     </Stack>
                     <TableNormalUi
-                        tableHead={
-                            <TableRow >
+                tableHead={
+                    <TableRow >
+                        <TableCell align="center">Id</TableCell>
+                        <TableCell align="center">Numero de orden</TableCell>
+                        <TableCell align="center">Tipo de Movimiento</TableCell>
+                        <TableCell align="center">Producto</TableCell>
+                        <TableCell align="center">Cantidad</TableCell>
+                        <TableCell align="center">Precio Total</TableCell>
+                        <TableCell align="center">Precio unitario</TableCell>
+                        <TableCell align="center">ACCIÓN</TableCell>
+                    </TableRow>
+                }
+                tableBody={
+                    movements.map((e: any, i: any) =>
+                        <TableRow
+                            key={i}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell align="center">{e.id}</TableCell>
+                            <TableCell align="center">{e.number_order}</TableCell>
+                            <TableCell align="center">{e.kindMovements.name}</TableCell>
+                            <TableCell align="center">{e.Products.name}</TableCell>
+                            <TableCell align="center">{e.quantity}</TableCell>
+                            <TableCell align="center">{e.totalPurchasePrice}</TableCell>
+                            <TableCell align="center">{
+                                e.unitPrice
+                            }</TableCell>
+                            <TableCell align="center"><IconButton aria-label="delete"  ><DeleteIcon fontSize="small" /></IconButton></TableCell>
+                        </TableRow>
+                    )
 
-                                <TableCell align="center">ID</TableCell>
-                                <TableCell align="center">DESCRIPCIÓN</TableCell>
-                                <TableCell align="center">CODIGO ADMIN</TableCell>
-                                <TableCell align="center">ACCIÓN</TableCell>
-                            </TableRow>
-                        }
-                        tableBody={
-                                <TableRow
-                                    key={1}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-
-                                    <TableCell component="th" scope="row">1</TableCell>
-                                    <TableCell align="center">ssss</TableCell>
-                                    <TableCell align="center">aaa</TableCell>
-                                    <TableCell align="center">
-                                        <Stack direction="row" alignItems="center" spacing={1}>
-                                            <IconButton aria-label="update" ><EditIcon fontSize="small" /></IconButton>
-                                            <IconButton aria-label="delete"  ><DeleteIcon fontSize="small" /></IconButton>
-                                        </Stack>
-                                    </TableCell>
-                                </TableRow>
-                            
-                        }
-                    />
+                }
+            />
                     {/*<TableUi columns={columns} rows={rows} />*/}
 
                 </Box>} />

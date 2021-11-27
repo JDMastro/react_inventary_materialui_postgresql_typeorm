@@ -1,3 +1,4 @@
+import { Movements } from 'src/movements/entities/movements.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, Unique, ManyToOne } from 'typeorm';
 import { Units } from "../../units/entities/units.entity";
 
@@ -69,5 +70,8 @@ export class Products {
 
   @Column({ name: 'delete_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   deleteAt: Date;
+
+  @ManyToOne(() => Movements, movements => movements.Products)
+  movements: Movements[];
 
 }
