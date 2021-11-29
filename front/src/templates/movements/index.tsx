@@ -112,7 +112,7 @@ export function Movements()
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell align="center">{e.id}</TableCell>
-                            <TableCell align="center">{e.number_order}</TableCell>
+                            <TableCell align="center">{e.Header.number_order}</TableCell>
                             <TableCell align="center">{e.kindMovements.name}</TableCell>
                             <TableCell align="center">{e.Products.name}</TableCell>
                             <TableCell align="center">{e.quantity}</TableCell>

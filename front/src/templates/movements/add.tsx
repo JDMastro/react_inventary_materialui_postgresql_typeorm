@@ -62,8 +62,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
     };
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
-        console.log(values)
-
+        
 
         setdisablebtns(true)
 
@@ -81,6 +80,8 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
             
                 setRefresh(!refresh)
                 handleClick()
+
+                console.log(e)
 
                 findNumberOrder(values.numorder)
 
@@ -288,7 +289,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
 
             {/* --------------------------------*/}
 
-            <AddTable movements={movements} findNumberOrder={findNumberOrder} />
+            <AddTable movements={movements} findNumberOrder={findNumberOrder} number_order={formik.values.numorder} />
 
             <Stack
                 direction="row"

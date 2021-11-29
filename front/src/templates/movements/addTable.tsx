@@ -12,7 +12,7 @@ import { MovementsRequest } from "../../services/MovementsService";
 
 
 
-export function AddTable({ movements, findNumberOrder }: any) {
+export function AddTable({ movements, findNumberOrder, number_order }: any) {
     return (
         <Box style={{ marginTop: "5px" }}>
             <TableNormalUi
@@ -43,7 +43,7 @@ export function AddTable({ movements, findNumberOrder }: any) {
                             }</TableCell>
                             <TableCell align="center"><IconButton aria-label="delete" onClick={
                                 () => {
-                                    MovementsRequest.delete(e.id).then(res => findNumberOrder(e.number_order)  ); 
+                                    MovementsRequest.delete(e.id).then(res => findNumberOrder(number_order)  ); 
                                   
                                 }
                             }  ><DeleteIcon fontSize="small" /></IconButton></TableCell>

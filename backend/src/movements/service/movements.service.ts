@@ -1,33 +1,70 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Movements } from "../entities/movements.entity"
+import { Header } from '../../header/entities/header.entity';
+
+import { getManager } from "typeorm";
+import { Movements } from 'src/movements/entities/movements.entity';
 
 @Injectable()
 export class MovementsService {
     constructor(
         @InjectRepository(Movements) private MovementsRepo: Repository<Movements>,
+        @InjectRepository(Header) private HeaderRepo: Repository<Header>,
     ) { }
 
     async findAll() {
-        return this.MovementsRepo.find({ relations: ["kindMovements", "Person", "Products"] });
+        return await this.MovementsRepo.find({ relations: ["kindMovements", "Products", "Header", "Header.Person"] });
     }
 
     async findNumberOrder(number: number) {
-        return this.MovementsRepo.find({ relations: ["kindMovements", "Person", "Products"], where: { number_order: number } });
+        //return await this.MovementsRepo.find({ relations: ["kindMovements", "Products", "Header", "Header.Person"], where: { header_id: number } });
+        const res = await this.HeaderRepo.find({ relations : ["Person", "Movements", "Movements.kindMovements", "Movements.Products"], where : { number_order : number }  })
+        return res[0].Movements
     }
 
-    create(body: any) {
-        const newMovements = new Movements();
-        newMovements.kindMovements_id = body.kindMovements_id
-        newMovements.personOrProvider_id = body.personOrProvider_id
-        newMovements.number_order = body.number_order
-        newMovements.product_id = body.product_id
-        newMovements.quantity = body.quantity
-        newMovements.totalPurchasePrice = body.totalPurchasePrice
-        newMovements.unitPrice = body.unitPrice
+    async create(body: any) {
 
-        return this.MovementsRepo.save(newMovements);
+       //const check_header = await this.HeaderRepo.find({ where : { number_order : body.number_order } })
+       
+      
+        getManager().transaction(async manager => {
+
+            const check_header = await manager.find(Header, { where : {number_order : body.number_order} })
+
+            
+             if(check_header.length > 0)
+            {
+                await manager.insert(Movements,{
+                    kindMovements_id : body.kindMovements_id,
+                    product_id : body.product_id,
+                    quantity : body.quantity,
+                    totalPurchasePrice : body.totalPurchasePrice,
+                    unitPrice : body.unitPrice,
+                    header_id : check_header[0].id
+                })
+            }else{
+                const header_id = await manager.insert(Header,{
+                    person_id : body.personOrProvider_id,
+                    number_order : body.number_order
+                })
+    
+                await manager.insert(Movements,{
+                    kindMovements_id : body.kindMovements_id,
+                    product_id : body.product_id,
+                    quantity : body.quantity,
+                    totalPurchasePrice : body.totalPurchasePrice,
+                    unitPrice : body.unitPrice,
+                    header_id : header_id.raw[0].id
+                })
+    
+            }
+
+          
+        });
+
+        return  this.HeaderRepo.find({ where : {number_order : body.number_order} })
+
     }
 
     async remove(id: number) {

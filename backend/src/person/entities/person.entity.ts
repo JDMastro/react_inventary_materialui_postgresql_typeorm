@@ -1,6 +1,7 @@
 import { Movements } from 'src/movements/entities/movements.entity';
-import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Kindidentity } from "../../kindidentity/entities/kindidentity.entity";
+import { Header } from "../../header/entities/header.entity";
 
 @Entity()
 @Unique("idx_person",["phone","idnumber"])
@@ -58,14 +59,19 @@ export class Person {
   })
   creationAt: Date;
   
-  @Column({ name: 'updated_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  @Column("timestamp", { precision: 3, default: () => "CURRENT_TIMESTAMP(3)", onUpdate: "CURRENT_TIMESTAMP(3)"})
+  updateAt: Date;
 
   @Column({ name: 'delete_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   deleteAt: Date;  
 
 
-  @ManyToOne(() => Movements, movements => movements.Person)
-  movements: Movements[];
+  /*@ManyToOne(() => Movements, movements => movements.Person)
+  movements: Movements[];*/
+
+
+  @OneToMany(() => Header, Header => Header.Person)
+  Headers: Header[];
+
 }
 
