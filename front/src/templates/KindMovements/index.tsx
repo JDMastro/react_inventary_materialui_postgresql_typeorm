@@ -13,6 +13,8 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 
+
+
 import { KindMovementsRequest } from "../../services/kindmovementsService";
 
 
@@ -22,6 +24,10 @@ import TableRow from '@mui/material/TableRow';
 import { Addkindmovements } from "./add";
 import { UpdateMovements } from "./update";
 import { Deletemovements } from "./delete";
+
+import Fab from '@mui/material/Fab';
+import { green } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
 
 
 export function KindMovements() {
@@ -73,7 +79,7 @@ export function KindMovements() {
                             <SupervisedUserCircleIcon />
                         </Avatar>
                         <Typography>Tipo de movimiento</Typography>
-                        <IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon fontSize="small" /></IconButton>
+                        {/*<IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon fontSize="small" /></IconButton>*/}
 
                     </Stack>
 
@@ -82,10 +88,10 @@ export function KindMovements() {
                         tableHead={
                             <TableRow >
 
-                                <TableCell align="center">Id</TableCell>
-                                <TableCell align="center">Nombre</TableCell>
-                                <TableCell align="center">Descripción</TableCell>
-                                <TableCell align="center">Acción</TableCell>
+                                <TableCell align="left">Id</TableCell>
+                                <TableCell align="left">Nombre</TableCell>
+                                <TableCell align="left">Descripción</TableCell>
+                                <TableCell align="left">Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -96,12 +102,12 @@ export function KindMovements() {
                                 >
 
                                     <TableCell component="th" scope="row">{data.id}</TableCell>
-                                    <TableCell align="center">{data.name}</TableCell>
-                                    <TableCell align="center">{data.description}</TableCell>
-                                    <TableCell align="center">
+                                    <TableCell align="left">{data.name}</TableCell>
+                                    <TableCell align="left">{data.description}</TableCell>
+                                    <TableCell align="left">
                                         <Stack direction="row" alignItems="center" spacing={1}>
-                                            <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" /></IconButton>
-                                            <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" /></IconButton>
+                                            <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon color="primary" fontSize="small" /></IconButton>
+                                            <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" sx={{ color: red[700] }} /></IconButton>
                                         </Stack>
                                     </TableCell>
                                 </TableRow>
@@ -111,6 +117,18 @@ export function KindMovements() {
                     {/*<TableUi columns={columns} rows={rows} />*/}
 
                 </Box>} />
+
+                <Fab sx={{
+                position: 'absolute',
+                bottom: 16,
+                right: 16,
+                bgcolor: green[600],
+                '&:hover': {
+                    bgcolor: green[500],
+                  },
+            }} size="small" color="primary" onClick={handleClickOpenModalAdd}  aria-label="add">
+                <AddIcon />
+            </Fab>
 
             <AlertDialogUi
                 handleClose={handleCloseModalUpdate}

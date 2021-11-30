@@ -7,9 +7,9 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import PersonIcon from '@mui/icons-material/Person';
+//import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+//import AssignmentIcon from '@mui/icons-material/Assignment';
+//import PersonIcon from '@mui/icons-material/Person';
 
 
 export function SideBarList() {
@@ -67,33 +67,22 @@ export function SideBarList() {
     <div>
       <Toolbar />
       <Divider />
-      <List component="nav" aria-label="main mailbox folders">
+      <List component="nav" aria-label="main mailbox folders" >
         <ListItemButton
           selected={selectedIndex === 0}
           onClick={(event: any) => handleListItemClick(event, 0)}
           component={Link}
           to={`/`}
         >
-          <ListItemIcon>
+          <ListItemIcon style={{ marginRight: '-25px' }} >
             <DashboardIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Inicio" />
         </ListItemButton>
 
-        {/*<ListItemButton
-                    selected={selectedIndex === 1}
-                    onClick={(event: any) => handleListItemClick(event, 1)}
-                    component={Link}
-                    to={`/inventary`}
-                >
-                    <ListItemIcon>
-                        <InventoryIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Inventario Mayor" />
-                </ListItemButton>*/}
-
-        <ListItemButton onClick={handleClick}>
-          <ListItemIcon>
+   
+        <ListItemButton onClick={handleClick} >
+          <ListItemIcon style={{ marginRight: '-25px' }} >
             <InventoryIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Maestro" />
@@ -103,37 +92,31 @@ export function SideBarList() {
           <List component="div" disablePadding>
 
 
-            <ListItemButton sx={{ pl: 4 }}
+            <ListItemButton sx={{ pl: 5 }}
               selected={selectedIndex === 4}
               onClick={(event: any) => handleListItemClick(event, 4)}
               component={Link}
               to={`/maestro/units`}>
-              <ListItemIcon>
-                <AssignmentIcon fontSize="small" />
-              </ListItemIcon>
+
               <ListItemText primary="Unidades" />
             </ListItemButton>
 
 
-            <ListItemButton sx={{ pl: 4 }}
+            <ListItemButton sx={{ pl: 5 }}
               selected={selectedIndex === 3}
               onClick={(event: any) => handleListItemClick(event, 3)}
               component={Link}
               to={`/maestro/kindid`}>
-              <ListItemIcon>
-                <AssignmentIcon fontSize="small" />
-              </ListItemIcon>
+
               <ListItemText primary="Tipo de identificación" />
             </ListItemButton>
 
-            <ListItemButton sx={{ pl: 4 }}
+            <ListItemButton sx={{ pl: 5 }}
               selected={selectedIndex === 5}
               onClick={(event: any) => handleListItemClick(event, 5)}
               component={Link}
               to={`/maestro/person`}>
-              <ListItemIcon>
-                <PersonIcon fontSize="small" />
-              </ListItemIcon>
+
               <ListItemText primary="Proveedores y clientes" />
             </ListItemButton>
 
@@ -142,15 +125,22 @@ export function SideBarList() {
 
 
 
-            <ListItemButton sx={{ pl: 4 }}
+            <ListItemButton sx={{ pl: 5 }}
               selected={selectedIndex === 1}
               onClick={(event: any) => handleListItemClick(event, 1)}
               component={Link}
               to={`/maestro/product`}>
-              <ListItemIcon>
-                <AddShoppingCartIcon fontSize="small" />
-              </ListItemIcon>
+
               <ListItemText primary="Productos" />
+            </ListItemButton>
+
+            <ListItemButton sx={{ pl: 5 }}
+              selected={selectedIndex === 6}
+              onClick={(event: any) => handleListItemClick(event, 6)}
+              component={Link}
+              to={`/maestro/kindmovements`}>
+
+              <ListItemText primary="Tipos de movimiento" />
             </ListItemButton>
 
 
@@ -160,36 +150,27 @@ export function SideBarList() {
 
 
         <ListItemButton onClick={handleClickInventary}>
-          <ListItemIcon>
+          <ListItemIcon style={{ marginRight: '-25px' }}>
             <InventoryIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Inventario" />
+
+          <ListItemText
+          primary="Inventario"
+             />
           {openInventary ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openInventary} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-
-            <ListItemButton sx={{ pl: 4 }}
-              selected={selectedIndex === 6}
-              onClick={(event: any) => handleListItemClick(event, 6)}
-              component={Link}
-              to={`/maestro/kindmovements`}>
-              <ListItemIcon>
-                <AssignmentIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Tipos de movimiento" />
-            </ListItemButton>
-
-
-            <ListItemButton sx={{ pl: 4 }}
+            <ListItemButton sx={{ pl: 5 }}
               selected={selectedIndex === 7}
               onClick={(event: any) => handleListItemClick(event, 7)}
               component={Link}
               to={`/maestro/movements`}>
-              <ListItemIcon>
-                <AssignmentIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Movimiento" />
+
+              <ListItemText
+                 disableTypography
+                 primary="Movimiento"
+               />
             </ListItemButton>
 
 

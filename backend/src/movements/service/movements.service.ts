@@ -5,6 +5,9 @@ import { Header } from '../../header/entities/header.entity';
 
 import { getManager } from "typeorm";
 import { Movements } from 'src/movements/entities/movements.entity';
+import { KindMovements } from '../../kindmovements/entities/kindmovements.entity';
+import { Products } from "../../products/entities/product.entity";
+
 
 @Injectable()
 export class MovementsService {
@@ -29,11 +32,13 @@ export class MovementsService {
        
       
         getManager().transaction(async manager => {
-
             const check_header = await manager.find(Header, { where : {number_order : body.number_order} })
+            const check_kindmov = await manager.find(KindMovements,{ where :{ id : body.kindMovements_id } })
 
+            console.log(check_kindmov)
             
-             if(check_header.length > 0)
+            
+             /*if(check_header.length > 0)
             {
                 await manager.insert(Movements,{
                     kindMovements_id : body.kindMovements_id,
@@ -58,12 +63,12 @@ export class MovementsService {
                     header_id : header_id.raw[0].id
                 })
     
-            }
+            }*/
 
           
         });
 
-        return  this.HeaderRepo.find({ where : {number_order : body.number_order} })
+        //return  this.HeaderRepo.find({ where : {number_order : body.number_order} })
 
     }
 

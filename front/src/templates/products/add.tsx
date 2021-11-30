@@ -15,10 +15,9 @@ import { ProductsRequest } from "../../services/productService";
 import MenuItem from '@mui/material/MenuItem';
 import { FormikHelpers } from "formik";
 
-
-import SendIcon from '@mui/icons-material/Send';
-import CancelIcon from '@mui/icons-material/Cancel';
 import React from 'react';
+
+import Divider from '@mui/material/Divider';
 
 export function AddProduct({ products, handleClose, units, setRefresh, refresh }: any) {
     const [severity, setSeverity] = React.useState("success");
@@ -135,7 +134,8 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
                             name="current_existence"
                             onChange={formik.handleChange}
                             type="number"
-                            value={formik.values.current_existence}
+                            disabled={true}
+                            value={formik.values.current_existence = '0'}
                         />
                     </Grid>
 
@@ -186,6 +186,7 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
                             menuItems={products.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)}
 
                         />
+                        <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
 
@@ -204,8 +205,8 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" />
 
                 </Stack>
 

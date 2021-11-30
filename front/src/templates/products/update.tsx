@@ -16,9 +16,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { FormikHelpers } from "formik";
 
 
-import SendIcon from '@mui/icons-material/Send';
-import CancelIcon from '@mui/icons-material/Cancel';
 import React from 'react';
+
+import Divider from '@mui/material/Divider';
 
 
 export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }: any) {
@@ -165,6 +165,7 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
                             menuItems={units.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name} : ${data.description}`}</MenuItem>)}
 
                         />
+                        <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
 
@@ -183,8 +184,8 @@ export function UpdateProduct({ handleClose, units, setRefresh, refresh, data }:
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" />
 
                 </Stack>
 

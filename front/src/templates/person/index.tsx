@@ -24,6 +24,10 @@ import { AddPerson } from "./add";
 import { UpdatePerson } from "./update";
 import { DeletePerson } from "./delete";
 
+import Fab from '@mui/material/Fab';
+import { green } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
+
 export function Person() {
     const [openModalUpdate, setOpenModalUpdate] = React.useState(false);
     const [openModalDelete, setOpenModalDelete] = React.useState(false);
@@ -80,21 +84,21 @@ export function Person() {
                             <SupervisedUserCircleIcon />
                         </Avatar>
                         <Typography>Personas</Typography>
-                        <IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon  fontSize="small" /></IconButton>
+                        {/*<IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon  fontSize="small" /></IconButton>*/}
 
                     </Stack>
                     <TableNormalUi
                         tableHead={
                             <TableRow >
-                                <TableCell align="center">Id</TableCell>
-                                <TableCell align="center">Tipo de identificación</TableCell>
-                                <TableCell align="center">Identificación</TableCell>
-                                <TableCell align="center">Nombre completo</TableCell>
-                                <TableCell align="center">Tipo</TableCell>
-                                <TableCell align="center">Dirección</TableCell>
-                                <TableCell align="center">Teléfono</TableCell>
-                                <TableCell align="center">Contacto</TableCell>
-                                <TableCell align="center">Acción</TableCell>
+                                <TableCell align="left">Id</TableCell>
+                                <TableCell align="left">Tipo De Identificación</TableCell>
+                                <TableCell align="left">Identificación</TableCell>
+                                <TableCell align="left">Nombre Completo</TableCell>
+                                <TableCell align="left">Tipo</TableCell>
+                                <TableCell align="left">Dirección</TableCell>
+                                <TableCell align="left">Teléfono</TableCell>
+                                <TableCell align="left">Contacto</TableCell>
+                                <TableCell align="left">Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -104,19 +108,19 @@ export function Person() {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
 
-                                    <TableCell component="th" scope="row">{data.id}</TableCell>
-                                    <TableCell component="th" scope="row">{data.Kindidentity.name}</TableCell>
-                                    <TableCell component="th" scope="row">{data.idnumber}</TableCell>
-                                    <TableCell component="th" scope="row">{data.fullname}</TableCell>
-                                    <TableCell component="th" scope="row">{data.provider ? "Proveedor" : "Cliente" }</TableCell>
-                                    <TableCell component="th" scope="row">{data.address}</TableCell>
-                                    <TableCell component="th" scope="row">{data.phone}</TableCell>
-                                    <TableCell component="th" scope="row">{data.contact}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.id}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.Kindidentity.name}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.idnumber}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.fullname}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.provider ? "Proveedor" : "Cliente" }</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.address}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.phone}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.contact}</TableCell>
 
-                                    <TableCell align="center">
+                                    <TableCell align="left">
                                         <Stack direction="row" alignItems="center" spacing={1}>
-                                            <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" /></IconButton>
-                                            <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" /></IconButton>
+                                            <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" color="primary" /></IconButton>
+                                            <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" sx={{ color: red[700] }} /></IconButton>
                                         </Stack>
                                     </TableCell>
                                 </TableRow>
@@ -127,25 +131,37 @@ export function Person() {
 
                 </Box>} />
 
+                <Fab sx={{
+                position: 'absolute',
+                bottom: 16,
+                right: 16,
+                bgcolor: green[600],
+                '&:hover': {
+                    bgcolor: green[500],
+                  },
+            }} size="small" color="primary" onClick={handleClickOpenModalAdd}  aria-label="add">
+                <AddIcon />
+            </Fab>
+
             <AlertDialogUi
                 handleClose={handleCloseModalUpdate}
                 content={<UpdatePerson kind={kind} handleClose={handleCloseModalUpdate} setRefresh={setRefresh} refresh={refresh} data={data} />}
                 open={openModalUpdate}
-                title="Edit"
+                title=""
             />
 
             <AlertDialogUi
                 handleClose={handleCloseModalDelete}
                 content={<DeletePerson handleClose={handleCloseModalDelete} setRefresh={setRefresh} refresh={refresh} data={data} />}
                 open={openModalDelete}
-                title="Delete"
+                title=""
             />
 
             <AlertDialogUi
                 handleClose={handleCloseModalAdd}
                 content={<AddPerson refresh={refresh} kind={kind} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
                 open={openModalAdd}
-                title="Add"
+                title=""
             />
         </Box>
     )

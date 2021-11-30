@@ -1,7 +1,5 @@
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import SendIcon from '@mui/icons-material/Send';
-import CancelIcon from '@mui/icons-material/Cancel';
 
 
 import { Snackbars } from "../../components/snackbars";
@@ -9,6 +7,10 @@ import { ButtonUi } from "../../components/button/index";
 import { personRequest } from "../../services/personService";
 import { Typography } from '@material-ui/core';
 import React from 'react';
+
+
+import Divider from '@mui/material/Divider';
+
 
 
 export function DeletePerson({ handleClose, setRefresh, refresh, data }: any) {
@@ -43,6 +45,7 @@ export function DeletePerson({ handleClose, setRefresh, refresh, data }: any) {
             <Box component="form">
 
                 <Typography>{`¿ Desea eliminar este registro ?`} </Typography>
+                <Divider style={{ marginTop : '15px' }} />
 
                 <Stack
                         direction="row"
@@ -50,8 +53,8 @@ export function DeletePerson({ handleClose, setRefresh, refresh, data }: any) {
                         alignItems="flex-start"
                         spacing={2}
                     >
-                        <ButtonUi disabled={false} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                        <ButtonUi disabled={false} text="Enviar" type="button" onClick={()=> deleteProduct()} Icon={<SendIcon fontSize="small" />} />
+                        <ButtonUi disabled={false} text="Cancelar" type="button" onClick={handleClose} />
+                        <ButtonUi disabled={false} text="Enviar" type="button" onClick={()=> deleteProduct()} />
 
                     </Stack>
 

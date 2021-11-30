@@ -16,11 +16,10 @@ import { ButtonUi } from "../../components/button/index";
 import { KindMovementsRequest } from "../../services/kindmovementsService";
 
 import { FormikHelpers } from "formik";
-
-
-import SendIcon from '@mui/icons-material/Send';
-import CancelIcon from '@mui/icons-material/Cancel';
 import React from 'react';
+
+
+import Divider from '@mui/material/Divider';
 
 
 export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
@@ -115,6 +114,7 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                             name="entry"
                             onChange={formik.handleChange}
                         />
+                        <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
                    
@@ -138,8 +138,8 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} />
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" />
 
                 </Stack>
 

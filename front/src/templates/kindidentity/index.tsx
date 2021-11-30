@@ -23,6 +23,10 @@ import { AddKindId } from "./add";
 import { UpdateKindId } from "./update";
 import { DeleteKindId } from "./delete";
 
+import Fab from '@mui/material/Fab';
+import { green } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
+
 
 export function KindIdentity() {
     const [openModalUpdate, setOpenModalUpdate] = React.useState(false);
@@ -73,17 +77,17 @@ export function KindIdentity() {
                             <SupervisedUserCircleIcon />
                         </Avatar>
                         <Typography>Tipo de identificacion</Typography>
-                        <IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon fontSize="small" /></IconButton>
+                        {/*<IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon fontSize="small" /></IconButton>*/}
 
                     </Stack>
                     <TableNormalUi
                         tableHead={
                             <TableRow >
 
-                                <TableCell align="center">Id</TableCell>
-                                <TableCell align="center">Nombre</TableCell>
-                                <TableCell align="center">Código</TableCell>
-                                <TableCell align="center">Acción</TableCell>
+                                <TableCell align="left">Id</TableCell>
+                                <TableCell align="left">Nombre</TableCell>
+                                <TableCell align="left">Código</TableCell>
+                                <TableCell align="left">Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -94,13 +98,13 @@ export function KindIdentity() {
                                 >
 
                                     <TableCell component="th" scope="row">{data.id}</TableCell>
-                                    <TableCell align="center">{data.name}</TableCell>
-                                    <TableCell align="center">{data.code}</TableCell>
+                                    <TableCell align="left">{data.name}</TableCell>
+                                    <TableCell align="left">{data.code}</TableCell>
                                     
-                                    <TableCell align="center">
+                                    <TableCell align="left">
                                         <Stack direction="row" alignItems="center" spacing={1}>
-                                            <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" /></IconButton>
-                                            <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" /></IconButton>
+                                            <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon color="primary" fontSize="small" /></IconButton>
+                                            <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon sx={{ color: red[700] }} fontSize="small" /></IconButton>
                                         </Stack>
                                     </TableCell>
                                 </TableRow>
@@ -110,6 +114,18 @@ export function KindIdentity() {
                     {/*<TableUi columns={columns} rows={rows} />*/}
 
                 </Box>} />
+
+                <Fab sx={{
+                position: 'absolute',
+                bottom: 16,
+                right: 16,
+                bgcolor: green[600],
+                '&:hover': {
+                    bgcolor: green[500],
+                  },
+            }} size="small" color="primary" onClick={handleClickOpenModalAdd}  aria-label="add">
+                <AddIcon />
+            </Fab>
 
             <AlertDialogUi
                 handleClose={handleCloseModalUpdate}

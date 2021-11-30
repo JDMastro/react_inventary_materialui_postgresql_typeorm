@@ -14,11 +14,9 @@ import { ButtonUi } from "../../components/button/index";
 import { KindIdRequest } from "../../services/KindIdentityService";
 
 import { FormikHelpers } from "formik";
-
-
-import SendIcon from '@mui/icons-material/Send';
-import CancelIcon from '@mui/icons-material/Cancel';
 import React from 'react';
+
+import Divider from '@mui/material/Divider';
 
 
 export function AddKindId({ handleClose, setRefresh, refresh }: any) {
@@ -94,6 +92,7 @@ export function AddKindId({ handleClose, setRefresh, refresh }: any) {
                             type="text"
                             value={formik.values.code_admin}
                         />
+                         <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
 
@@ -114,8 +113,8 @@ export function AddKindId({ handleClose, setRefresh, refresh }: any) {
                     alignItems="flex-start"
                     spacing={2}
                 >
-                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" Icon={<SendIcon fontSize="small" />} />
+                    <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose}/>
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit"/>
 
                 </Stack>
 
