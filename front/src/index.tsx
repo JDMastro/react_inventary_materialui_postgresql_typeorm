@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+
+import { Routes } from "./routes/routes";
 
 
 
@@ -15,7 +17,7 @@ ReactDOM.render(
     
     <Router>
       <ThemeProvider  theme={THEME}>
-   <App />
+   <Routes />
    </ThemeProvider>
    
    </Router>

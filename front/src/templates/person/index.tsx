@@ -90,15 +90,15 @@ export function Person() {
                     <TableNormalUi
                         tableHead={
                             <TableRow >
-                                <TableCell align="left">Id</TableCell>
-                                <TableCell align="left">Tipo De Identificación</TableCell>
-                                <TableCell align="left">Identificación</TableCell>
-                                <TableCell align="left">Nombre Completo</TableCell>
-                                <TableCell align="left">Tipo</TableCell>
-                                <TableCell align="left">Dirección</TableCell>
-                                <TableCell align="left">Teléfono</TableCell>
-                                <TableCell align="left">Contacto</TableCell>
-                                <TableCell align="left">Acción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Id</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Tipo Id</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Identificación</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Nombre Completo</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Descripción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Dirección</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Teléfono</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Contacto</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -118,7 +118,7 @@ export function Person() {
                                     <TableCell align="left" component="th" scope="row">{data.contact}</TableCell>
 
                                     <TableCell align="left">
-                                        <Stack direction="row" alignItems="center" spacing={1}>
+                                        <Stack direction="row" alignItems="center">
                                             <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" color="primary" /></IconButton>
                                             <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" sx={{ color: red[700] }} /></IconButton>
                                         </Stack>

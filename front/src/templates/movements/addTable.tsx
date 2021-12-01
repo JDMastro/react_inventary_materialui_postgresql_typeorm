@@ -18,13 +18,13 @@ export function AddTable({ movements, findNumberOrder, number_order }: any) {
             <TableNormalUi
                 tableHead={
                     <TableRow >
-                        <TableCell align="center">Id</TableCell>
-                        <TableCell align="center">Tipo de Movimiento</TableCell>
-                        <TableCell align="center">Producto</TableCell>
-                        <TableCell align="center">Cantidad</TableCell>
-                        <TableCell align="center">Precio Total</TableCell>
-                        <TableCell align="center">Precio unitario</TableCell>
-                        <TableCell align="center">Acción</TableCell>
+                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Id</TableCell>
+                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Tipo de Movimiento</TableCell>
+                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Producto</TableCell>
+                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Cantidad</TableCell>
+                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Precio Total</TableCell>
+                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Precio unitario</TableCell>
+                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Acción</TableCell>
                     </TableRow>
                 }
                 tableBody={

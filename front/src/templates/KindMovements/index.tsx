@@ -88,10 +88,10 @@ export function KindMovements() {
                         tableHead={
                             <TableRow >
 
-                                <TableCell align="left">Id</TableCell>
-                                <TableCell align="left">Nombre</TableCell>
-                                <TableCell align="left">Descripción</TableCell>
-                                <TableCell align="left">Acción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Id</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Nombre</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Descripción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -105,7 +105,7 @@ export function KindMovements() {
                                     <TableCell align="left">{data.name}</TableCell>
                                     <TableCell align="left">{data.description}</TableCell>
                                     <TableCell align="left">
-                                        <Stack direction="row" alignItems="center" spacing={1}>
+                                        <Stack direction="row" alignItems="center">
                                             <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon color="primary" fontSize="small" /></IconButton>
                                             <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" sx={{ color: red[700] }} /></IconButton>
                                         </Stack>

@@ -74,7 +74,7 @@ export function AddKindId({ handleClose, setRefresh, refresh }: any) {
                         <TextFieldUi
                             autofocus={true}
                             error={formik.errors.description}
-                            label="Nombre *"
+                            label="Descripción *"
                             name="description"
                             onChange={formik.handleChange}
                             type="text"
@@ -86,7 +86,7 @@ export function AddKindId({ handleClose, setRefresh, refresh }: any) {
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.code_admin}
-                            label="Código *"
+                            label="Sigla *"
                             name="code_admin"
                             onChange={formik.handleChange}
                             type="text"

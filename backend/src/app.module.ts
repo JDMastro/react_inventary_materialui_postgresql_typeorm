@@ -18,7 +18,7 @@ import { MovementsModule } from './movements/movements.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '1234',
+      password: '1995',
       database: 'test',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: false,

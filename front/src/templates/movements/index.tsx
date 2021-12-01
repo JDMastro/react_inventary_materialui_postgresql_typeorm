@@ -22,6 +22,9 @@ import { KindMovementsRequest } from "../../services/kindmovementsService";
 import { MovementsRequest } from "../../services/MovementsService";
 
 
+import Fab from '@mui/material/Fab';
+import { green } from '@mui/material/colors';
+
 import { AddMovements } from "./add";
 
 
@@ -89,20 +92,20 @@ export function Movements()
                             <SupervisedUserCircleIcon />
                         </Avatar>
                         <Typography>Movimientos</Typography>
-                        <IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon fontSize="small" /></IconButton>
+                        {/*<IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon fontSize="small" /></IconButton>*/}
 
                     </Stack>
                     <TableNormalUi
                 tableHead={
                     <TableRow >
-                        <TableCell align="center">Id</TableCell>
-                        <TableCell align="center">Numero de orden</TableCell>
-                        <TableCell align="center">Tipo de Movimiento</TableCell>
-                        <TableCell align="center">Producto</TableCell>
-                        <TableCell align="center">Cantidad</TableCell>
-                        <TableCell align="center">Precio Total</TableCell>
-                        <TableCell align="center">Precio unitario</TableCell>
-                        <TableCell align="center">Acción</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Id</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Numero de orden</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Tipo de Movimiento</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Producto</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Cantidad</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Precio Total</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Precio unitario</TableCell>
+                        <TableCell align="left" style={{ fontWeight : 'bold' }}>Acción</TableCell>
                     </TableRow>
                 }
                 tableBody={
@@ -111,16 +114,16 @@ export function Movements()
                             key={i}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell align="center">{e.id}</TableCell>
-                            <TableCell align="center">{e.Header.number_order}</TableCell>
-                            <TableCell align="center">{e.kindMovements.name}</TableCell>
-                            <TableCell align="center">{e.Products.name}</TableCell>
-                            <TableCell align="center">{e.quantity}</TableCell>
-                            <TableCell align="center">{e.totalPurchasePrice}</TableCell>
-                            <TableCell align="center">{
+                            <TableCell align="left">{e.id}</TableCell>
+                            <TableCell align="left">{e.Header.number_order}</TableCell>
+                            <TableCell align="left">{e.kindMovements.name}</TableCell>
+                            <TableCell align="left">{e.Products.name}</TableCell>
+                            <TableCell align="left">{e.quantity}</TableCell>
+                            <TableCell align="left">{e.totalPurchasePrice}</TableCell>
+                            <TableCell align="left">{
                                 e.unitPrice
                             }</TableCell>
-                            <TableCell align="center"><IconButton aria-label="delete"  ><DeleteIcon fontSize="small" /></IconButton></TableCell>
+                            <TableCell align="left"><IconButton aria-label="delete"  ><DeleteIcon fontSize="small" /></IconButton></TableCell>
                         </TableRow>
                     )
 
@@ -129,6 +132,18 @@ export function Movements()
                     {/*<TableUi columns={columns} rows={rows} />*/}
 
                 </Box>} />
+
+                <Fab sx={{
+                position: 'absolute',
+                bottom: 16,
+                right: 16,
+                bgcolor: green[600],
+                '&:hover': {
+                    bgcolor: green[500],
+                  },
+            }} size="small" color="primary" onClick={handleClickOpenModalAdd}  aria-label="add">
+                <AddIcon />
+            </Fab>
 
             {/*<AlertDialogUi
                 handleClose={handleCloseModalUpdate}

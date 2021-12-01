@@ -94,14 +94,14 @@ export function Products() {
                         tableHead={
                             <TableRow >
 
-                                <TableCell align="left">ID</TableCell>
-                                <TableCell align="left">Nombre</TableCell>
-                                <TableCell align="left">Descripción</TableCell>
-                                <TableCell align="left">Und. Compra</TableCell>
-                                <TableCell align="left">Und. Venta</TableCell>
-                                <TableCell align="left">Existencia</TableCell>
-                                <TableCell align="left">Cantidad Reservada </TableCell>
-                                <TableCell align="left">Acción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Id</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Nombre</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Descripción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Und.Compra</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Und.Venta</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Existencia</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Reservados </TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -119,7 +119,7 @@ export function Products() {
                                     <TableCell align="left">{data.current_existence}</TableCell>
                                     <TableCell align="left">{data.reserved_quantity}</TableCell>
                                     <TableCell align="left">
-                                        <Stack direction="row" alignItems="center" spacing={1}>
+                                        <Stack direction="row" alignItems="center">
                                             <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon fontSize="small" color="primary" /></IconButton>
                                             <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" sx={{ color: red[700] }} /></IconButton>
                                         </Stack>

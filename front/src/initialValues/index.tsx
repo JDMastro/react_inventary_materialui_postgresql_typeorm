@@ -52,3 +52,8 @@ export const initialValuesMovements: initialFValuesTypes = {
     unitprice : ""
 }
 
+export const initialValuesSignIn: initialFValuesTypes = {
+  email: "",
+  password: ""
+}
+

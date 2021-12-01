@@ -89,10 +89,10 @@ export function Units() {
                         tableHead={
                             <TableRow >
 
-                                <TableCell align="left">ID</TableCell>
-                                <TableCell align="left">Sigla</TableCell>
-                                <TableCell align="left">Nombre</TableCell>
-                                <TableCell align="left">Acción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Id</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Sigla</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Descripción</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Acción</TableCell>
                             </TableRow>
                         }
                         tableBody={
@@ -107,7 +107,7 @@ export function Units() {
                                     <TableCell align="left">{data.description}</TableCell>
 
                                     <TableCell align="right">
-                                        <Stack direction="row" alignItems="center" spacing={1}>
+                                        <Stack direction="row" alignItems="center">
                                             <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon color="primary" fontSize="small" /></IconButton>
                                             <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" sx={{ color: red[700] }} /></IconButton>
                                         </Stack>

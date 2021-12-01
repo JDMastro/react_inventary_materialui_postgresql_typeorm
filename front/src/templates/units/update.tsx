@@ -94,7 +94,7 @@ export function UpdateUnit({ handleClose, setRefresh, refresh, data }: any) {
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.description}
-                            label="Nombre *"
+                            label="Descripción *"
                             name="description"
                             onChange={formik.handleChange}
                             type="text"

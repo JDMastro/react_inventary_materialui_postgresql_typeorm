@@ -72,7 +72,7 @@ export function SideBarList() {
           selected={selectedIndex === 0}
           onClick={(event: any) => handleListItemClick(event, 0)}
           component={Link}
-          to={`/`}
+          to={`/dashboard/`}
         >
           <ListItemIcon style={{ marginRight: '-25px' }} >
             <DashboardIcon fontSize="small" />
@@ -96,7 +96,7 @@ export function SideBarList() {
               selected={selectedIndex === 4}
               onClick={(event: any) => handleListItemClick(event, 4)}
               component={Link}
-              to={`/maestro/units`}>
+              to={`/dashboard/maestro/units`}>
 
               <ListItemText primary="Unidades" />
             </ListItemButton>
@@ -106,7 +106,7 @@ export function SideBarList() {
               selected={selectedIndex === 3}
               onClick={(event: any) => handleListItemClick(event, 3)}
               component={Link}
-              to={`/maestro/kindid`}>
+              to={`/dashboard/maestro/kindid`}>
 
               <ListItemText primary="Tipo de identificación" />
             </ListItemButton>
@@ -115,7 +115,7 @@ export function SideBarList() {
               selected={selectedIndex === 5}
               onClick={(event: any) => handleListItemClick(event, 5)}
               component={Link}
-              to={`/maestro/person`}>
+              to={`/dashboard/maestro/person`}>
 
               <ListItemText primary="Proveedores y clientes" />
             </ListItemButton>
@@ -129,7 +129,7 @@ export function SideBarList() {
               selected={selectedIndex === 1}
               onClick={(event: any) => handleListItemClick(event, 1)}
               component={Link}
-              to={`/maestro/product`}>
+              to={`/dashboard/maestro/product`}>
 
               <ListItemText primary="Productos" />
             </ListItemButton>
@@ -138,7 +138,7 @@ export function SideBarList() {
               selected={selectedIndex === 6}
               onClick={(event: any) => handleListItemClick(event, 6)}
               component={Link}
-              to={`/maestro/kindmovements`}>
+              to={`/dashboard/maestro/kindmovements`}>
 
               <ListItemText primary="Tipos de movimiento" />
             </ListItemButton>
@@ -165,7 +165,7 @@ export function SideBarList() {
               selected={selectedIndex === 7}
               onClick={(event: any) => handleListItemClick(event, 7)}
               component={Link}
-              to={`/maestro/movements`}>
+              to={`/dashboard/maestro/movements`}>
 
               <ListItemText
                  disableTypography

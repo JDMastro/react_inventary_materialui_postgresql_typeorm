@@ -24,8 +24,6 @@ import MenuItem from '@mui/material/MenuItem';
 
 //import InputAdornment from '@mui/material/InputAdornment';
 
-import SendIcon from '@mui/icons-material/Send';
-import CancelIcon from '@mui/icons-material/Cancel';
 
 import { FormikHelpers } from "formik";
 
@@ -297,8 +295,8 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                 alignItems="flex-start"
                 spacing={2}
             >
-                <ButtonUi disabled={disablebtns} text="cancel" type="button" onClick={handleClose} Icon={<CancelIcon fontSize="small" />} />
-                <ButtonUi disabled={disablebtns} text="send" type="button" Icon={<SendIcon fontSize="small" />} />
+                <ButtonUi disabled={disablebtns} text="cancel" type="button" onClick={handleClose} />
+                <ButtonUi disabled={disablebtns} text="send" type="button" />
 
             </Stack>
 
