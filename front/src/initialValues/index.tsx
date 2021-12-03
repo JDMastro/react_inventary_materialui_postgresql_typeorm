@@ -57,3 +57,11 @@ export const initialValuesSignIn: initialFValuesTypes = {
   password: ""
 }
 
+
+export const initialValuesUsers: initialFValuesTypes = {
+  code: "",
+  email: "",
+  password: "",
+  confirmpassword: ""
+}
+

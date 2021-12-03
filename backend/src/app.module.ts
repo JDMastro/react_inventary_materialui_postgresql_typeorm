@@ -8,6 +8,7 @@ import { KindidentityModule } from './kindidentity/kindidentity.module';
 import { PersonModule } from './person/person.module';
 import { KindmovementsModule } from './kindmovements/kindmovements.module';
 import { MovementsModule } from './movements/movements.module';
+import { UsersModule } from './users/users.module';
 
 
 
@@ -31,6 +32,7 @@ import { MovementsModule } from './movements/movements.module';
     PersonModule,
     KindmovementsModule,
     MovementsModule,
+    UsersModule,
 
   ],
   controllers: [AppController],

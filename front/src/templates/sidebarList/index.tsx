@@ -179,6 +179,19 @@ export function SideBarList() {
         </Collapse>
 
 
+        <ListItemButton
+          selected={selectedIndex === 8}
+          onClick={(event: any) => handleListItemClick(event, 8)}
+          component={Link}
+          to={`/dashboard/security/users`}
+        >
+          <ListItemIcon style={{ marginRight: '-25px' }} >
+            <DashboardIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Usuarios" />
+        </ListItemButton>
+
+
 
       </List>
 

@@ -11,6 +11,8 @@ import { Main } from "../templates/main";
 
 import App from "../App";
 
+import { Users } from "../templates/users";
+
 
 export const Routes = () => {
     return (
@@ -35,6 +37,8 @@ export const DashboardRoute = () => {
             <Route exact path="/dashboard/maestro/person" component={Person} />
             <Route exact path="/dashboard/maestro/product" component={Products} />
             <Route exact path="/dashboard/maestro/units" component={Units} />
+            
+            <Route exact path="/dashboard/security/users" component={Users} />
             <Route exact path="*" component={()=>{ return(<div>Page 404</div>) }}/>
         </Switch>
     )

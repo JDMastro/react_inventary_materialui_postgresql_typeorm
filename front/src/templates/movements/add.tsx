@@ -32,6 +32,7 @@ import { personRequest } from "../../services/personService";
 import { MovementsRequest } from "../../services/MovementsService";
 
 import { AddTable } from "./addTable";
+import { isArray } from "util";
 
 
 export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any) {
@@ -60,7 +61,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
     };
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
-        
+
 
         setdisablebtns(true)
 
@@ -74,20 +75,30 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
             unitPrice: formik.values.unitprice
         }).then(e => {
             console.log(e)
-            setMsg("Save succesffuly")
             
+
+            /*setRefresh(!refresh)
+            handleClick()
+            findNumberOrder(values.numorder)*/
+
+            if (!e.data || isArray(e.data)) {
+                setMsg("Save succesffuly")
                 setRefresh(!refresh)
                 handleClick()
-
-                console.log(e)
-
                 findNumberOrder(values.numorder)
-
-
-
-
+            }else{
+                formik.setFieldError("quantity", e.data.error.quantity)
+            }
 
             
+                
+               
+
+
+
+
+
+
 
         })
             .catch(e => {
@@ -108,10 +119,10 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
 
     }
 
-    const findNumberOrder =(order : number) =>{
-        
+    const findNumberOrder = (order: number) => {
+
         MovementsRequest.findNumberOrder(order)
-        .then(e =>  setmovements(e) )
+            .then(e => setmovements(e ? e : [] ))
 
     }
 
@@ -248,7 +259,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                     {/*  formik.values.unitprice = ""+formik.values.totalPrice / formik.values.quantity */}
 
 
-                   <Grid item xs={3}>
+                    <Grid item xs={3}>
                         <TextFieldUi
                             autofocus={false}
                             error={formik.errors.unitprice}
@@ -258,7 +269,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                             type="number"
                             value={
                                 formik.values.totalPrice !== "" && formik.values.quantity !== "" ?
-                                formik.values.unitprice = ""+formik.values.totalPrice / formik.values.quantity : formik.values.unitprice
+                                    formik.values.unitprice = "" + formik.values.totalPrice / formik.values.quantity : formik.values.unitprice
                             }
                             disabled={true}
                             inputInside={
