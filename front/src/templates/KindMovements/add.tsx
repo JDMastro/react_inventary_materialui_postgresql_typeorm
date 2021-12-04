@@ -13,14 +13,17 @@ import { TextFieldUi } from "../../components/textfield";
 import { Snackbars } from "../../components/snackbars";
 import { initialFValuesTypes } from "../../types/initialFValues";
 import { ButtonUi } from "../../components/button/index";
+import { RadioButtonUi } from "../../components/radioButton";
 import { KindMovementsRequest } from "../../services/kindmovementsService";
 
 import { FormikHelpers } from "formik";
 import React from 'react';
 
+import Radio from '@mui/material/Radio'
+import FormControlLabel from '@mui/material/FormControlLabel'
+
 
 import Divider from '@mui/material/Divider';
-import { ContactSupportOutlined } from '@mui/icons-material';
 
 
 export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
@@ -45,30 +48,33 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
 
         setdisablebtn(true)
-        console.log(values)
-        /*KindMovementsRequest.save({
+        console.log(values.tipo === "Entrada" ? true : false)
+        KindMovementsRequest.save({
             name: values.name,
             description: values.description,
             iduser: 0,
             provider: values.provider,
-            entry: values.entry
+            input: values.tipo === "Entrada" ? true : false,
+
+            output: values.tipo === "Salida" ? true : false,
+            return: values.tipo === "Devolucion" ? true : false
         }).then(e => {
             console.log(e)
             setMsg("Save succesffuly")
             handleClick()
-           
-                setRefresh(!refresh)
-                handleClose()
-                setdisablebtn(false)
-                setdisablebtn(false)
-           
+
+            setRefresh(!refresh)
+            handleClose()
+            setdisablebtn(false)
+            setdisablebtn(false)
+
 
         })
             .catch(e => {
                 setSeverity("error")
                 setMsg("Something went wrong!!")
                 handleClick()
-            })*/
+            })
     }
 
     const formik = UseForm(initialValueskindmovements, KindMovementsSchema, onSubmit)
@@ -103,18 +109,40 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={5}>
                         <CheckboxUi
                             checked={formik.values.provider}
                             label='Requiere proveedor'
                             name="provider"
                             onChange={formik.handleChange}
                         />
-                        
-                        <Divider style={{ marginTop : '15px' }} />
+
+                        {/*<Divider style={{ marginTop : '15px' }} />*/}
                     </Grid>
 
-                   
+                    <Grid item xs={7}>
+                        <RadioButtonUi
+                            error={formik.errors.tipo}
+                            label='Tipo'
+                            name='tipo'
+                            value={formik.values.tipo}
+                            onChange={formik.handleChange}
+                            content={<span>
+                                <FormControlLabel value="Entrada" control={<Radio />} label="Entrada" />
+                                <FormControlLabel value="Salida" control={<Radio />} label="Salida" />
+                                <FormControlLabel value="Devolucion" control={<Radio />} label="Devolución" />
+                            </span>}
+                        />
+
+                    </Grid>
+
+                    <Grid item xs={12}>
+                       
+
+                       <Divider style={{ marginTop : '15px' }} />
+                    </Grid>
+
+
 
 
 

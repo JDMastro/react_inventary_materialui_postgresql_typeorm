@@ -22,7 +22,7 @@ export class ServicesService {
         newKindMove.description = body.description
         newKindMove.user_id = body.iduser
         newKindMove.provider = body.provider
-        newKindMove.input = body.entry
+        newKindMove.input = body.input
 
         newKindMove.output = body.output
         newKindMove.return = body.return
@@ -37,7 +37,7 @@ export class ServicesService {
             description : body.description,
             user_id : body.iduser,
             provider : body.provider,
-            input : body.entry,
+            input : body.input,
 
             output : body.output,
             return : body.return

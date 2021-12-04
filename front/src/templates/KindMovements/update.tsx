@@ -20,6 +20,10 @@ import React from 'react';
 
 import Divider from '@mui/material/Divider';
 
+import Radio from '@mui/material/Radio'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import { RadioButtonUi } from "../../components/radioButton";
+
 
 export function UpdateMovements({ handleClose, setRefresh, refresh, data }: any) {
     const [severity, setSeverity] = React.useState("success");
@@ -50,7 +54,10 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data }: any)
             description: values.description,
             iduser: 0,
             provider: values.provider,
-            entry: values.entry
+            input: values.tipo === "Entrada" ? true : false,
+
+            output: values.tipo === "Salida" ? true : false,
+            return: values.tipo === "Devolucion" ? true : false
         }).then(e => {
             setMsg("Save succesffuly")
             handleClick()
@@ -73,7 +80,7 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data }: any)
         description: data.description,
         iduser: data.iduser,
         provider: data.provider,
-        entry: data.entry
+        tipo: data.input ? "Entrada" : data.output ? "Salida" : "Devolucion"
     }, KindMovementsSchema, onSubmit)
 
 
@@ -108,20 +115,38 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data }: any)
                     </Grid>
 
 
-                    <Grid item xs={12}>
+                    <Grid item xs={5}>
                         <CheckboxUi
                             checked={formik.values.provider}
                             label='Requiere proveedor'
                             name="provider"
                             onChange={formik.handleChange}
                         />
-                         <CheckboxUi
-                            checked={formik.values.entry}
-                            label='Movimiento de entrada'
-                            name="entry"
+                        
+                    </Grid>
+
+                    <Grid item xs={7}>
+                        <RadioButtonUi
+                            error={formik.errors.tipo}
+                            label='Tipo'
+                            name='tipo'
+                            value={formik.values.tipo}
                             onChange={formik.handleChange}
+                            content={<span>
+                                <FormControlLabel value="Entrada" control={<Radio />} label="Entrada" />
+                                <FormControlLabel value="Salida" control={<Radio />} label="Salida" />
+                                <FormControlLabel value="Devolucion" control={<Radio />} label="Devolución" />
+                            </span>}
                         />
-                        <Divider style={{ marginTop : '15px' }} />
+
+                    </Grid>
+
+                    
+
+                    <Grid item xs={12}>
+                       
+
+                       <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
 

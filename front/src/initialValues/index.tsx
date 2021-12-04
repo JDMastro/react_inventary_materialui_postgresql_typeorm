@@ -39,7 +39,7 @@ export const initialValueskindmovements: initialFValuesTypes = {
   name : "",
   description : "",
   provider : false,
-  tipo : ""
+  tipo : "Entrada"
 }
 
 export const initialValuesMovements: initialFValuesTypes = {

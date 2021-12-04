@@ -188,6 +188,9 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                     </Grid>
 
 
+                    
+
+
 
 
 
