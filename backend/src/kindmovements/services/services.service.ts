@@ -22,7 +22,10 @@ export class ServicesService {
         newKindMove.description = body.description
         newKindMove.user_id = body.iduser
         newKindMove.provider = body.provider
-        newKindMove.entry = body.entry
+        newKindMove.input = body.entry
+
+        newKindMove.output = body.output
+        newKindMove.return = body.return
 
         return this.KindMovementsRepo.save(newKindMove);
     }
@@ -34,7 +37,10 @@ export class ServicesService {
             description : body.description,
             user_id : body.iduser,
             provider : body.provider,
-            entry : body.entry
+            input : body.entry,
+
+            output : body.output,
+            return : body.return
         });
         return this.KindMovementsRepo.save(Products);
     }

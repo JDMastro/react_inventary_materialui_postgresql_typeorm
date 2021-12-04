@@ -20,6 +20,7 @@ import React from 'react';
 
 
 import Divider from '@mui/material/Divider';
+import { ContactSupportOutlined } from '@mui/icons-material';
 
 
 export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
@@ -44,7 +45,8 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
 
         setdisablebtn(true)
-        KindMovementsRequest.save({
+        console.log(values)
+        /*KindMovementsRequest.save({
             name: values.name,
             description: values.description,
             iduser: 0,
@@ -66,7 +68,7 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                 setSeverity("error")
                 setMsg("Something went wrong!!")
                 handleClick()
-            })
+            })*/
     }
 
     const formik = UseForm(initialValueskindmovements, KindMovementsSchema, onSubmit)
@@ -108,12 +110,7 @@ export function Addkindmovements({ handleClose, setRefresh, refresh }: any) {
                             name="provider"
                             onChange={formik.handleChange}
                         />
-                         <CheckboxUi
-                            checked={formik.values.entry}
-                            label='Movimiento de entrada'
-                            name="entry"
-                            onChange={formik.handleChange}
-                        />
+                        
                         <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 

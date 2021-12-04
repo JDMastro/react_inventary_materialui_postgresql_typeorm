@@ -19,7 +19,13 @@ export class KindMovements {
     provider: boolean
 
     @Column({ default: false })
-    entry: boolean
+    input: boolean
+
+    @Column({ default: false })
+    output : boolean
+
+    @Column({ default: false })
+    return : boolean
 
     @Column({
         name: 'creation_at',

@@ -38,7 +38,7 @@ export class MovementsService {
         //const check_header = await manager.find(Header, { where : {number_order : body.number_order} })
         //const check_kindmov = await manager.find(KindMovements,{ where :{ id : body.kindMovements_id } })
 
-
+/*
 
         if (check_kindmov[0].entry && check_kindmov[0].provider) {
             if (check_header.length > 0) {
@@ -120,6 +120,8 @@ export class MovementsService {
         }
 
        
+*/
+
 
 
         return  this.HeaderRepo.find({ where : {number_order : body.number_order} })
