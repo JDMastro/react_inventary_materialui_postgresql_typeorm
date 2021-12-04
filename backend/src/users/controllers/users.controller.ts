@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { AuthorizationGuard } from 'src/person/authorization.guard';
 
 import { UsersService } from "../services/users.service";
 

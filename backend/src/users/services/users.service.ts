@@ -12,28 +12,24 @@ export class UsersService {
     ) { }
 
     findAll() {
-        return this.UsersRepo.find( { select : ['id', 'code', 'email'] } );
+        return this.UsersRepo.find({ select: ['id', 'code', 'email'] });
     }
 
 
     async login(body: any) {
         const { email, password } = body
-        const user = await this.UsersRepo.find({ where: { email } })
+        const user = await this.UsersRepo.findOne({ where: { email } })
 
-        if (user.length > 0) {
-            compare_password(password, user[0].password)
-                .then(isMatch => {
-                    if (isMatch) {
+        if(!user)
+            return { success: false, data: null, error: "Credenciales invalidas" }
 
-                    } else {
-                        return { success: false, data: null, error: "Credenciales invalidas" }
-                    }
-                })
-        }
+
+        if(! await compare_password(password, user.password))
+            return { success: false, data: null, error: "Credenciales invalidas" }
 
 
 
-        return { success: false, data: null, error: "Credenciales invalidas" }
+        return { success: true, data: null, error: null }
     }
 
     async register(body: any) {
@@ -46,7 +42,7 @@ export class UsersService {
         newUsers.password = await encrypt(password)
 
 
-        return  await delete (await this.UsersRepo.save(newUsers)).password
+        return await delete (await this.UsersRepo.save(newUsers)).password
 
 
     }

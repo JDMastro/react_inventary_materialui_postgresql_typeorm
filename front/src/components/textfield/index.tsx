@@ -11,7 +11,8 @@ export function TextFieldUi({ name, label, value, error = null, onChange, autofo
             disabled={disabled}
             variant="outlined"
             fullWidth
-            id="outlined-start-adornment"
+            autoComplete={type === "password" ? 'new-password' : 'off'}
+            id={ type === "password" ? "filled-password-input" :"outlined-start-adornment"}
             label={label}
             name={name}
             value={value}

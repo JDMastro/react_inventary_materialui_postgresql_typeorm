@@ -53,8 +53,8 @@ export const initialValuesMovements: initialFValuesTypes = {
 }
 
 export const initialValuesSignIn: initialFValuesTypes = {
-  email: "",
-  password: ""
+  email_login: "test@email.com",
+  password_login: "Test123"
 }
 
 

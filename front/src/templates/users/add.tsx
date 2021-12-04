@@ -16,7 +16,6 @@ import { FormikHelpers } from "formik";
 
 import React from 'react';
 
-import Divider from '@mui/material/Divider';
 
 
 export function AddUsers({ handleClose, setRefresh, refresh }: any) {
@@ -93,7 +92,6 @@ export function AddUsers({ handleClose, setRefresh, refresh }: any) {
                             type="text"
                             value={formik.values.email}
                         />
-                        <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -106,7 +104,6 @@ export function AddUsers({ handleClose, setRefresh, refresh }: any) {
                             type="password"
                             value={formik.values.password}
                         />
-                        <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -119,7 +116,6 @@ export function AddUsers({ handleClose, setRefresh, refresh }: any) {
                             type="password"
                             value={formik.values.confirmpassword}
                         />
-                        <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
 

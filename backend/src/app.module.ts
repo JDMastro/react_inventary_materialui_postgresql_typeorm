@@ -19,7 +19,7 @@ import { UsersModule } from './users/users.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '1995',
+      password: '1234',
       database: 'test',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: false,

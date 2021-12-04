@@ -14,10 +14,13 @@ import { FormikHelpers } from "formik";
 import { TextFieldUi } from "../../components/textfield";
 import { ButtonUi } from "../../components/button";
 import { UseForm } from "../../components/form";
+import { Snackbars } from "../../components/snackbars";
 
 import { initialFValuesTypes } from "../../types/initialFValues";
 import { initialValuesSignIn } from "../../initialValues";
 import { LoginSchema } from "../../schema/logInSchema";
+
+import { UsersRequest } from "../../services/usersService";
 
 
 import { useHistory } from "react-router-dom";
@@ -39,12 +42,46 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export function LogIn() {
+    const [severity, setSeverity] = React.useState("success");
+    const [disablebtn, setdisablebtn] = React.useState(false);
+    const [msg, setMsg] = React.useState("success");
+    const [openn, setOpenn] = React.useState(false);
 
-    
     let history = useHistory();
 
+    const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenn(false);
+    };
+
+    const handleClick = () => {
+        setOpenn(true);
+    };
+
+
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
-        history.push('/dashboard')
+        //history.push('/dashboard')
+        console.log(values)
+        setdisablebtn(true)
+        UsersRequest.login({
+            email: values.email_login,
+            password: values.password_login
+        }).then(e => {
+            console.log(e)
+            if (e.success) {
+                handleClick()
+                setdisablebtn(false)
+                history.push('/dashboard')
+            } else {
+                handleClick()
+                setMsg(e.error)
+                setSeverity('error')
+                setdisablebtn(false)
+            }
+        })
     }
 
     const formik = UseForm(initialValuesSignIn, LoginSchema, onSubmit)
@@ -91,24 +128,24 @@ export function LogIn() {
                                 <Grid item xs={12}>
                                     <TextFieldUi
                                         autofocus={true}
-                                        error={formik.errors.email}
+                                        error={formik.errors.email_login}
                                         label="Correo *"
-                                        name="email"
+                                        name="email_login"
                                         onChange={formik.handleChange}
                                         type="text"
-                                        value={formik.values.email}
+                                        value={formik.values.email_login}
                                     />
                                 </Grid>
 
                                 <Grid item xs={12}>
                                     <TextFieldUi
                                         autofocus={false}
-                                        error={formik.errors.password}
+                                        error={formik.errors.password_login}
                                         label="Contraseña *"
-                                        name="password"
+                                        name="password_login"
                                         onChange={formik.handleChange}
                                         type="password"
-                                        value={formik.values.password}
+                                        value={formik.values.password_login}
                                     />
 
 
@@ -118,7 +155,7 @@ export function LogIn() {
 
                                 <Grid item xs={12}>
 
-                                    <ButtonUi fullWidth={true} disabled={false} text="Enviar" type="submit" variant="contained" />
+                                    <ButtonUi fullWidth={true} disabled={disablebtn} text="Enviar" type="submit" variant="contained" />
 
                                 </Grid>
 
@@ -127,6 +164,12 @@ export function LogIn() {
 
                             </Grid>
 
+                            <Snackbars
+                                msg={msg}
+                                open={openn}
+                                severity={severity}
+                                handleClose={handleCloses}
+                            />
 
 
                             <Grid container>

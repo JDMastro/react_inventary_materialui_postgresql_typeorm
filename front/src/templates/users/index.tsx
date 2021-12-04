@@ -132,7 +132,7 @@ export function Users()
                 handleClose={handleCloseModalUpdate}
                 content={<UpdateUser handleClose={handleCloseModalUpdate} setRefresh={setRefresh} refresh={refresh} data={data} />}
                 open={openModalUpdate}
-                title="U"
+                title=""
             />
 
             <AlertDialogUi

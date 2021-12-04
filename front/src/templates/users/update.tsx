@@ -103,7 +103,6 @@ export function UpdateUser({ handleClose, setRefresh, refresh, data }: any) {
                             type="text"
                             value={formik.values.email}
                         />
-                        <Divider style={{ marginTop: '15px' }} />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -116,7 +115,6 @@ export function UpdateUser({ handleClose, setRefresh, refresh, data }: any) {
                             type="password"
                             value={formik.values.password}
                         />
-                        <Divider style={{ marginTop: '15px' }} />
                     </Grid>
 
                     <Grid item xs={12}>
