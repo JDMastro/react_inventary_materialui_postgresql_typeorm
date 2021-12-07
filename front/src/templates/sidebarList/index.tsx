@@ -92,6 +92,15 @@ export function SideBarList() {
           <List component="div" disablePadding>
 
 
+          <ListItemButton sx={{ pl: 5 }}
+              selected={selectedIndex === 9}
+              onClick={(event: any) => handleListItemClick(event, 9)}
+              component={Link}
+              to={`/dashboard/maestro/status`}>
+
+              <ListItemText primary="Estatos" />
+            </ListItemButton>
+
             <ListItemButton sx={{ pl: 5 }}
               selected={selectedIndex === 4}
               onClick={(event: any) => handleListItemClick(event, 4)}

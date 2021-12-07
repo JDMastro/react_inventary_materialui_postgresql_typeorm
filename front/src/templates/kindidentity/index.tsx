@@ -132,21 +132,21 @@ export function KindIdentity() {
                 handleClose={handleCloseModalUpdate}
                 content={<UpdateKindId handleClose={handleCloseModalUpdate} setRefresh={setRefresh} refresh={refresh} data={data} />}
                 open={openModalUpdate}
-                title="Edit"
+                title=""
             />
 
             <AlertDialogUi
                 handleClose={handleCloseModalDelete}
                 content={<DeleteKindId handleClose={handleCloseModalDelete} setRefresh={setRefresh} refresh={refresh} data={data} />}
                 open={openModalDelete}
-                title="Delete"
+                title=""
             />
 
             <AlertDialogUi
                 handleClose={handleCloseModalAdd}
                 content={<AddKindId refresh={refresh} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
                 open={openModalAdd}
-                title="Add"
+                title=""
             />
         </Box>
     )

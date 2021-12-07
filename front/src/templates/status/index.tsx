@@ -13,25 +13,26 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 
-
-
-import { KindMovementsRequest } from "../../services/kindmovementsService";
 import { StatusRequest } from "../../services/statusService";
+
 
 
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
-import { Addkindmovements } from "./add";
-import { UpdateMovements } from "./update";
-import { Deletemovements } from "./delete";
+import { AddStatus } from "./add";
+import { UpdateStatus } from "./update";
+import { DeleteStatus } from "./delete";
 
 import Fab from '@mui/material/Fab';
 import { green } from '@mui/material/colors';
 import { red } from '@mui/material/colors';
 
 
-export function KindMovements() {
+
+
+export function Status()
+{
     const [openModalUpdate, setOpenModalUpdate] = React.useState(false);
     const [openModalDelete, setOpenModalDelete] = React.useState(false);
     const [openModalAdd, setOpenModalAdd] = React.useState(false);
@@ -39,19 +40,10 @@ export function KindMovements() {
     const [rows, setrows] = React.useState([]);
     const [data, setdata] = React.useState({});
 
-    const [status, setstatus] = React.useState([]);
-
     useEffect(() => {
-        KindMovementsRequest.getAll()
+        StatusRequest.getStatus()
             .then(e => setrows(e))
     }, [refresh])
-
-    useEffect(()=>{
-        StatusRequest.getStatus()
-             .then(e => setstatus(e) )
-    }, [])
-
-
 
     const handleClickOpenModalUpdate = (data: any) => {
         setdata(data)
@@ -80,7 +72,7 @@ export function KindMovements() {
     };
 
     return (
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ '& > :not(style)': { m: 1 } }}>
             <CardUi content={
                 <Box sx={{ p: 3 }}>
 
@@ -88,12 +80,10 @@ export function KindMovements() {
                         <Avatar>
                             <SupervisedUserCircleIcon />
                         </Avatar>
-                        <Typography>Tipo de movimiento</Typography>
-                        {/*<IconButton onClick={handleClickOpenModalAdd} aria-label="add" ><AddIcon fontSize="small" /></IconButton>*/}
+                        <Typography>Estado</Typography>
+                        {/*<IconButton aria-label="add" ><AddIcon fontSize="small" /></IconButton>*/}
 
                     </Stack>
-
-
                     <TableNormalUi
                         tableHead={
                             <TableRow >
@@ -111,10 +101,11 @@ export function KindMovements() {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
 
-                                    <TableCell component="th" scope="row">{data.id}</TableCell>
+                                    <TableCell align="left" component="th" scope="row">{data.id}</TableCell>
                                     <TableCell align="left">{data.name}</TableCell>
                                     <TableCell align="left">{data.description}</TableCell>
-                                    <TableCell align="left">
+
+                                    <TableCell align="right">
                                         <Stack direction="row" alignItems="center">
                                             <IconButton aria-label="update" onClick={() => handleClickOpenModalUpdate(data)}><EditIcon color="primary" fontSize="small" /></IconButton>
                                             <IconButton aria-label="delete" onClick={() => handleClickOpenModalDelete(data)} ><DeleteIcon fontSize="small" sx={{ color: red[700] }} /></IconButton>
@@ -128,7 +119,7 @@ export function KindMovements() {
 
                 </Box>} />
 
-                <Fab sx={{
+            <Fab sx={{
                 position: 'absolute',
                 bottom: 16,
                 right: 16,
@@ -142,23 +133,23 @@ export function KindMovements() {
 
             <AlertDialogUi
                 handleClose={handleCloseModalUpdate}
-                content={<UpdateMovements status={status} handleClose={handleCloseModalUpdate} setRefresh={setRefresh} refresh={refresh} data={data} />}
+                content={<UpdateStatus handleClose={handleCloseModalUpdate} setRefresh={setRefresh} refresh={refresh} data={data} />}
                 open={openModalUpdate}
-                title="Edit"
+                title=""
             />
 
             <AlertDialogUi
                 handleClose={handleCloseModalDelete}
-                content={<Deletemovements handleClose={handleCloseModalDelete} setRefresh={setRefresh} refresh={refresh} data={data} />}
+                content={<DeleteStatus handleClose={handleCloseModalDelete} setRefresh={setRefresh} refresh={refresh} data={data} />}
                 open={openModalDelete}
-                title="Delete"
+                title=""
             />
 
             <AlertDialogUi
                 handleClose={handleCloseModalAdd}
-                content={<Addkindmovements status={status} refresh={refresh} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
+                content={<AddStatus refresh={refresh} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
                 open={openModalAdd}
-                title="Add"
+                title=""
             />
         </Box>
     )

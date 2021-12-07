@@ -45,7 +45,10 @@ export class MovementsService {
 
     async findUsersOrders(person_id : number)
     {
-        return this.HeaderRepo.find({where : { person_id : person_id }})
+        const res = await this.HeaderRepo.find({ relations:["Movements"],  where : { person_id : person_id }})
+
+        return res.filter(e => e.Movements.filter(s => s.quantity < s.quantity_returned ) )
+        //return this.HeaderRepo.find({ relations:["Movements"],  where : { person_id : person_id }})
     }
 
     async create(body: any) {
@@ -67,7 +70,9 @@ export class MovementsService {
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
                     unitPrice: body.unitPrice,
-                    header_id: check_header[0].id
+                    header_id: check_header[0].id,
+                    quantity_returned : 0,
+                    status_id : body.status_id
                 })
 
                 await getManager().update(Products,body.product_id,{
@@ -85,7 +90,9 @@ export class MovementsService {
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
                     unitPrice: body.unitPrice,
-                    header_id: header_id.raw[0].id
+                    header_id: header_id.raw[0].id,
+                    quantity_returned : 0,
+                    status_id : body.status_id
                 })
 
                 await getManager().update(Products,body.product_id,{
@@ -114,8 +121,13 @@ export class MovementsService {
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
                             unitPrice: body.unitPrice,
-                            header_id: check_header[0].id
+                            header_id: check_header[0].id,
+                            quantity_returned : 0,
+                            status_id : body.status_id
                         })
+
+                        
+                        
         
                         await getManager().update(Products,body.product_id,{
                             current_existence : check_products[0].current_existence - body.quantity
@@ -125,6 +137,8 @@ export class MovementsService {
                             person_id: body.personOrProvider_id,
                             number_order: body.number_order
                         })
+
+                        console.log("<--------",body.movement_id)
         
                         await getManager().insert(Movements, {
                             kindMovements_id: body.kindMovements_id,
@@ -132,7 +146,13 @@ export class MovementsService {
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
                             unitPrice: body.unitPrice,
-                            header_id: header_id.raw[0].id
+                            header_id: header_id.raw[0].id, 
+                            quantity_returned : 0,
+                            status_id : body.status_id
+                        })
+
+                        await getManager().update(Movements,body.movement_id,{
+                            quantity_returned : body.quantity
                         })
         
                         await getManager().update(Products,body.product_id,{
@@ -192,7 +212,9 @@ export class MovementsService {
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
                     unitPrice: body.unitPrice,
-                    header_id: check_header[0].id
+                    header_id: check_header[0].id,
+                    quantity_returned : 0,
+                    status_id : body.status_id
                 })
 
                 await getManager().update(Products,body.product_id,{
@@ -210,7 +232,9 @@ export class MovementsService {
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
                     unitPrice: body.unitPrice,
-                    header_id: header_id.raw[0].id
+                    header_id: header_id.raw[0].id,
+                    quantity_returned : 0,
+                    status_id : body.status_id
                 })
 
                 await getManager().update(Products,body.product_id,{
@@ -242,7 +266,8 @@ export class MovementsService {
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
                             unitPrice: body.unitPrice,
-                            header_id: check_header[0].id
+                            header_id: check_header[0].id,
+                            status_id : body.status_id
                         })
         
                         await getManager().update(Products,body.product_id,{
@@ -260,7 +285,12 @@ export class MovementsService {
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
                             unitPrice: body.unitPrice,
-                            header_id: header_id.raw[0].id
+                            header_id: header_id.raw[0].id,
+                            status_id : body.status_id
+                        })
+
+                        await getManager().update(Movements,body.movement_id,{
+                            quantity_returned : body.quantity
                         })
         
                         await getManager().update(Products,body.product_id,{

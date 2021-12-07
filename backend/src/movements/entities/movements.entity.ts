@@ -3,6 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 't
 import { KindMovements } from "../../kindmovements/entities/kindmovements.entity";
 //import { Person } from "../../person/entities/person.entity";
 import { Header } from "../../header/entities/header.entity";
+import { Status } from "../../status/entities/status.entity";
 
 
 @Entity()
@@ -47,8 +48,19 @@ export class Movements {
   @Column()
   header_id : number
 
+  @Column({type : 'float'})
+  quantity_returned: number;
 
-  
+
+
+
+  @ManyToOne(() => Status, Status => Status.Movements)
+    @JoinColumn({ name: 'status_id' })
+    Status: Status;
+
+    @Column()
+    status_id: number
+
 
  
 }

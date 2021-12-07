@@ -68,6 +68,10 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
 
         setdisablebtns(true)
 
+        const kindmov_id = kindmov.find((e : any)=> e.id === values.kindmovements ).status_id
+
+        console.log(kindmov_id)
+
         MovementsRequest.save({
             kindMovements_id: values.kindmovements,
             personOrProvider_id: values.idperson,
@@ -76,14 +80,14 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
             quantity: values.quantity,
             totalPurchasePrice: values.totalPrice,
             unitPrice: formik.values.unitprice,
-            orderReturned : formik.values.orderReturned
+            orderReturned : formik.values.orderReturned,
+            movement_id :  !movementsbyorders.find((e:any )=> e.header_id === formik.values.orderReturned ) ? 0 : movementsbyorders.find((e:any )=> e.header_id === formik.values.orderReturned ).id,
+            status_id : kindmov_id
         }).then(e => {
             console.log(e)
 
 
-            /*setRefresh(!refresh)
-            handleClick()
-            findNumberOrder(values.numorder)*/
+          
 
             if (!e.data || isArray(e.data)) {
                 setMsg("Save succesffuly")
@@ -180,6 +184,9 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                                 /*formik.handleChange*/
                                 MovementsRequest.findUsersOrders(evt.target.value)
                                     .then(e => setheader(e))
+
+
+                                    console.log()
 
                                 formik.handleChange(evt)
                             }}

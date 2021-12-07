@@ -1,15 +1,15 @@
 import { initialFValuesTypes } from "../types/initialFValues";
 
 export const initialValuesProducts: initialFValuesTypes = {
-  name : "",
-  description : "",
-  sku : "",
+  name: "",
+  description: "",
+  sku: "",
   code_bar: "",
   current_existence: "",
   reserved_quantity: "",
   purchase_unit_id: "",
   sale_unit_id: "",
-  product_parent_id : '',
+  product_parent_id: '',
 }
 
 export const initialValuesKindId: initialFValuesTypes = {
@@ -27,7 +27,7 @@ export const initialValuesPerson: initialFValuesTypes = {
   address: "",
   phone: "",
   contact: "",
-  provider : false
+  provider: false
 }
 
 export const initialValuesUnits: initialFValuesTypes = {
@@ -36,21 +36,22 @@ export const initialValuesUnits: initialFValuesTypes = {
 }
 
 export const initialValueskindmovements: initialFValuesTypes = {
-  name : "",
-  description : "",
-  provider : false,
-  tipo : "Entrada"
+  name: "",
+  description: "",
+  provider: false,
+  tipo: "Entrada",
+  status_id : ""
 }
 
 export const initialValuesMovements: initialFValuesTypes = {
-    kindmovements : "",
-    idperson :    "",
-    numorder :    "",
-    idproduct :   "",
-    quantity : "",
-    totalPrice: "",
-    unitprice : "",
-    orderReturned : ""
+  kindmovements: "",
+  idperson: "",
+  numorder: "",
+  idproduct: "",
+  quantity: "",
+  totalPrice: "",
+  unitprice: "",
+  orderReturned: ""
 }
 
 export const initialValuesSignIn: initialFValuesTypes = {
@@ -65,4 +66,10 @@ export const initialValuesUsers: initialFValuesTypes = {
   password: "",
   confirmpassword: ""
 }
+
+export const initialValuesStatus: initialFValuesTypes = {
+  name: "",
+  description: ""
+}
+
 

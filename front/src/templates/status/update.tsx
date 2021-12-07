@@ -2,41 +2,29 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-
-import { CheckboxUi } from "../../components/checkBox";
-
 //import { initialValuesProducts } from "../../initialValues";
-import { KindMovementsSchema } from "../../schema/kindmovementsSchema";
+import { StatusSchema } from "../../schema/statusSchema";
 import { UseForm } from "../../components/form";
 import { TextFieldUi } from "../../components/textfield";
 import { Snackbars } from "../../components/snackbars";
 import { initialFValuesTypes } from "../../types/initialFValues";
 import { ButtonUi } from "../../components/button/index";
-import { KindMovementsRequest } from "../../services/kindmovementsService";
+import { StatusRequest } from "../../services/statusService";
 
 import { FormikHelpers } from "formik";
+
 
 import React from 'react';
 
 import Divider from '@mui/material/Divider';
 
-import Radio from '@mui/material/Radio'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import { RadioButtonUi } from "../../components/radioButton";
 
-
-import { SelectWrapperUi } from "../../components/select";
-
-import MenuItem from '@mui/material/MenuItem';
-
-
-export function UpdateMovements({ handleClose, setRefresh, refresh, data, status}: any) {
+export function UpdateStatus({ handleClose, setRefresh, refresh, data }: any) {
     const [severity, setSeverity] = React.useState("success");
     const [msg, setMsg] = React.useState("success");
     const [openn, setOpenn] = React.useState(false);
-    //const [loading, setloading] = React.useState(false);
-
     const [disablebtn, setdisablebtn] = React.useState(false);
+
 
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -52,24 +40,20 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data, status
 
     const onSubmit = async (values: initialFValuesTypes, formikHelpers: FormikHelpers<any>) => {
         //setloading(true)
+
+    
         setdisablebtn(true)
-
-        KindMovementsRequest.update(data.id, {
+        StatusRequest.update(data.id, {
             name: values.name,
-            description: values.description,
-            iduser: 0,
-            provider: values.provider,
-            input: values.tipo === "Entrada" ? true : false,
-
-            output: values.tipo === "Salida" ? true : false,
-            return: values.tipo === "Devolucion" ? true : false,
-            status_id : values.status_id
+            description: values.description
         }).then(e => {
+            
+            
             setMsg("Save succesffuly")
             handleClick()
-                setRefresh(!refresh)
-                handleClose()
-                setdisablebtn(false)
+            handleClose()
+            setdisablebtn(false)
+            setRefresh(!refresh)
         })
             .catch(e => {
                 setSeverity("error")
@@ -83,12 +67,8 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data, status
 
     const formik = UseForm({
         name: data.name,
-        description: data.description,
-        iduser: data.iduser,
-        provider: data.provider,
-        tipo: data.input ? "Entrada" : data.output ? "Salida" : "Devolucion",
-        status_id : data.status_id
-    }, KindMovementsSchema, onSubmit)
+        description: data.description
+    }, StatusSchema, onSubmit)
 
 
     return (
@@ -109,6 +89,7 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data, status
                         />
                     </Grid>
 
+
                     <Grid item xs={12}>
                         <TextFieldUi
                             autofocus={false}
@@ -119,53 +100,14 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data, status
                             type="text"
                             value={formik.values.description}
                         />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <SelectWrapperUi
-                            name="status_id"
-                            label='Estado'
-                            value={formik.values.status_id}
-                            onChange={formik.handleChange}
-                            error={formik.errors.status_id}
-                            menuItems={status.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)}
-
-                        />
+                        <Divider style={{ marginTop : '15px' }} />
                     </Grid>
 
 
-                    <Grid item xs={5}>
-                        <CheckboxUi
-                            checked={formik.values.provider}
-                            label='Requiere proveedor'
-                            name="provider"
-                            onChange={formik.handleChange}
-                        />
-                        
-                    </Grid>
 
-                    <Grid item xs={7}>
-                        <RadioButtonUi
-                            error={formik.errors.tipo}
-                            label='Tipo'
-                            name='tipo'
-                            value={formik.values.tipo}
-                            onChange={formik.handleChange}
-                            content={<span>
-                                <FormControlLabel value="Entrada" control={<Radio />} label="Entrada" />
-                                <FormControlLabel value="Salida" control={<Radio />} label="Salida" />
-                                 </span>}
-                        />
 
-                    </Grid>
 
-                    
 
-                    <Grid item xs={12}>
-                       
-
-                       <Divider style={{ marginTop : '15px' }} />
-                    </Grid>
 
 
 
@@ -185,7 +127,7 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data, status
                     spacing={2}
                 >
                     <ButtonUi disabled={disablebtn} text="Cancelar" type="button" onClick={handleClose} />
-                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit"/>
+                    <ButtonUi disabled={disablebtn} text="Enviar" type="submit" />
 
                 </Stack>
 

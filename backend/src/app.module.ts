@@ -9,6 +9,7 @@ import { PersonModule } from './person/person.module';
 import { KindmovementsModule } from './kindmovements/kindmovements.module';
 import { MovementsModule } from './movements/movements.module';
 import { UsersModule } from './users/users.module';
+import { StatusModule } from './status/status.module';
 
 
 
@@ -33,6 +34,7 @@ import { UsersModule } from './users/users.module';
     KindmovementsModule,
     MovementsModule,
     UsersModule,
+    StatusModule,
 
   ],
   controllers: [AppController],

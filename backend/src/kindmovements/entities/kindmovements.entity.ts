@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Movements } from "../../movements/entities/movements.entity";
+import { Status } from "../../status/entities/status.entity";
 
 @Entity()
 export class KindMovements {
@@ -22,10 +23,10 @@ export class KindMovements {
     input: boolean
 
     @Column({ default: false })
-    output : boolean
+    output: boolean
 
     @Column({ default: false })
-    return : boolean
+    return: boolean
 
     @Column({
         name: 'creation_at',
@@ -34,7 +35,7 @@ export class KindMovements {
     })
     creationAt: Date;
 
-    @Column("timestamp", { precision: 3, default: () => "CURRENT_TIMESTAMP(3)", onUpdate: "CURRENT_TIMESTAMP(3)"})
+    @Column("timestamp", { precision: 3, default: () => "CURRENT_TIMESTAMP(3)", onUpdate: "CURRENT_TIMESTAMP(3)" })
     updateAt: Date;
 
     @Column({ name: 'delete_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
@@ -43,4 +44,14 @@ export class KindMovements {
 
     @ManyToOne(() => Movements, movements => movements.kindMovements)
     movements: Movements[];
+
+
+
+
+    @ManyToOne(() => Status, Status => Status.KindMovements)
+    @JoinColumn({ name: 'status_id' })
+    Status: Status;
+
+    @Column()
+    status_id: number
 }

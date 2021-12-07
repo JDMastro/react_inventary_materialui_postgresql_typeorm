@@ -26,6 +26,7 @@ export class ServicesService {
 
         newKindMove.output = body.output
         newKindMove.return = body.return
+        newKindMove.status_id = body.status_id
 
         return this.KindMovementsRepo.save(newKindMove);
     }
@@ -40,7 +41,8 @@ export class ServicesService {
             input : body.input,
 
             output : body.output,
-            return : body.return
+            return : body.return,
+            status_id : body.status_id
         });
         return this.KindMovementsRepo.save(Products);
     }
