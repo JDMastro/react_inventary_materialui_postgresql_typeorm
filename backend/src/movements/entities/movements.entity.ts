@@ -47,5 +47,8 @@ export class Movements {
   @Column()
   header_id : number
 
+
+  
+
  
 }

@@ -49,7 +49,8 @@ export const initialValuesMovements: initialFValuesTypes = {
     idproduct :   "",
     quantity : "",
     totalPrice: "",
-    unitprice : ""
+    unitprice : "",
+    orderReturned : ""
 }
 
 export const initialValuesSignIn: initialFValuesTypes = {

@@ -16,7 +16,8 @@ export class ServiceService {
 
       async findByKindMovement(mov : boolean) {
          
-        return this.ProductssRepo.find({ where : { isdererivado :  mov}, relations:["unit_purchase", "unit_sale"] });
+        //return this.ProductssRepo.find({ where : { isdererivado :  mov}, relations:["unit_purchase", "unit_sale"] });
+        return this.ProductssRepo.find({ relations:["unit_purchase", "unit_sale"] })
       }
     
       findOne(id: number) {

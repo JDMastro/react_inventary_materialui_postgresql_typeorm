@@ -10,11 +10,11 @@ export class PersonServicesService {
       ) {}
 
       async findAll() {   
-        return this.PersonRepo.find({ relations:["Kindidentity"] });
+        return this.PersonRepo.find({ relations:["Kindidentity", "Headers"] });
       }
 
       async findByKindMovement(mov : boolean) {   
-        return this.PersonRepo.find({ where :{ provider : mov  }, relations:["Kindidentity"] });
+        return this.PersonRepo.find({ where :{ provider : mov  }, relations:["Kindidentity", "Headers"] });
       }
 
       findOne(id: number) {

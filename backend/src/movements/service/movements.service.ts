@@ -28,19 +28,38 @@ export class MovementsService {
         return res[0].Movements
     }
 
+    async findProductByOrderId(number : number)
+    {
+        const res = await this.HeaderRepo.find({ relations: ["Movements","Movements.Products", "Movements.Products.unit_purchase", "Movements.Products.unit_sale"], where: { id: number } })
+        const products : any[] = []
+        let movement : any[] = []
+
+        if(res.length > 0){
+            res[0].Movements.map((e)=> products.push(e.Products)  )
+            movement = res[0].Movements
+        }
+
+
+        return {products, movement}
+    }
+
+    async findUsersOrders(person_id : number)
+    {
+        return this.HeaderRepo.find({where : { person_id : person_id }})
+    }
+
     async create(body: any) {
 
         const check_header = await this.HeaderRepo.find({ where: { number_order: body.number_order } })
-        //const check_kindmov = await KindMovements.find({ where :{ id : body.kindMovements_id } })
+         //const check_kindmov = await KindMovements.find({ where :{ id : body.kindMovements_id } })
         const check_kindmov = await getManager().find(KindMovements, { where: { id: body.kindMovements_id } })
         const check_products = await getManager().find(Products, { where: { id: body.product_id } })
-
+        
         //const check_header = await manager.find(Header, { where : {number_order : body.number_order} })
         //const check_kindmov = await manager.find(KindMovements,{ where :{ id : body.kindMovements_id } })
 
-/*
 
-        if (check_kindmov[0].entry && check_kindmov[0].provider) {
+        if (check_kindmov[0].input && check_kindmov[0].provider) {
             if (check_header.length > 0) {
                 await getManager().insert(Movements, {
                     kindMovements_id: body.kindMovements_id,
@@ -77,13 +96,52 @@ export class MovementsService {
         }
 
 
-        if(!check_kindmov[0].entry && check_kindmov[0].provider)
+        if(!check_kindmov[0].input && check_kindmov[0].provider)
         {
-             if(check_products[0].current_existence < body.quantity)
+            const check_quantity_mov = await getManager().find(Movements,{ where : { header_id : body.orderReturned } })
+
+             if(check_quantity_mov[0].quantity < body.quantity)
             {
-                return {  success : false, data : null, error : {  quantity : "La cantidad no puede ser mayor cantidad existente"  } }
+                return {  success : false, data : null, error : {  quantity : "La cantidad no puede ser mayor cantidad comprada en la orden"  } }
             }else{
-                if (check_header.length > 0) {
+                if(check_products[0].current_existence < body.quantity){
+                    return {  success : false, data : null, error : {  quantity : "La cantidad no puede ser mayor cantidad existente"  } }
+                }else{
+                    if (check_header.length > 0) {
+                        await getManager().insert(Movements, {
+                            kindMovements_id: body.kindMovements_id,
+                            product_id: body.product_id,
+                            quantity: body.quantity,
+                            totalPurchasePrice: body.totalPurchasePrice,
+                            unitPrice: body.unitPrice,
+                            header_id: check_header[0].id
+                        })
+        
+                        await getManager().update(Products,body.product_id,{
+                            current_existence : check_products[0].current_existence - body.quantity
+                        })
+                    } else {
+                        const header_id = await getManager().insert(Header, {
+                            person_id: body.personOrProvider_id,
+                            number_order: body.number_order
+                        })
+        
+                        await getManager().insert(Movements, {
+                            kindMovements_id: body.kindMovements_id,
+                            product_id: body.product_id,
+                            quantity: body.quantity,
+                            totalPurchasePrice: body.totalPurchasePrice,
+                            unitPrice: body.unitPrice,
+                            header_id: header_id.raw[0].id
+                        })
+        
+                        await getManager().update(Products,body.product_id,{
+                            current_existence : check_products[0].current_existence - body.quantity
+                        })
+        
+                    }
+                }
+                /*if (check_header.length > 0) {
                     await getManager().insert(Movements, {
                         kindMovements_id: body.kindMovements_id,
                         product_id: body.product_id,
@@ -115,12 +173,138 @@ export class MovementsService {
                         current_existence : check_products[0].current_existence - body.quantity
                     })
     
-                }
+                }*/
             }
         }
 
-       
-*/
+
+
+
+
+
+
+        if (!check_kindmov[0].input && !check_kindmov[0].provider) {
+            console.log("no")
+            if (check_header.length > 0) {
+                await getManager().insert(Movements, {
+                    kindMovements_id: body.kindMovements_id,
+                    product_id: body.product_id,
+                    quantity: body.quantity,
+                    totalPurchasePrice: body.totalPurchasePrice,
+                    unitPrice: body.unitPrice,
+                    header_id: check_header[0].id
+                })
+
+                await getManager().update(Products,body.product_id,{
+                    current_existence : check_products[0].current_existence + body.quantity
+                })
+            } else {
+                const header_id = await getManager().insert(Header, {
+                    person_id: body.personOrProvider_id,
+                    number_order: body.number_order
+                })
+
+                await getManager().insert(Movements, {
+                    kindMovements_id: body.kindMovements_id,
+                    product_id: body.product_id,
+                    quantity: body.quantity,
+                    totalPurchasePrice: body.totalPurchasePrice,
+                    unitPrice: body.unitPrice,
+                    header_id: header_id.raw[0].id
+                })
+
+                await getManager().update(Products,body.product_id,{
+                    current_existence : check_products[0].current_existence + body.quantity
+                })
+
+            }
+        }
+
+
+
+
+//Cliente - salida
+        if(check_kindmov[0].input && !check_kindmov[0].provider)
+        {
+            const check_quantity_mov = await getManager().find(Movements,{ where : { header_id : body.orderReturned } })
+
+             if(check_quantity_mov[0].quantity < body.quantity)
+            {
+                return {  success : false, data : null, error : {  quantity : "La cantidad no puede ser mayor cantidad comprada en la orden"  } }
+            }else{
+                if(check_products[0].current_existence < body.quantity){
+                    return {  success : false, data : null, error : {  quantity : "La cantidad no puede ser mayor cantidad existente"  } }
+                }else{
+                    if (check_header.length > 0) {
+                        await getManager().insert(Movements, {
+                            kindMovements_id: body.kindMovements_id,
+                            product_id: body.product_id,
+                            quantity: body.quantity,
+                            totalPurchasePrice: body.totalPurchasePrice,
+                            unitPrice: body.unitPrice,
+                            header_id: check_header[0].id
+                        })
+        
+                        await getManager().update(Products,body.product_id,{
+                            reserved_quantity : check_products[0].reserved_quantity + body.quantity
+                        })
+                    } else {
+                        const header_id = await getManager().insert(Header, {
+                            person_id: body.personOrProvider_id,
+                            number_order: body.number_order
+                        })
+        
+                        await getManager().insert(Movements, {
+                            kindMovements_id: body.kindMovements_id,
+                            product_id: body.product_id,
+                            quantity: body.quantity,
+                            totalPurchasePrice: body.totalPurchasePrice,
+                            unitPrice: body.unitPrice,
+                            header_id: header_id.raw[0].id
+                        })
+        
+                        await getManager().update(Products,body.product_id,{
+                            reserved_quantity : check_products[0].reserved_quantity + body.quantity
+                        })
+        
+                    }
+                }
+                /*if (check_header.length > 0) {
+                    await getManager().insert(Movements, {
+                        kindMovements_id: body.kindMovements_id,
+                        product_id: body.product_id,
+                        quantity: body.quantity,
+                        totalPurchasePrice: body.totalPurchasePrice,
+                        unitPrice: body.unitPrice,
+                        header_id: check_header[0].id
+                    })
+    
+                    await getManager().update(Products,body.product_id,{
+                        current_existence : check_products[0].current_existence - body.quantity
+                    })
+                } else {
+                    const header_id = await getManager().insert(Header, {
+                        person_id: body.personOrProvider_id,
+                        number_order: body.number_order
+                    })
+    
+                    await getManager().insert(Movements, {
+                        kindMovements_id: body.kindMovements_id,
+                        product_id: body.product_id,
+                        quantity: body.quantity,
+                        totalPurchasePrice: body.totalPurchasePrice,
+                        unitPrice: body.unitPrice,
+                        header_id: header_id.raw[0].id
+                    })
+    
+                    await getManager().update(Products,body.product_id,{
+                        current_existence : check_products[0].current_existence - body.quantity
+                    })
+    
+                }*/
+            }
+        }
+
 
 
 

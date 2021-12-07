@@ -164,7 +164,7 @@ export function Movements()
                 handleClose={handleCloseModalAdd}
                 content={<AddMovements kindmov={kindmov} refresh={refresh} setRefresh={setRefresh} handleClose={handleCloseModalAdd} />}
                 open={openModalAdd}
-                title="Add"
+                title=""
             />
         </Box>
     )

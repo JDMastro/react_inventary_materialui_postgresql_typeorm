@@ -18,6 +18,16 @@ export class MovementsController {
         return this.ServiceService.findNumberOrder(number)
     }
 
+    @Get('usersorders/:number')
+    async findUsersOrders(@Param('number') number: number) {
+        return this.ServiceService.findUsersOrders(number)
+    }
+
+    @Get('productbyorderid/:number')
+    async findfindProductByOrderId(@Param('number') number: number) {
+        return this.ServiceService.findProductByOrderId(number)
+    }
+
     
     @Post()
     async create(@Body() body: any) {

@@ -47,6 +47,9 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
     const [msg, setMsg] = useState("success");
     const [openn, setOpenn] = useState(false);
     const [movements, setmovements] = useState([]);
+    const [header, setheader] = useState([]);
+
+    const [movementsbyorders, setmovementsbyorders] = useState<any>([]);
 
     const handleCloses = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -72,10 +75,11 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
             product_id: values.idproduct,
             quantity: values.quantity,
             totalPurchasePrice: values.totalPrice,
-            unitPrice: formik.values.unitprice
+            unitPrice: formik.values.unitprice,
+            orderReturned : formik.values.orderReturned
         }).then(e => {
             console.log(e)
-            
+
 
             /*setRefresh(!refresh)
             handleClick()
@@ -86,13 +90,13 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                 setRefresh(!refresh)
                 handleClick()
                 findNumberOrder(values.numorder)
-            }else{
+            } else {
                 formik.setFieldError("quantity", e.data.error.quantity)
             }
 
-            
-                
-               
+
+
+
 
 
 
@@ -122,7 +126,7 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
     const findNumberOrder = (order: number) => {
 
         MovementsRequest.findNumberOrder(order)
-            .then(e => setmovements(e ? e : [] ))
+            .then(e => setmovements(e ? e : []))
 
     }
 
@@ -144,8 +148,19 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                                 const kind = kindmov.find((e: any) => e.id === evt.target.value)
                                 formik.setFieldValue("idproduct", "")
                                 formik.setFieldValue("idperson", "")
-                                ProductsRequest.findByKindMovement(!kind.provider).then(ke => setproducts(ke))
-                                personRequest.findByKindMovement(kind.provider).then(pe => setPersons(pe))
+                                formik.setFieldValue("orderReturned", "")
+                                console.log(kind)
+                                ProductsRequest.findByKindMovement(!kind.provider).then(ke =>{ console.log("productos",ke); setproducts(ke)})
+                                personRequest.findByKindMovement(kind.provider).then(pe => { console.log("personas", pe); setPersons(pe) })
+                                /*if (!kind.output && kind.provider ) {
+                                    ProductsRequest.findByKindMovement(!kind.provider).then(ke => { console.log("productos", ke); setproducts(ke) })
+                                }
+
+                                if(!kind.output && !kind.provider)
+                                {
+                                    ProductsRequest.findByKindMovement(!kind.provider).then(ke => { console.log("productos", ke); setproducts(ke) })
+                                }*/
+                                setproducts([])
                             }
 
                             }
@@ -161,7 +176,13 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                             name="idperson"
                             disabled={disable}
                             value={formik.values.idperson}
-                            onChange={formik.handleChange}
+                            onChange={(evt: any) => {
+                                /*formik.handleChange*/
+                                MovementsRequest.findUsersOrders(evt.target.value)
+                                    .then(e => setheader(e))
+
+                                formik.handleChange(evt)
+                            }}
                             error={formik.errors.idperson}
                             label="Proveedor o Cliente"
                             menuItems={
@@ -188,7 +209,71 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                     </Grid>
 
 
-                    
+                    {
+                        formik.values.kindmovements  === "" ? <div></div> :
+                        kindmov.find((e: any) => e.id === formik.values.kindmovements).output && !kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? <div></div> :
+                        kindmov.find((e: any) => e.id === formik.values.kindmovements).input  &&  kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? <div></div> :
+                        <Grid item xs={6}>
+                        <SelectWrapperUi
+                            name="orderReturned"
+                            value={formik.values.orderReturned}
+                            onChange={(evt : any)=>{
+                                formik.setFieldValue("idproduct", "")
+                                MovementsRequest.findProductByOrderId(evt.target.value)
+                                 .then(e =>{ setproducts(e.products); setmovementsbyorders(e.movement) })
+                                    //setproducts(productArr)
+
+                                  
+
+                                formik.handleChange(evt)
+                            }}
+                            error={formik.errors.orderReturned}
+                            label="Orden a devolver"
+                            menuItems={
+                                header.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.number_order}`}</MenuItem>)
+                            }
+
+                        />
+                    </Grid>
+                    }
+
+
+                    {/*
+                        formik.values.kindmovements  === "" ? <div></div> :
+                            !kindmov.find((e: any) => e.id === formik.values.kindmovements).output ? <div></div> :
+                                <Grid item xs={6}>
+                                    <SelectWrapperUi
+                                        name="orderReturned"
+                                        value={formik.values.orderReturned}
+                                        onChange={(evt : any)=>{
+                                            formik.setFieldValue("idproduct", "")
+                                            MovementsRequest.findProductByOrderId(evt.target.value)
+                                             .then(e =>{ setproducts(e.products); setmovementsbyorders(e.movement) })
+                                                //setproducts(productArr)
+
+                                              
+
+                                            formik.handleChange(evt)
+                                        }}
+                                        error={formik.errors.orderReturned}
+                                        label="Orden a devolver"
+                                        menuItems={
+                                            header.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.number_order}`}</MenuItem>)
+                                        }
+
+                                    />
+                                </Grid>
+                                    */}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -217,9 +302,13 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                             onChange={formik.handleChange}
                             type="number"
                             disabled={true}
-                            value={formik.values.idproduct !== "" && products.find((e: any) => e.id === formik.values.idproduct) ? formik.values.current_existence = products.find((e: any) => e.id === formik.values.idproduct).current_existence : ""}
+                            value={
+                                formik.values.idproduct !== "" && products.find((e: any) => e.id === formik.values.idproduct) ? 
+                                    formik.values.current_existence = products.find((e: any) => e.id === formik.values.idproduct).current_existence : ""}
                         />
                     </Grid>
+
+                    {/*  value={formik.values.idproduct !== "" && products.find((e: any) => e.id === formik.values.idproduct) ? formik.values.current_existence = products.find((e: any) => e.id === formik.values.idproduct).current_existence : ""} */}
 
 
 
@@ -252,14 +341,33 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
                             error={formik.errors.totalPrice}
                             label="Precio total de compra *"
                             name="totalPrice"
+                            disabled={
+                                formik.values.kindmovements  === "" ? false :
+                        kindmov.find((e: any) => e.id === formik.values.kindmovements).output && !kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? false :
+                        kindmov.find((e: any) => e.id === formik.values.kindmovements).input  &&  kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? false :
+                       true
+                            }
                             onChange={formik.handleChange}
                             type="number"
-                            value={formik.values.totalPrice}
+                            value={
+                                formik.values.kindmovements  === "" ? formik.values.totalPrice :
+                        kindmov.find((e: any) => e.id === formik.values.kindmovements).output && !kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? formik.values.totalPrice :
+                        kindmov.find((e: any) => e.id === formik.values.kindmovements).input  &&  kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? formik.values.totalPrice : formik.values.quantity === "" ? formik.values.totalPrice :
+                                 formik.values.totalPrice = ""+eval(`${formik.values.quantity}*${movementsbyorders.find((e:any )=> e.header_id === formik.values.orderReturned ).unitPrice}`)
+                            }
                         />
                     </Grid>
 
+                    {/*  
 
-                    {/*  formik.values.unitprice = ""+formik.values.totalPrice / formik.values.quantity */}
+                     formik.values.kindmovements === "" ? formik.values.totalPrice :
+                                !kindmov.find((e: any) => e.id === formik.values.kindmovements).output || !kindmov.find((e: any) => e.id === formik.values.kindmovements).provider ? formik.values.totalPrice :
+                                 formik.values.quantity === "" ? formik.values.totalPrice :
+                                 formik.values.totalPrice = ""+eval(`${formik.values.quantity}*${movementsbyorders.find((e:any )=> e.header_id === formik.values.orderReturned ).unitPrice}`)
+
+
+                    */}
+                    {/*movementsbyorders  formik.values.unitprice = ""+formik.values.totalPrice / formik.values.quantity */}
 
 
                     <Grid item xs={3}>
@@ -329,6 +437,16 @@ export function AddMovements({ kindmov, handleClose, setRefresh, refresh }: any)
 }
 
 /*
+
+  formik.values.kindmovements === "" ? formik.values.totalPrice = "" :
+                                !kindmov.find((e: any) => e.id === formik.values.kindmovements).output ? formik.values.totalPrice = "" :
+                                formik.values.orderReturned === "" ? formik.values.totalPrice = "" :
+                                formik.values.totalPrice = `${movementsbyorders.find((e:any )=> e.header_id === formik.values.orderReturned ).totalPurchasePrice} / ${formik.values.orderReturned} `
+                                
+
+
+
+
 
 formik.values.kindmovements !== "" ? (
                                     kindmov.find((e : any )=> e.id === formik.values.kindmovements).provider ? (persons.find((e : any )=> e.provider === true ).map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>))
