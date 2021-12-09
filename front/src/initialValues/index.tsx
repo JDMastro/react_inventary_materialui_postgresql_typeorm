@@ -69,7 +69,8 @@ export const initialValuesUsers: initialFValuesTypes = {
 
 export const initialValuesStatus: initialFValuesTypes = {
   name: "",
-  description: ""
+  description: "",
+  code: ""
 }
 
 

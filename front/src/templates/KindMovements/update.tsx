@@ -124,7 +124,7 @@ export function UpdateMovements({ handleClose, setRefresh, refresh, data, status
                     <Grid item xs={12}>
                         <SelectWrapperUi
                             name="status_id"
-                            label='Estado'
+                            label='Estado por defecto'
                             value={formik.values.status_id}
                             onChange={formik.handleChange}
                             error={formik.errors.status_id}

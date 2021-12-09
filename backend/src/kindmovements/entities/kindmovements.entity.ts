@@ -52,6 +52,6 @@ export class KindMovements {
     @JoinColumn({ name: 'status_id' })
     Status: Status;
 
-    @Column()
+    @Column({ nullable : true })
     status_id: number
 }

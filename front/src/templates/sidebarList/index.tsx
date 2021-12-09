@@ -17,6 +17,7 @@ export function SideBarList() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [openInventary, setOpenInventary] = React.useState(false);
+  const [openUsers, setUsers] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -24,6 +25,10 @@ export function SideBarList() {
 
   const handleClickInventary = () => {
     setOpenInventary(!openInventary);
+  };
+
+  const handleClickUsers = () => {
+    setUsers(!openUsers);
   };
 
   const handleListItemClick = (
@@ -80,7 +85,7 @@ export function SideBarList() {
           <ListItemText primary="Inicio" />
         </ListItemButton>
 
-   
+
         <ListItemButton onClick={handleClick} >
           <ListItemIcon style={{ marginRight: '-25px' }} >
             <InventoryIcon fontSize="small" />
@@ -92,7 +97,7 @@ export function SideBarList() {
           <List component="div" disablePadding>
 
 
-          <ListItemButton sx={{ pl: 5 }}
+            <ListItemButton sx={{ pl: 5 }}
               selected={selectedIndex === 9}
               onClick={(event: any) => handleListItemClick(event, 9)}
               component={Link}
@@ -164,8 +169,8 @@ export function SideBarList() {
           </ListItemIcon>
 
           <ListItemText
-          primary="Inventario"
-             />
+            primary="Inventario"
+          />
           {openInventary ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openInventary} timeout="auto" unmountOnExit>
@@ -174,12 +179,59 @@ export function SideBarList() {
               selected={selectedIndex === 7}
               onClick={(event: any) => handleListItemClick(event, 7)}
               component={Link}
-              to={`/dashboard/maestro/movements`}>
+              to={`/dashboard/inventary/movements`}>
 
               <ListItemText
-                 disableTypography
-                 primary="Movimiento"
-               />
+                disableTypography
+                primary="Movimiento"
+              />
+            </ListItemButton>
+
+
+            <ListItemButton sx={{ pl: 5 }}
+              selected={selectedIndex === 9}
+              onClick={(event: any) => handleListItemClick(event, 9)}
+              component={Link}
+              to={`/dashboard/inventary/outputs`}>
+
+              <ListItemText
+                disableTypography
+                primary="Salidas"
+              />
+            </ListItemButton>
+
+
+
+
+
+          </List>
+        </Collapse>
+
+
+
+
+
+        <ListItemButton onClick={handleClickUsers}>
+          
+          <ListItemIcon style={{ marginRight: '-25px' }} >
+                <DashboardIcon fontSize="small" />
+              </ListItemIcon>
+
+          <ListItemText
+            primary="Usuarios"
+          />
+          {openUsers ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openUsers} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={selectedIndex === 8}
+              onClick={(event: any) => handleListItemClick(event, 8)}
+              component={Link}
+              to={`/dashboard/security/users`}
+            >
+             
+              <ListItemText primary="Usuarios" />
             </ListItemButton>
 
 
@@ -188,17 +240,7 @@ export function SideBarList() {
         </Collapse>
 
 
-        <ListItemButton
-          selected={selectedIndex === 8}
-          onClick={(event: any) => handleListItemClick(event, 8)}
-          component={Link}
-          to={`/dashboard/security/users`}
-        >
-          <ListItemIcon style={{ marginRight: '-25px' }} >
-            <DashboardIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Usuarios" />
-        </ListItemButton>
+
 
 
 

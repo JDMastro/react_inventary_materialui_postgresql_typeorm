@@ -89,6 +89,7 @@ export function Status()
                             <TableRow >
 
                                 <TableCell align="left" style={{ fontWeight : 'bold' }}>Id</TableCell>
+                                <TableCell align="left" style={{ fontWeight : 'bold' }}>Código</TableCell>
                                 <TableCell align="left" style={{ fontWeight : 'bold' }}>Nombre</TableCell>
                                 <TableCell align="left" style={{ fontWeight : 'bold' }}>Descripción</TableCell>
                                 <TableCell align="left" style={{ fontWeight : 'bold' }}>Acción</TableCell>
@@ -102,6 +103,7 @@ export function Status()
                                 >
 
                                     <TableCell align="left" component="th" scope="row">{data.id}</TableCell>
+                                    <TableCell align="left">{data.code}</TableCell>
                                     <TableCell align="left">{data.name}</TableCell>
                                     <TableCell align="left">{data.description}</TableCell>
 

@@ -62,7 +62,7 @@ export function Addkindmovements({ handleClose, setRefresh, refresh, status}: an
 
             output: values.tipo === "Salida" ? true : false,
             return: false,
-            status_id : values.status_id
+            status_id : values.status_id === "" ? null : values.status_id
         }).then(e => {
             console.log(e)
             setMsg("Save succesffuly")
@@ -117,7 +117,7 @@ export function Addkindmovements({ handleClose, setRefresh, refresh, status}: an
                     <Grid item xs={12}>
                         <SelectWrapperUi
                             name="status_id"
-                            label='Estado'
+                            label='Estado por defecto'
                             value={formik.values.status_id}
                             onChange={formik.handleChange}
                             error={formik.errors.status_id}

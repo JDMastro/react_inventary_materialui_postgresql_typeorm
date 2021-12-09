@@ -15,6 +15,8 @@ import { Users } from "../templates/users";
 
 import { Status } from "../templates/status";
 
+import { Outputs } from "../templates/outputs";
+
 
 export const Routes = () => {
     return (
@@ -34,11 +36,14 @@ export const DashboardRoute = () => {
         <Switch>
             <Route exact path="/dashboard/" component={()=> <div>Dashboard</div> } />
             <Route exact path="/dashboard/maestro/kindmovements" component={KindMovements} />
-            <Route exact path="/dashboard/maestro/movements" component={Movements} />
             <Route exact path="/dashboard/maestro/kindid" component={KindIdentity} />
             <Route exact path="/dashboard/maestro/person" component={Person} />
             <Route exact path="/dashboard/maestro/product" component={Products} />
             <Route exact path="/dashboard/maestro/units" component={Units} />
+            
+            <Route exact path="/dashboard/inventary/movements" component={Movements} />
+            
+            <Route exact path="/dashboard/inventary/outputs" component={Outputs} />
             
             <Route exact path="/dashboard/maestro/status" component={Status} />
             <Route exact path="/dashboard/security/users" component={Users} />

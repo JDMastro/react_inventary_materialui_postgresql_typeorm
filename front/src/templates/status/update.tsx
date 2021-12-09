@@ -45,7 +45,8 @@ export function UpdateStatus({ handleClose, setRefresh, refresh, data }: any) {
         setdisablebtn(true)
         StatusRequest.update(data.id, {
             name: values.name,
-            description: values.description
+            description: values.description,
+            code : values.code
         }).then(e => {
             
             
@@ -67,7 +68,8 @@ export function UpdateStatus({ handleClose, setRefresh, refresh, data }: any) {
 
     const formik = UseForm({
         name: data.name,
-        description: data.description
+        description: data.description,
+        code: data.code
     }, StatusSchema, onSubmit)
 
 
@@ -77,9 +79,21 @@ export function UpdateStatus({ handleClose, setRefresh, refresh, data }: any) {
 
                 <Grid container spacing={2}>
 
-                    <Grid item xs={12}>
+                <Grid item xs={12}>
                         <TextFieldUi
                             autofocus={true}
+                            error={formik.errors.code}
+                            label="Código *"
+                            name="code"
+                            onChange={formik.handleChange}
+                            type="text"
+                            value={formik.values.code}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextFieldUi
+                            autofocus={false}
                             error={formik.errors.name}
                             label="Nombre *"
                             name="name"

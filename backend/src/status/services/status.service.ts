@@ -22,6 +22,7 @@ export class StatusService {
       
         newStatus.name = body.name
         newStatus.description = body.description
+        newStatus.code = body.code
        
         return this.StatusRepo.save(newStatus);
       }
@@ -30,7 +31,8 @@ export class StatusService {
         const Products = await this.StatusRepo.findOne(id);
         this.StatusRepo.update(id, {
             name : body.name,
-            description : body.description
+            description : body.description,
+            code : body.code
         });
         return this.StatusRepo.save(Products);
       }

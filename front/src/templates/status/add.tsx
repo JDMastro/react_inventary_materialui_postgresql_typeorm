@@ -44,7 +44,8 @@ export function AddStatus({ handleClose, setRefresh, refresh }: any)
         setdisablebtn(true)
         StatusRequest.save({
             name: values.name,
-            description: values.description
+            description: values.description,
+            code : values.code
         }).then(e => {
             console.log(e)
             setMsg("Save succesffuly")
@@ -71,9 +72,21 @@ export function AddStatus({ handleClose, setRefresh, refresh }: any)
 
                 <Grid container spacing={2}>
 
-                    <Grid item xs={12}>
+                <Grid item xs={12}>
                         <TextFieldUi
                             autofocus={true}
+                            error={formik.errors.code}
+                            label="Código *"
+                            name="code"
+                            onChange={formik.handleChange}
+                            type="text"
+                            value={formik.values.code}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextFieldUi
+                            autofocus={false}
                             error={formik.errors.name}
                             label="Nombre *"
                             name="name"

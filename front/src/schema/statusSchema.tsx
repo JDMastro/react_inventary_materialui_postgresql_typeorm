@@ -4,5 +4,6 @@ import * as yup from "yup";
 
 export const StatusSchema: initialFValuesTypes = yup.object({
     name: yup.string().required("Field is required!"),
-    description: yup.string().required("Field is required!")
+    description: yup.string().required("Field is required!"),
+    code : yup.string().required("Field is required!")
 })
