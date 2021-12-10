@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Movements } from "../../movements/entities/movements.entity";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Status } from "../../status/entities/status.entity";
+import { Header } from "../../header/entities/header.entity";
 
 @Entity()
 export class KindMovements {
@@ -42,9 +42,6 @@ export class KindMovements {
     deleteAt: Date;
 
 
-    @ManyToOne(() => Movements, movements => movements.kindMovements)
-    movements: Movements[];
-
 
 
 
@@ -54,4 +51,7 @@ export class KindMovements {
 
     @Column({ nullable : true })
     status_id: number
+
+    @OneToMany(() => Header, Header => Header.KindMovements )
+  Header: Header[];
 }

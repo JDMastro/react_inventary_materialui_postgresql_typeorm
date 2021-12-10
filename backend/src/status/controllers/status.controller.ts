@@ -52,4 +52,16 @@ export class StatusController {
           return { success: true, data: null, error: err };
         }
       }
+
+      @Get('getAllNumberOrdersbyStatus/:status_id/:person_id')
+      async getAllNumberOrdersbyStatus(@Param('status_id') status_id : number,@Param('person_id')  person_id : number)
+      {
+        return await this.ServiceService.getAllNumberOrdersbyStatus(status_id, person_id)
+      }
+
+      @Get('getAllnumberOrders/:number_orders')
+      async getAllnumberOrders(@Param('number_orders') number_orders : number)
+      {
+        return await this.ServiceService.getAllnumberOrders(number_orders)
+      }
 }

@@ -11,6 +11,7 @@ import { MovementsModule } from './movements/movements.module';
 import { UsersModule } from './users/users.module';
 import { StatusModule } from './status/status.module';
 import { SettingsModule } from './settings/settings.module';
+import { MovementsLogsModule } from './movements-logs/movements-logs.module';
 
 
 
@@ -37,6 +38,7 @@ import { SettingsModule } from './settings/settings.module';
     UsersModule,
     StatusModule,
     SettingsModule,
+    MovementsLogsModule,
 
   ],
   controllers: [AppController],

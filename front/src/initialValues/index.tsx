@@ -73,4 +73,9 @@ export const initialValuesStatus: initialFValuesTypes = {
   code: ""
 }
 
+export const initialValuesOutputsFilter: initialFValuesTypes = {
+  status_id: "",
+  person_id: ""
+}
+
 

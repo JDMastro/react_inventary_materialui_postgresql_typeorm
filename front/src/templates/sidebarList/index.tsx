@@ -18,6 +18,7 @@ export function SideBarList() {
   const [open, setOpen] = React.useState(false);
   const [openInventary, setOpenInventary] = React.useState(false);
   const [openUsers, setUsers] = React.useState(false);
+  const [openConsultas, setConsultas] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -29,6 +30,10 @@ export function SideBarList() {
 
   const handleClickUsers = () => {
     setUsers(!openUsers);
+  };
+
+  const handleClickConsultas = () => {
+    setConsultas(!openConsultas);
   };
 
   const handleListItemClick = (
@@ -188,18 +193,7 @@ export function SideBarList() {
             </ListItemButton>
 
 
-            <ListItemButton sx={{ pl: 5 }}
-              selected={selectedIndex === 9}
-              onClick={(event: any) => handleListItemClick(event, 9)}
-              component={Link}
-              to={`/dashboard/inventary/outputs`}>
-
-              <ListItemText
-                disableTypography
-                primary="Salidas"
-              />
-            </ListItemButton>
-
+         
 
 
 
@@ -208,6 +202,36 @@ export function SideBarList() {
         </Collapse>
 
 
+        <ListItemButton onClick={handleClickConsultas}>
+          
+          <ListItemIcon style={{ marginRight: '-25px' }} >
+                <DashboardIcon fontSize="small" />
+              </ListItemIcon>
+
+          <ListItemText
+            primary="Consultas"
+          />
+          {openConsultas ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openConsultas} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 5 }}
+              selected={selectedIndex === 9}
+              onClick={(event: any) => handleListItemClick(event, 9)}
+              component={Link}
+              to={`/dashboard/inventary/outputs`}>
+
+              <ListItemText
+                disableTypography
+                primary="Por estado"
+              />
+            </ListItemButton>
+
+
+
+
+          </List>
+        </Collapse>
 
 
 

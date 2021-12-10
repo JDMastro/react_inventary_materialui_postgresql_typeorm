@@ -183,7 +183,7 @@ export function AddProduct({ products, handleClose, units, setRefresh, refresh }
                             value={formik.values.product_parent_id}
                             onChange={formik.handleChange}
                             error={formik.errors.product_parent_id}
-                            menuItems={products.map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)}
+                            menuItems={products.filter((e:any)=> e.isdererivado === false).map((data: any, i: any) => <MenuItem value={data.id} key={i}>{`${data.name}`}</MenuItem>)}
 
                         />
                         <Divider style={{ marginTop : '15px' }} />

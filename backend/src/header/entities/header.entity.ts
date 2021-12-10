@@ -1,6 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Person } from "../../person/entities/person.entity";
 import { Movements } from '../../movements/entities/movements.entity';
+import { KindMovements } from "../../kindmovements/entities/kindmovements.entity";
+
+
 @Entity()
 export class Header {
   @PrimaryGeneratedColumn('increment')
@@ -31,6 +34,13 @@ export class Header {
 
   @OneToMany(() => Movements, Movements => Movements.Header )
   Movements: Movements[];
+
+  @ManyToOne(() => KindMovements, KindMovements => KindMovements.Header)
+  @JoinColumn({ name: 'kind_movements' })
+  KindMovements: KindMovements;
+
+  @Column()
+  kind_movements : number
 
 
 

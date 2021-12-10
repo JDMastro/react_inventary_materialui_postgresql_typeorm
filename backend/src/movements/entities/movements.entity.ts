@@ -11,12 +11,7 @@ export class Movements {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => KindMovements, kindMovements => kindMovements.movements)
-  @JoinColumn({ name: 'kindMovements_id' })
-  kindMovements: KindMovements;
-
-  @Column()
-  kindMovements_id : number
+  
 
   /*@ManyToOne(() => Person, Person => Person.movements)
   @JoinColumn({ name: 'personOrProvider_id' })

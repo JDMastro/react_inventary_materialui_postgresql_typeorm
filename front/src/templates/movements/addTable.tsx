@@ -19,7 +19,7 @@ export function AddTable({ movements, findNumberOrder, number_order }: any) {
                 tableHead={
                     <TableRow >
                         <TableCell align="center" style={{ fontWeight : 'bold' }}>Id</TableCell>
-                        <TableCell align="center" style={{ fontWeight : 'bold' }}>Tipo de Movimiento</TableCell>
+                        {/*<TableCell align="center" style={{ fontWeight : 'bold' }}>Tipo de Movimiento</TableCell>*/}
                         <TableCell align="center" style={{ fontWeight : 'bold' }}>Producto</TableCell>
                         <TableCell align="center" style={{ fontWeight : 'bold' }}>Cantidad</TableCell>
                         <TableCell align="center" style={{ fontWeight : 'bold' }}>Precio Total</TableCell>
@@ -34,7 +34,7 @@ export function AddTable({ movements, findNumberOrder, number_order }: any) {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell align="center">{e.id}</TableCell>
-                            <TableCell align="center">{e.kindMovements.name}</TableCell>
+                            {/*<TableCell align="center">{e.Header.KindMovements.name}</TableCell>*/}
                             <TableCell align="center">{e.Products.name}</TableCell>
                             <TableCell align="center">{e.quantity}</TableCell>
                             <TableCell align="center">{e.totalPurchasePrice}</TableCell>

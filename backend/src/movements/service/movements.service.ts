@@ -19,12 +19,12 @@ export class MovementsService {
     ) { }
 
     async findAll() {
-        return await this.MovementsRepo.find({ relations: ["kindMovements", "Products", "Header", "Header.Person"] });
+        return await this.MovementsRepo.find({ relations: ["Products", "Header", "Header.Person", "Header.KindMovements"] });
     }
 
     async findNumberOrder(number: number) {
         //return await this.MovementsRepo.find({ relations: ["kindMovements", "Products", "Header", "Header.Person"], where: { header_id: number } });
-        const res = await this.HeaderRepo.find({ relations: ["Person", "Movements", "Movements.kindMovements", "Movements.Products"], where: { number_order: number } })
+        const res = await this.HeaderRepo.find({ relations: ["Person", "Movements", "Movements.Products"], where: { number_order: number } })
         return res[0].Movements
     }
 
@@ -65,7 +65,6 @@ export class MovementsService {
         if (check_kindmov[0].input && check_kindmov[0].provider) {
             if (check_header.length > 0) {
                 await getManager().insert(Movements, {
-                    kindMovements_id: body.kindMovements_id,
                     product_id: body.product_id,
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
@@ -81,11 +80,11 @@ export class MovementsService {
             } else {
                 const header_id = await getManager().insert(Header, {
                     person_id: body.personOrProvider_id,
-                    number_order: body.number_order
+                    number_order: body.number_order,
+                    kind_movements : body.kindMovements_id,
                 })
 
                 await getManager().insert(Movements, {
-                    kindMovements_id: body.kindMovements_id,
                     product_id: body.product_id,
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
@@ -116,7 +115,6 @@ export class MovementsService {
                 }else{
                     if (check_header.length > 0) {
                         await getManager().insert(Movements, {
-                            kindMovements_id: body.kindMovements_id,
                             product_id: body.product_id,
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
@@ -135,13 +133,13 @@ export class MovementsService {
                     } else {
                         const header_id = await getManager().insert(Header, {
                             person_id: body.personOrProvider_id,
-                            number_order: body.number_order
+                            number_order: body.number_order,
+                            kind_movements : body.kindMovements_id,
                         })
 
                         console.log("<--------",body.movement_id)
         
                         await getManager().insert(Movements, {
-                            kindMovements_id: body.kindMovements_id,
                             product_id: body.product_id,
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
@@ -207,7 +205,6 @@ export class MovementsService {
             console.log("no")
             if (check_header.length > 0) {
                 await getManager().insert(Movements, {
-                    kindMovements_id: body.kindMovements_id,
                     product_id: body.product_id,
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
@@ -223,11 +220,11 @@ export class MovementsService {
             } else {
                 const header_id = await getManager().insert(Header, {
                     person_id: body.personOrProvider_id,
-                    number_order: body.number_order
+                    number_order: body.number_order,
+                    kind_movements : body.kindMovements_id,
                 })
 
                 await getManager().insert(Movements, {
-                    kindMovements_id: body.kindMovements_id,
                     product_id: body.product_id,
                     quantity: body.quantity,
                     totalPurchasePrice: body.totalPurchasePrice,
@@ -261,13 +258,13 @@ export class MovementsService {
                 }else{
                     if (check_header.length > 0) {
                         await getManager().insert(Movements, {
-                            kindMovements_id: body.kindMovements_id,
                             product_id: body.product_id,
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
                             unitPrice: body.unitPrice,
                             header_id: check_header[0].id,
-                            status_id : body.status_id
+                            status_id : body.status_id,
+                            quantity_returned : 0
                         })
         
                         await getManager().update(Products,body.product_id,{
@@ -276,17 +273,18 @@ export class MovementsService {
                     } else {
                         const header_id = await getManager().insert(Header, {
                             person_id: body.personOrProvider_id,
-                            number_order: body.number_order
+                            number_order: body.number_order,
+                            kind_movements : body.kindMovements_id,
                         })
         
                         await getManager().insert(Movements, {
-                            kindMovements_id: body.kindMovements_id,
                             product_id: body.product_id,
                             quantity: body.quantity,
                             totalPurchasePrice: body.totalPurchasePrice,
                             unitPrice: body.unitPrice,
                             header_id: header_id.raw[0].id,
-                            status_id : body.status_id
+                            status_id : body.status_id,
+                            quantity_returned : 0
                         })
 
                         await getManager().update(Movements,body.movement_id,{

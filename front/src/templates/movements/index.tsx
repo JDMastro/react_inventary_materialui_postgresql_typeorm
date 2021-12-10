@@ -116,7 +116,7 @@ export function Movements()
                         >
                             <TableCell align="left">{e.id}</TableCell>
                             <TableCell align="left">{e.Header.number_order}</TableCell>
-                            <TableCell align="left">{e.kindMovements.name}</TableCell>
+                            <TableCell align="left">{e.Header.KindMovements.name}</TableCell>
                             <TableCell align="left">{e.Products.name}</TableCell>
                             <TableCell align="left">{e.quantity}</TableCell>
                             <TableCell align="left">{e.totalPurchasePrice}</TableCell>
