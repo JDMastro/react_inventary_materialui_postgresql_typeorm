@@ -5,7 +5,10 @@ const Requests = {
     save : async (url : string, body : any) => await instance.post(url,body).then(responseBody),
     delete : async (url : string) => await instance.delete(url).then(responseBody),
     update : async (url: string, body : any) => await instance.put(url,body).then(responseBody),
-    findByKindMovement : async (url : string) => await instance.get(url).then(responseBody)
+    findByKindMovement : async (url : string) => await instance.get(url).then(responseBody),
+    getProductDerivatesAndNot : async (url : string) => await instance.get(url).then(responseBody),
+    getProductChild : async (url : string) => await instance.get(url).then(responseBody)
+
 }
 
 export const ProductsRequest =
@@ -14,5 +17,8 @@ export const ProductsRequest =
     save : async (body : any) => await Requests.save('productcontroller',body),
     delete : async (id: number) => await Requests.delete(`productcontroller/${id}`),
     update : async (id : number, body : any) => await Requests.update(`productcontroller/${id}`,body),
-    findByKindMovement : async (provider: boolean) => Requests.findByKindMovement(`productcontroller/${provider}`)
+    findByKindMovement : async (provider: boolean) => Requests.findByKindMovement(`productcontroller/${provider}`),
+    getProductDerivatesAndNot : async (isderivate: boolean) => Requests.getProductDerivatesAndNot(`productcontroller/getproduct/${isderivate}`),
+    getProductChild : async (child: number) => Requests.getProductChild(`productcontroller/getproductchild/${child}`)
+
 }

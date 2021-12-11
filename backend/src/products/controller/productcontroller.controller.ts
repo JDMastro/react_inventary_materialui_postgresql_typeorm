@@ -57,4 +57,16 @@ export class ProductcontrollerController {
     }
   }
 
+  @Get('getproduct/:isderivate')
+  getProductDerivatesAndNot(@Param('isderivate') isderivate: boolean) {
+    return this.ServiceService.getProductDerivatesAndNot(isderivate);
+  }
+
+  @Get('getproductchild/:child')
+  getProductChild(@Param('child') child: number) {
+    return this.ServiceService.getProductChild(child);
+  }
+
+
+
 }

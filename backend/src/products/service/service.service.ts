@@ -61,4 +61,13 @@ export class ServiceService {
         await this.ProductssRepo.delete(id);
         return true;
       }
+
+      async getProductDerivatesAndNot(isderivate : boolean)
+      {
+        return await this.ProductssRepo.find({ where: { isdererivado : isderivate }, relations:["unit_purchase", "unit_sale"] })
+      }
+
+  async getProductChild(child: number) {
+    return await this.ProductssRepo.find({ where: { product_parent_id : child }, relations:["unit_purchase", "unit_sale"] })
+  }
 }

@@ -2,16 +2,16 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import Paper from '@mui/material/Paper';
+//import Paper from '@mui/material/Paper';
 
 
 import { tableNormalProps } from "../../types/tableNormalType";
 
-export function TableNormalUi({ tableHead, tableBody } : tableNormalProps)
+export function TableNormalUi({ papper, tableHead, tableBody, size="medium", minWidth = 650, ariaLabel="collapsible table" } : tableNormalProps)
 {
     return (
-        <TableContainer component={Paper}>
-            <Table size="medium" sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableContainer component={papper}>
+            <Table size={size} sx={{ minWidth: minWidth }} aria-label={ariaLabel}>
             <TableHead>
                 
                     {
